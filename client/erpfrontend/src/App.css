@@ -1,0 +1,140 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  background: linear-gradient(315deg, #200ebe 0.3%, #96c0f0);
+  width: 100%;
+  top: 0;
+  color: #fff;
+  padding: 20px;
+}
+
+.navbar-container h2 {
+  font-size: 40px;
+}
+
+.side-bar {
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  height: 100vh;
+  margin-right: 30px;
+  background: linear-gradient(315deg, #200ebe 0.3%, #96c0f0);
+}
+
+.links {
+ 
+ align-items: center;
+  text-decoration: none;
+  color: #fff;
+  font-size: 20px;
+ padding-left: 40px;
+  line-height: 65px;
+ 
+  box-sizing: border-box;
+  border-top: 1px solid rgba(255, 255, 255, 1);
+  border-bottom: 1px solid rgba(255, 255, 255, 1) ;
+}
+
+h3 {
+  font-size: 25px;
+  user-select: none;
+  padding-top: 5px;
+  color: #fff;
+  padding-left: 40px;
+  margin-top: 20px;
+}
+
+.links:hover{
+padding-left: 50px;
+transition: 0.3s ease
+}
+
+.logo {
+  display: flex;
+}
+
+.content{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 50px;
+  z-index: 4;
+  margin-top: 0;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@100;200;300;400;500;600;700;800&display=swap');
+
+body{
+font-family: 'Anek Malayalam', sans-serif;
+background: linear-gradient(315deg, #200ebe 0.3%, #96c0f0);
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100vh;
+padding: 0 30px;
+overflow: hidden;
+}
+
+h2{
+  font-size:30px;
+  padding: 0;
+}
+
+.sign-in{
+  border: 1px solid #0c0927;
+  text-align: center;
+  padding: 40px 100px;
+  background: #fff; 
+  border-radius: 10px;
+}
+
+.sign-up{
+  border: 1px solid #0c0927;
+  text-align: center;
+  padding: 20px 120px;
+  background: #fff; 
+  border-radius: 10px;
+  
+}
+
+.signs-desc{
+  margin-bottom: 20px;
+}
+
+input{
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #808080;
+  border-radius: 8px;
+  width: 100%
+}
+
+button{
+  margin-top: 20px;
+ margin-left: 10px;
+  padding: 10px;
+  width: 100%; 
+  background: #200ebe;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer
+}
+
+button:hover{
+  background:#96c0f0;
+  color:#0c0927;
+  transition: 0.3 ease-out;
+}
+
+span{
+  text-decoration: underline;
+  cursor: pointer;
+}
+
