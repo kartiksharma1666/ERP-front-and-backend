@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+
 import './App.css';
 import {BrowserRouter,Route,Routes} from 'react-router-dom'
 import { Layout } from './components/Layout';
@@ -25,7 +25,9 @@ function App() {
   <Route path='/Sales' element={<Sales />} />
   <Route path='/Settings' element={<Settings />} />
 </Route>
-<Route path='/Form' element={<Form />}/>
+
+<Route path='/Forms' element={<Form />}/>
+
 </Routes>
 </BrowserRouter>
 

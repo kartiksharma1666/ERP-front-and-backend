@@ -9,20 +9,24 @@ import { Footer } from './Footer'
 
 export const Layout = () => {
     
-    const iconStyle ={
-        color: '#fff'
-    }
+    // const iconStyle ={
+    //     color: '#fff'
+    // }
     
     return (
         <React.Fragment>
-          
+
+           {/*heading section*/}
+
             <section>
                <div>
                <NavBar /> 
                 </div>              
             </section>
 
-          
+
+          {/*sidebar section and main*/}  
+
           <section>
             <div className='main'>
             <Sidebar />
@@ -32,7 +36,9 @@ export const Layout = () => {
             </div>
           </section>
 
-          
+
+          {/*Footer section*/}
+
           <section>
            
             <Footer />
