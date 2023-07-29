@@ -29,7 +29,7 @@ export const Form = () => {
 
   return (
     <>
-      <div className='form content'>
+      <div className='form form-content'>
         { !showSignIn ? (
           <div className='sign-in'>
             <h2>Sign In</h2>

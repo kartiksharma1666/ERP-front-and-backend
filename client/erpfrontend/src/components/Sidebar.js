@@ -11,7 +11,7 @@ import {HiOutlineHome} from 'react-icons/hi'
 export const Sidebar = () => {
     return (
   <React.Fragment>
-    <section>
+    
             <div className='side-bar'>
               <h3>Dash Board</h3>
                 <Link to={'/'} className='links' ><span><HiOutlineHome /></span> Home</Link>
@@ -23,7 +23,7 @@ export const Sidebar = () => {
                 <Link to={'Settings'} className='links' ><span><SlSettings/></span> Settings</Link>           
             </div>
        
-        </section>
+       
   </React.Fragment>
     )
 }
