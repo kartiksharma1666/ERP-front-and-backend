@@ -5,9 +5,11 @@ const router = express.Router();
 const productController = require('../controllers/product.controller');
 
 // Define the route for creating a product
-router.post('/create', productController.createProduct);
-router.patch('/update', productController.updateProduct);
-router.delete('/delete', productController.deleteProduct);
+
+router.post('/products/create', productController.createProduct);
+router.patch('/products/update', productController.updateProduct);
+router.delete('/products/delete', productController.deleteProduct);
+
 
 
 module.exports = router;
