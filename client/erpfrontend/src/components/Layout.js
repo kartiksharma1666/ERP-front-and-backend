@@ -30,10 +30,9 @@ export const Layout = () => {
           <section>
             <div className='main'>
             <Sidebar />
-            <div>
             <Outlet />
             </div>
-            </div>
+          
           </section>
 
 
