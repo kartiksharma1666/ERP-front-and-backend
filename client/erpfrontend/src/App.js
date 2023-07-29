@@ -8,7 +8,7 @@ import {Category} from './Pages/Category';
 import { Purchase } from './Pages/Purchase';
 import { Sales } from './Pages/Sales'
 import {Settings} from './Pages/Settings'
-import {Forms} from './Pages/Forms';
+import {Form} from './Pages/Form';
 
 
 
@@ -25,7 +25,7 @@ function App() {
   <Route path='/Sales' element={<Sales />} />
   <Route path='/Settings' element={<Settings />} />
 </Route>
-<Route path='/Forms' element={<Forms />}/>
+<Route path='/Form' element={<Form />}/>
 </Routes>
 </BrowserRouter>
 

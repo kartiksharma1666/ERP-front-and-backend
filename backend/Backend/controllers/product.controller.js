@@ -36,6 +36,18 @@ exports.createProduct = (req, res ) => {
 
 }
 
+
+exports.getProducts = async (req, res, next) => {
+  try {
+    const products = await Product.find().populate('category', 'name'); // Use populate to get the category name
+    res.status(200).json(products);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+
  
 
 
