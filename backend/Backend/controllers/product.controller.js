@@ -3,26 +3,41 @@ const Category = require("../models/category.model");
 const ErrorResponse = require('../utils/errorResponse');
 // Remove the cloudinary import since we're not using it anymore
 
-exports.createProduct = async (req, res, next) => {
+exports.createProduct = (req, res ) => {
   const { name, description, price, category } = req.body;
-  console.log(category);
 
-  try {
-    const product = await Product.create({
-      name,
-      description,
-      price,
-      category,
-    });
-    res.status(201).json({
-      success: true,
-      product,
-    });
-  } catch (error) {
-    console.log(error);
-    next(error);
-  }
-};
+  Category.findOne(
+    {
+      name: category
+    }).then((category) => {
+
+      console.log(category);
+
+      const product = new Product({
+        name:name,
+        description:description,
+        price:price,
+        category:category._id,
+        })
+
+      product.save()
+
+      .then(()=>{
+        res.send({ message: "succesfully saved the product" , product })
+      })
+      .catch((err) => {
+          console.log("ererererre")
+          res.status(500).send({ message: err });
+      });
+    })
+    .catch(err=>res.status(500).send({message:err}))
+
+
+
+}
+
+ 
+
 
 exports.updateProduct = async (req, res, next) => {
   try {

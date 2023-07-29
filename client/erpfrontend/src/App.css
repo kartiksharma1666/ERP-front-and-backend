@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@100;200;300;400;500;600;700;800&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -21,10 +23,12 @@
 .side-bar {
   display: flex;
   flex-direction: column;
-  width: 20%;
-  height: 100vh;
+ flex: 1;
+  min-width:  40%;
+  min-height: 100vh;
   margin-right: 30px;
   background: linear-gradient(315deg, #200ebe 0.3%, #96c0f0);
+  
 }
 
 .links {
@@ -33,7 +37,7 @@
   text-decoration: none;
   color: #fff;
   font-size: 20px;
- padding-left: 40px;
+ padding-left: 10px;
   line-height: 65px;
  
   box-sizing: border-box;
@@ -48,6 +52,7 @@ h3 {
   color: #fff;
   padding-left: 40px;
   margin-top: 20px;
+  margin-right: 20px;
 }
 
 .links:hover{
@@ -63,16 +68,49 @@ transition: 0.3s ease
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 50px;
-  z-index: 4;
-  margin-top: 0;
+  font-size: 20px;
+  flex: 3;
+  height: 100vh
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@100;200;300;400;500;600;700;800&display=swap');
+.main{
+  display: flex;  
+}
 
-body{
+.main > *:nth-child(2) {
+  flex: 1;
+}
+
+.footer{
+ display: flex;
+ justify-content: space-between;
+  background: linear-gradient(315deg, #200ebe 0.3%, #96c0f0) ;
+  padding: 20px;
+  color:#fff;
+  font-size: 20px;
+  font-weight:500 ;
+}
+
+.footer a{
+ gap: 5px;
+ margin-right: 40px;
+ font-size: 20px;
+ background: #fff;
+ padding: 5px;
+ border-radius: 5px;
+}
+
+.footer a:hover{
+  background: #96c0f0;
+  color: #000;
+  transition: 0.4 ease
+}
+
+;
+
+.form{
 font-family: 'Anek Malayalam', sans-serif;
-background: linear-gradient(315deg, #200ebe 0.3%, #96c0f0);
+background: #808080;
 display: flex;
 justify-content: center;
 align-items: center;
@@ -81,26 +119,31 @@ padding: 0 30px;
 overflow: hidden;
 }
 
-h2{
+.sign-in>h2{
+  font-size:30px;
+  padding: 0;
+}
+.sign-up>h2{
   font-size:30px;
   padding: 0;
 }
 
 .sign-in{
-  border: 1px solid #0c0927;
+  border: 1px solid #96c0f0;
   text-align: center;
   padding: 40px 100px;
-  background: #fff; 
+  background: #96c0f0; 
   border-radius: 10px;
+  color: #fff
 }
 
 .sign-up{
-  border: 1px solid #0c0927;
+  border: 1px solid #96c0f0;
   text-align: center;
   padding: 20px 120px;
-  background: #fff; 
+  background: #96c0f0; 
   border-radius: 10px;
-  
+  color: #fff
 }
 
 .signs-desc{
@@ -137,4 +180,3 @@ span{
   text-decoration: underline;
   cursor: pointer;
 }
-

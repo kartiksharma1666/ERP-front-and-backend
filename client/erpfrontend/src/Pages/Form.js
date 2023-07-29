@@ -1,10 +1,12 @@
 import React from 'react'
 import { useState } from 'react'
+import {useHistory} from 'react-router-dom'
 
 
 
 
-export const Form = () => {
+
+export const Forms = () => {
     const [showSignIn, setShowSignIn] = useState(false)
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
@@ -16,11 +18,13 @@ export const Form = () => {
         setShowSignIn((prev) => !prev)
     }
 
-  
+    let history = useHistory();
 
-
+    history.push('/Layout')
     return (
-        <div className='form'>
+       <>
+   
+       <div className='form content'>
             {!showSignIn ? (
                 <div className='sign-in'>
                     <h2>Sign In</h2>
@@ -33,7 +37,10 @@ export const Form = () => {
                             <input type="text" placeholder='Password' value={password} onChange={(e) => {setPassword(e.target.value)
                            console.log('Password', e.target.value) }}></input>
                         </div>
-                        <button className='btn'>Sign In</button>
+                        <button className='btn'
+                        onClick={() =>{
+                            history.push('/Layout')
+                        }}>Sign In</button>
                         <p>Don't have an account?{' '}
                             <span onClick={handleToggleSigns}>SignUp</span>
                         </p>
@@ -69,5 +76,6 @@ export const Form = () => {
                     </section>
                 )}
         </div>
+        </>
     )
 }

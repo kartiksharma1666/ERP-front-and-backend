@@ -6,7 +6,9 @@ import { Home } from './Pages/Home'
 import { Product } from './Pages/Product';
 import {Category} from './Pages/Category';
 import { Purchase } from './Pages/Purchase';
+import { Sales } from './Pages/Sales'
 import {Settings} from './Pages/Settings'
+import {Forms} from './Pages/Forms';
 
 
 
@@ -20,8 +22,10 @@ function App() {
   <Route path='/Product' element={<Product/>} />
   <Route path='/Category' element={<Category/>} />
   <Route path='/Purchase' element={<Purchase />}/>
+  <Route path='/Sales' element={<Sales />} />
   <Route path='/Settings' element={<Settings />} />
 </Route>
+<Route path='/Forms' element={<Forms />}/>
 </Routes>
 </BrowserRouter>
 
