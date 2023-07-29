@@ -25,7 +25,9 @@ function App() {
   <Route path='/Sales' element={<Sales />} />
   <Route path='/Settings' element={<Settings />} />
 </Route>
+
 <Route path='/Forms' element={<Form />}/>
+
 </Routes>
 </BrowserRouter>
 
