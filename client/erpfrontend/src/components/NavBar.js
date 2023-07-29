@@ -1,6 +1,6 @@
 import React from 'react'
-import { Button } from 'react-bootstrap'
-import {FaWaze} from 'react-icons/fa'
+// import { Button } from 'react-bootstrap'
+// import {FaWaze} from 'react-icons/fa'
 import { CgProfile } from 'react-icons/cg'
 import { Link } from 'react-router-dom'
 
