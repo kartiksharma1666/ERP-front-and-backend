@@ -209,6 +209,11 @@ const Dashboard = () => {
                       <CTableHeaderCell scope="col">Sr. no</CTableHeaderCell>
                       <CTableHeaderCell scope="col">Name</CTableHeaderCell>
                       <CTableHeaderCell scope="col">Price</CTableHeaderCell>
+                      <CTableHeaderCell scope="col"></CTableHeaderCell>
+                      <CTableHeaderCell scope="col"></CTableHeaderCell>
+                      <CTableHeaderCell scope="col"></CTableHeaderCell>
+                      <CTableHeaderCell scope="col"></CTableHeaderCell>
+                      
                       
                     </CTableRow>
                   </CTableHead>
@@ -217,17 +222,30 @@ const Dashboard = () => {
                       <CTableHeaderCell scope="row">1</CTableHeaderCell>
                       <CTableDataCell>Mark</CTableDataCell>
                       <CTableDataCell>Otto</CTableDataCell>
+                      <CTableDataCell><CButton color="info" shape="rounded-pill">Info</CButton></CTableDataCell>
+                      <CTableDataCell><CButton color="success" shape="rounded-pill">Update</CButton></CTableDataCell>
+                      <CTableDataCell><CButton color="primary" shape="rounded-pill">View</CButton></CTableDataCell>
+                      <CTableDataCell><CButton color="danger" shape="rounded-pill">Delete</CButton></CTableDataCell>
                       
                     </CTableRow>
                     <CTableRow>
                       <CTableHeaderCell scope="row">2</CTableHeaderCell>
                       <CTableDataCell>Jacob</CTableDataCell>
                       <CTableDataCell>Thornton</CTableDataCell>
+                      <CTableDataCell><CButton color="info" shape="rounded-pill">Info</CButton></CTableDataCell>
+                      <CTableDataCell><CButton color="success" shape="rounded-pill">Update</CButton></CTableDataCell>
+                      <CTableDataCell><CButton color="primary" shape="rounded-pill">View</CButton></CTableDataCell>
+                      <CTableDataCell><CButton color="danger" shape="rounded-pill">Delete</CButton></CTableDataCell>
                     
                     </CTableRow>
                     <CTableRow>
                       <CTableHeaderCell scope="row">3</CTableHeaderCell>
                       <CTableDataCell colSpan="2">Larry the Bird</CTableDataCell>
+                      <CTableDataCell><CButton color="info" shape="rounded-pill">Info</CButton></CTableDataCell>
+                      
+                      <CTableDataCell><CButton color="success" shape="rounded-pill">Update</CButton></CTableDataCell>
+                      <CTableDataCell><CButton color="primary" shape="rounded-pill">View</CButton></CTableDataCell>
+                      <CTableDataCell><CButton color="danger" shape="rounded-pill">Delete</CButton></CTableDataCell>
                    
                     </CTableRow>
                   </CTableBody>

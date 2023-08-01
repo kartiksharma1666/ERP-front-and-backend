@@ -47,7 +47,7 @@
     "@testing-library/user-event": "^14.4.3",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "sass": "^1.63.6",
     "web-vitals": "^3.3.2"
   },
