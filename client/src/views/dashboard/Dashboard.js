@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useEffect } from 'react'
 
 import {
   CAvatar,
@@ -54,8 +55,23 @@ import avatar6 from 'src/assets/images/avatars/6.jpg'
 import WidgetsBrand from '../widgets/WidgetsBrand'
 import WidgetsDropdown from '../widgets/WidgetsDropdown'
 import { DocsExample } from 'src/components'
+export const Dashboard = () => {
+  const [data, setdata] = useState(null)
 
-const Dashboard = () => {
+  const getDataFromDB = async () => {
+    const res = await fetch('http://localhost:8080/api/products/all').catch((err) => {
+      console.log(err)
+    })
+
+    const resjson = await res.json()
+    console.log(resjson)
+    setdata(resjson)
+  }
+
+  useEffect(() => {
+    getDataFromDB()
+  }, [])
+
   const random = (min, max) => Math.floor(Math.random() * (max - min + 1) + min)
 
   const progressExample = [
@@ -201,34 +217,56 @@ const Dashboard = () => {
                   Puff
                 </CButton>
               </CButtonGroup>
+              <CTable>
+                <CTableHead>
+                  <CTableRow>
+                    <CTableHeaderCell scope="col">Sr. no</CTableHeaderCell>
+                    <CTableHeaderCell scope="col">Name</CTableHeaderCell>
+                    <CTableHeaderCell scope="col">Price</CTableHeaderCell>
+                    <CTableHeaderCell scope="col"></CTableHeaderCell>
+                    <CTableHeaderCell scope="col"></CTableHeaderCell>
+                    <CTableHeaderCell scope="col"></CTableHeaderCell>
+                    <CTableHeaderCell scope="col"></CTableHeaderCell>
+                  </CTableRow>
+                </CTableHead>
+                <CTableBody>
+                  {data &&
+                    data.map(
+                      (
+                        item,
+                        index, // Check if data is available before mapping
+                      ) => (
+                        <CTableRow key={index}>
+                          <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
+                          <CTableDataCell>{item.name}</CTableDataCell>
+                          <CTableDataCell>{item.price}</CTableDataCell>
+                          <CTableDataCell>
+                            <CButton color="info" shape="rounded-pill">
+                              Info
+                            </CButton>
+                          </CTableDataCell>
+                          <CTableDataCell>
+                            <CButton color="success" shape="rounded-pill">
+                              Update
+                            </CButton>
+                          </CTableDataCell>
+                          <CTableDataCell>
+                            <CButton color="primary" shape="rounded-pill">
+                              View
+                            </CButton>
+                          </CTableDataCell>
+                          <CTableDataCell>
+                            <CButton color="danger" shape="rounded-pill">
+                              Delete
+                            </CButton>
+                          </CTableDataCell>
+                        </CTableRow>
+                      ),
+                    )}
+                </CTableBody>
+              </CTable>
 
-              
-                <CTable>
-                  <CTableHead>
-                    <CTableRow>
-                      <CTableHeaderCell scope="col">Sr. no</CTableHeaderCell>
-                      <CTableHeaderCell scope="col">Name</CTableHeaderCell>
-                      <CTableHeaderCell scope="col">Price</CTableHeaderCell>
-                      <CTableHeaderCell scope="col"></CTableHeaderCell>
-                      <CTableHeaderCell scope="col"></CTableHeaderCell>
-                      <CTableHeaderCell scope="col"></CTableHeaderCell>
-                      <CTableHeaderCell scope="col"></CTableHeaderCell>
-                      
-                      
-                    </CTableRow>
-                  </CTableHead>
-                  <CTableBody>
-                    <CTableRow>
-                      <CTableHeaderCell scope="row">1</CTableHeaderCell>
-                      <CTableDataCell>Mark</CTableDataCell>
-                      <CTableDataCell>Otto</CTableDataCell>
-                      <CTableDataCell><CButton color="info" shape="rounded-pill">Info</CButton></CTableDataCell>
-                      <CTableDataCell><CButton color="success" shape="rounded-pill">Update</CButton></CTableDataCell>
-                      <CTableDataCell><CButton color="primary" shape="rounded-pill">View</CButton></CTableDataCell>
-                      <CTableDataCell><CButton color="danger" shape="rounded-pill">Delete</CButton></CTableDataCell>
-                      
-                    </CTableRow>
-                    <CTableRow>
+              {/* <CTableRow>
                       <CTableHeaderCell scope="row">2</CTableHeaderCell>
                       <CTableDataCell>Jacob</CTableDataCell>
                       <CTableDataCell>Thornton</CTableDataCell>
@@ -242,15 +280,11 @@ const Dashboard = () => {
                       <CTableHeaderCell scope="row">3</CTableHeaderCell>
                       <CTableDataCell colSpan="2">Larry the Bird</CTableDataCell>
                       <CTableDataCell><CButton color="info" shape="rounded-pill">Info</CButton></CTableDataCell>
-                      
                       <CTableDataCell><CButton color="success" shape="rounded-pill">Update</CButton></CTableDataCell>
                       <CTableDataCell><CButton color="primary" shape="rounded-pill">View</CButton></CTableDataCell>
                       <CTableDataCell><CButton color="danger" shape="rounded-pill">Delete</CButton></CTableDataCell>
                    
-                    </CTableRow>
-                  </CTableBody>
-                </CTable>
-             
+                    </CTableRow> */}
             </CCardBody>
           </CCard>
         </CCol>
