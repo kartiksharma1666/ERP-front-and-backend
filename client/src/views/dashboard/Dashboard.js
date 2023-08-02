@@ -9,7 +9,11 @@ import {
   CCardBody,
   CCardFooter,
   CCardHeader,
+  CDropdownToggle,
+  CDropdownMenu,
+  CDropdownItem,
   CCol,
+  CDropdown,
   CProgress,
   CRow,
   CTable,
@@ -18,6 +22,7 @@ import {
   CTableHead,
   CTableHeaderCell,
   CTableRow,
+  
 } from '@coreui/react'
 import { CChartLine } from '@coreui/react-chartjs'
 import { getStyle, hexToRgba } from '@coreui/utils'
@@ -194,6 +199,29 @@ export const Dashboard = () => {
       activity: 'Last week',
     },
   ]
+  const [categories,setCategories] = useState([
+    {id: 1, name: 'Cake', order: 300},
+    {id: 2, name: 'Puff', order: 100},
+    {id: 3, name: 'Pastries', order: 500}
+  ])
+  const sortedCategories =  [...categories].sort((a, b) => b.order - a.order)
+
+  const products = [
+    { id: 1, name: 'Jeans' },
+    { id: 2, name: 'Shoes' },
+    { id: 3, name: 'Belts' },
+  ];
+
+  const [search, setSearch] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+
+  const handleSearch = () => {
+    const filterdProd = products.filter( product =>
+      product.name.toLowerCase().includes(search.toLowerCase))
+
+  }
+
+
 
   return (
     <>
@@ -204,19 +232,49 @@ export const Dashboard = () => {
               <strong>Products</strong>
             </CCardHeader>
             <CCardBody>
-              <p className="text-medium-emphasis small">Categories</p>
-
-              <CButtonGroup role="group" aria-label="Basic outlined example">
-                <CButton color="dark" variant="outline">
-                  Cake
-                </CButton>
-                <CButton color="dark" variant="outline">
-                  Pastry
-                </CButton>
-                <CButton color="dark" variant="outline">
-                  Puff
-                </CButton>
-              </CButtonGroup>
+            <div className='d-flex'>
+              <CDropdown >
+          <CDropdownToggle color="primary">Category</CDropdownToggle>
+          <CDropdownMenu>
+            {sortedCategories.map((category) => (
+              <CDropdownItem key={category.id} href='#'>{category.name}
+              <span style={{marginLeft: '5px', color: '#800808'}}>{category.order}{' '}Orders</span>
+              </CDropdownItem>
+            ))}
+          </CDropdownMenu>
+        </CDropdown>
+       <div className='container'>
+        <div className=' row justify-content-center'>
+          <div className='col-md-8'>
+            <div className='input-group mb-3'>
+            <input type='text'
+            className='form-control'
+            placeholder='Search for Product...'
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}>
+            </input>
+            <div className="input-group-append">
+          <button className="btn btn-primary" onClick={handleSearch}>
+            Search
+          </button>
+        </div>
+        </div>
+          </div>
+          {searchResults.length > 0 && (
+            <div className='row justify-content-center'>
+              <div col-md-8>
+                {searchResults.map((product)=> (
+                  <div key={product.id} className='card mb-2'>
+                    <div className='card-body'>{product.name}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+       </div>
+       </div>
+            
               <CTable>
                 <CTableHead>
                   <CTableRow>
