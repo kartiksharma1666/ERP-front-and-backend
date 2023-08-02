@@ -289,7 +289,7 @@ export const Dashboard = (props) => {
                     {sortedCategories.map((category) => (
                       <CDropdownItem key={category.id} href="#">
                         {category.name}
-                        <span style={{ marginLeft: '5px', color: '#80080' }}>
+                        <span style={{ marginLeft: '5px', color: '#800808' }}>
                           {category.order} Orders
                         </span>
                       </CDropdownItem>
