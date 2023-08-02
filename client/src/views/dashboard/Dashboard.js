@@ -1,4 +1,7 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import Cookies from 'universal-cookie'
+import jwt_decode from 'jwt-decode'
 
 import {
   CAvatar,
@@ -55,8 +58,12 @@ import WidgetsBrand from '../widgets/WidgetsBrand'
 import WidgetsDropdown from '../widgets/WidgetsDropdown'
 import { DocsExample } from 'src/components'
 
-const Dashboard = () => {
+const Dashboard = (props) => {
   const random = (min, max) => Math.floor(Math.random() * (max - min + 1) + min)
+  const cookies = new Cookies()
+  const [user, setUser] = useState(null)
+  const [userData, setUserData] = useState(null)
+  const navigate = useNavigate()
 
   const progressExample = [
     { title: 'Visits', value: '29.703 Users', percent: 40, color: 'success' },
@@ -179,8 +186,56 @@ const Dashboard = () => {
     },
   ]
 
+  useEffect(() => {
+    // Check if the JWT token is present in the cookie (e.g., user logged in previously)
+    // if (!cookies.get('jwtToken')) {
+    //   navigate('/login')
+    // }
+    // const jwtToken = cookies.get('jwtToken')
+    // console.log(jwtToken)
+    // const user = jwt_decode(jwtToken)
+    // console.log('User info from cookie:', user)
+
+    // setUserData(user)
+
+    if (cookies.get('jwtToken')) {
+      // Decode the JWT to get user information (optional)
+      const jwtToken = cookies.get('jwtToken')
+      const user = jwt_decode(jwtToken)
+      console.log('User info from cookie:', user)
+      setUser(user)
+      // Send a GET request to fetch user data from the backend
+      fetch('http://localhost:8080/api/test/user', {
+        method: 'GET',
+        headers: {
+          // Include the token in the 'Authorization' header
+          Authorization: `Bearer ${jwtToken}`,
+          'x-access-token': jwtToken,
+          'Content-Type': 'application/json',
+        },
+      })
+        .then((response) => {
+          // if (!response.ok) {
+          //   throw new Error('Failed to fetch user data')
+          // }
+          return response.json()
+        })
+        .then((data) => {
+          // Handle the received user data
+          console.log('User data:', data)
+          setUserData(data)
+        })
+        .catch((error) => {
+          console.error('Error fetching user data:', error.message)
+        })
+    } else {
+      navigate('/login')
+    }
+  }, [])
   return (
     <>
+      this is the user {user?.username}
+      this is data {userData?.content}
       <CRow>
         <CCol xs={12}>
           <CCard className="mb-4">
@@ -202,37 +257,31 @@ const Dashboard = () => {
                 </CButton>
               </CButtonGroup>
 
-              
-                <CTable>
-                  <CTableHead>
-                    <CTableRow>
-                      <CTableHeaderCell scope="col">Sr. no</CTableHeaderCell>
-                      <CTableHeaderCell scope="col">Name</CTableHeaderCell>
-                      <CTableHeaderCell scope="col">Price</CTableHeaderCell>
-                      
-                    </CTableRow>
-                  </CTableHead>
-                  <CTableBody>
-                    <CTableRow>
-                      <CTableHeaderCell scope="row">1</CTableHeaderCell>
-                      <CTableDataCell>Mark</CTableDataCell>
-                      <CTableDataCell>Otto</CTableDataCell>
-                      
-                    </CTableRow>
-                    <CTableRow>
-                      <CTableHeaderCell scope="row">2</CTableHeaderCell>
-                      <CTableDataCell>Jacob</CTableDataCell>
-                      <CTableDataCell>Thornton</CTableDataCell>
-                    
-                    </CTableRow>
-                    <CTableRow>
-                      <CTableHeaderCell scope="row">3</CTableHeaderCell>
-                      <CTableDataCell colSpan="2">Larry the Bird</CTableDataCell>
-                   
-                    </CTableRow>
-                  </CTableBody>
-                </CTable>
-             
+              <CTable>
+                <CTableHead>
+                  <CTableRow>
+                    <CTableHeaderCell scope="col">Sr. no</CTableHeaderCell>
+                    <CTableHeaderCell scope="col">Name</CTableHeaderCell>
+                    <CTableHeaderCell scope="col">Price</CTableHeaderCell>
+                  </CTableRow>
+                </CTableHead>
+                <CTableBody>
+                  <CTableRow>
+                    <CTableHeaderCell scope="row">1</CTableHeaderCell>
+                    <CTableDataCell>Mark</CTableDataCell>
+                    <CTableDataCell>Otto</CTableDataCell>
+                  </CTableRow>
+                  <CTableRow>
+                    <CTableHeaderCell scope="row">2</CTableHeaderCell>
+                    <CTableDataCell>Jacob</CTableDataCell>
+                    <CTableDataCell>Thornton</CTableDataCell>
+                  </CTableRow>
+                  <CTableRow>
+                    <CTableHeaderCell scope="row">3</CTableHeaderCell>
+                    <CTableDataCell colSpan="2">Larry the Bird</CTableDataCell>
+                  </CTableRow>
+                </CTableBody>
+              </CTable>
             </CCardBody>
           </CCard>
         </CCol>
@@ -364,9 +413,7 @@ const Dashboard = () => {
           </CRow>
         </CCardFooter>
       </CCard>
-
       <WidgetsBrand withCharts />
-
       <CRow>
         <CCol xs>
           <CCard className="mb-4">
