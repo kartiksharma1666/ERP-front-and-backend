@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import Cookies from 'universal-cookie'
-import jwt_decode from 'jwt-decode'
+import React, { useState } from 'react'
+import { useEffect } from 'react'
+import ProductPopup from './ProductPopUp'
+import Modal from 'react-modal';
+import { Button } from 'react-bootstrap';
+
+
 import {
   CAvatar,
   CButton,
@@ -59,9 +62,12 @@ import avatar6 from 'src/assets/images/avatars/6.jpg'
 
 import WidgetsBrand from '../widgets/WidgetsBrand'
 import WidgetsDropdown from '../widgets/WidgetsDropdown'
-import { DocsExample } from 'src/components'
-export const Dashboard = (props) => {
+Modal.setAppElement('#root');
+//import { DocsExample } from 'src/components'
+export const Dashboard = () => {
   const [data, setdata] = useState(null)
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [open, setOpen] = useState(false)
 
   const getDataFromDB = async () => {
     const res = await fetch('http://localhost:8080/api/products/all').catch((err) => {
@@ -78,10 +84,6 @@ export const Dashboard = (props) => {
   }, [])
 
   const random = (min, max) => Math.floor(Math.random() * (max - min + 1) + min)
-  const cookies = new Cookies()
-  const [user, setUser] = useState(null)
-  const [userData, setUserData] = useState(null)
-  const navigate = useNavigate()
 
   const progressExample = [
     { title: 'Visits', value: '29.703 Users', percent: 40, color: 'success' },
@@ -218,63 +220,58 @@ export const Dashboard = (props) => {
 
   const [search, setSearch] = useState('')
   const [searchResults, setSearchResults] = useState([])
+  const [selectedProduct, setSelectedProduct] = useState(null)
+  const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
+
+  const handleClickToOpen = (Product) => {
+    setIsModalOpen(true);
+    setSelectedProduct(Product);
+  };
+
+  // Function to close the modal
+  const handleToClose = () => {
+    setIsModalOpen(false);
+  };
+  
 
   const handleSearch = () => {
     const filterdProd = products.filter((product) =>
       product.name.toLowerCase().includes(search.toLowerCase),
     )
   }
+  //   const openInPopup = item => {
+  //     setRecordForEdit(item)
+  //     setOpenPopup(true)
+  // }
+  // const handleViewClick = (product) => {
+  //   setSelectedProduct(product)
+  //   console.log(product)
+  // }
+  const handleDeleteConfirmation = (product) => {
+    setSelectedProduct(product);
+    setDeleteConfirmationOpen(true);
+  };
 
-  useEffect(() => {
-    // Check if the JWT token is present in the cookie (e.g., user logged in previously)
-    // if (!cookies.get('jwtToken')) {
-    //   navigate('/login')
-    // }
-    // const jwtToken = cookies.get('jwtToken')
-    // console.log(jwtToken)
-    // const user = jwt_decode(jwtToken)
-    // console.log('User info from cookie:', user)
-
-    // setUserData(user)
-
-    if (cookies.get('jwtToken')) {
-      // Decode the JWT to get user information (optional)
-      const jwtToken = cookies.get('jwtToken')
-      const user = jwt_decode(jwtToken)
-      console.log('User info from cookie:', user)
-      setUser(user)
-      // Send a GET request to fetch user data from the backend
-      fetch('http://localhost:8080/api/test/user', {
-        method: 'GET',
-        headers: {
-          // Include the token in the 'Authorization' header
-          Authorization: `Bearer ${jwtToken}`,
-          'x-access-token': jwtToken,
-          'Content-Type': 'application/json',
-        },
+  const handleDelete = () => {
+    // Send the delete request to the API
+    axios.delete(`http://localhost:8080/api/products/delete/${selectedProduct.id}`)
+      .then((response) => {
+        console.log(response.data); // Log the response from the server (optional)
+        // Update the product list after successful deletion
+        setData(data.filter((product) => product.id !== selectedProduct.id));
       })
-        .then((response) => {
-          // if (!response.ok) {
-          //   throw new Error('Failed to fetch user data')
-          // }
-          return response.json()
-        })
-        .then((data) => {
-          // Handle the received user data
-          console.log('User data:', data)
-          setUserData(data)
-        })
-        .catch((error) => {
-          console.error('Error fetching user data:', error.message)
-        })
-    } else {
-      navigate('/login')
-    }
-  }, [])
+      .catch((error) => {
+        console.error('Error deleting product:', error);
+      })
+      .finally(() => {
+        // Close the delete confirmation modal and clear the selectedProduct state
+        setDeleteConfirmationOpen(false);
+        setSelectedProduct(null);
+      });
+  };
+
   return (
     <>
-      this is the user {user?.username}
-      this is data {userData?.content}
       <CRow>
         <CCol xs={12}>
           <CCard className="mb-4">
@@ -353,7 +350,13 @@ export const Dashboard = (props) => {
                           <CTableDataCell>{item.name}</CTableDataCell>
                           <CTableDataCell>{item.price}</CTableDataCell>
                           <CTableDataCell>
-                            <CButton color="info" shape="rounded-pill">
+                            <CButton
+                              color="info"
+                              shape="rounded-pill"
+                              onClick={() => {
+                                openInPopup(item)
+                              }}
+                            >
                               Info
                             </CButton>
                           </CTableDataCell>
@@ -363,12 +366,12 @@ export const Dashboard = (props) => {
                             </CButton>
                           </CTableDataCell>
                           <CTableDataCell>
-                            <CButton color="primary" shape="rounded-pill">
+                            <CButton color="primary" shape="rounded-pill" onClick={()=>handleClickToOpen(item)}>
                               View
                             </CButton>
                           </CTableDataCell>
                           <CTableDataCell>
-                            <CButton color="danger" shape="rounded-pill">
+                            <CButton color="danger" shape="rounded-pill" onClick={() => handleDeleteConfirmation(item)}>
                               Delete
                             </CButton>
                           </CTableDataCell>
@@ -401,6 +404,104 @@ export const Dashboard = (props) => {
           </CCard>
         </CCol>
       </CRow>
+      {/* <Popup
+                title="Employee Form"
+                openPopup={openPopup}
+                setOpenPopup={setOpenPopup}
+            >
+                <EmployeeForm
+                    recordForEdit={recordForEdit}
+                    addOrEdit={addOrEdit} />
+            </Popup> */}
+      {/* {selectedProduct && (
+        // Show the ProductPopup component only when a product is selected
+        <ProductPopup
+          product={selectedProduct}
+          onClose={() => setSelectedProduct(null)} // Function to close the popup
+        />
+      )} */}
+         {/* Modal */}
+         <Modal
+        isOpen={isModalOpen}
+        onRequestClose={handleToClose}
+        contentLabel="Product Modal"
+        style={{
+          overlay: {
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          },
+          content: {
+            width: '50%', // Adjust the width as needed
+            maxHeight: '80%', // Adjust the height as needed
+            maxWidth: '800px', // Limit the maximum width of the modal
+            border: '1px solid #ccc',
+            background: '#fff',
+            overflow: 'auto',
+            WebkitOverflowScrolling: 'touch',
+            borderRadius: '4px',
+            outline: 'none',
+            padding: '20px',
+            top: '50%', // Center vertically
+            left: '50%', // Center horizontally
+            transform: 'translate(-50%, -50%)', // Translate to center
+          },
+        }}
+      >
+        <div>
+          <button onClick={handleToClose}>Close</button>
+          <h2>Product Details</h2>
+          {selectedProduct && (
+            <div>
+              <p>Name: {selectedProduct.name}</p>
+              <p>Price: {selectedProduct.price} </p>
+              <p>Description:{selectedProduct.description}</p>
+              
+            </div>
+          )}
+        </div>
+      </Modal>
+      <Modal
+        isOpen={deleteConfirmationOpen}
+        onRequestClose={() => setDeleteConfirmationOpen(false)}
+        contentLabel="Delete Confirmation"
+        className="modal"
+        overlayClassName="modal-overlay"
+        style={{
+          overlay: {
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          },
+          content: {
+            width: '50%', // Adjust the width as needed
+            maxHeight: '80%', // Adjust the height as needed
+            maxWidth: '800px', // Limit the maximum width of the modal
+            border: '1px solid #ccc',
+            background: '#fff',
+            overflow: 'auto',
+            WebkitOverflowScrolling: 'touch',
+            borderRadius: '4px',
+            outline: 'none',
+            padding: '20px',
+            top: '50%', // Center vertically
+            left: '50%', // Center horizontally
+            transform: 'translate(-50%, -50%)', // Translate to center
+          },
+        }}
+      >
+        <h2>Confirm Delete</h2>
+        <p>Are you sure you want to delete the product: {selectedProduct && selectedProduct.name}?</p>
+        <Button onClick={() => setDeleteConfirmationOpen(false)} variant="primary">
+          Cancel
+        </Button>
+        <Button onClick={handleDelete} variant="danger" autoFocus>
+          Delete
+        </Button>
+      </Modal>
+
       <WidgetsDropdown />
       <CCard className="mb-4">
         <CCardBody>
@@ -528,7 +629,9 @@ export const Dashboard = (props) => {
           </CRow>
         </CCardFooter>
       </CCard>
+
       <WidgetsBrand withCharts />
+
       <CRow>
         <CCol xs>
           <CCard className="mb-4">
