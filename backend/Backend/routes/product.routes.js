@@ -5,6 +5,7 @@ const router = express.Router();
 const productController = require('../controllers/product.controller');
 
 // Define the route for creating a product
+console.log("inside product routes");
 router.get('/products/all', productController.getProducts);
 router.post('/products/create', productController.createProduct);
 router.patch('/products/update', productController.updateProduct);
