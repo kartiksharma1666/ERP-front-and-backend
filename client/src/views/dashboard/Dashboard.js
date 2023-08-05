@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react'
 import ProductPopup from './ProductPopUp'
-import Modal from 'react-modal';
-import { Button } from 'react-bootstrap';
-
+import Modal from 'react-modal'
+import { Button } from 'react-bootstrap'
+import Cookies from 'universal-cookie'
+import jwt_decode from 'jwt-decode'
+import { useNavigate } from 'react-router-dom'
 
 import {
   CAvatar,
@@ -62,11 +64,15 @@ import avatar6 from 'src/assets/images/avatars/6.jpg'
 
 import WidgetsBrand from '../widgets/WidgetsBrand'
 import WidgetsDropdown from '../widgets/WidgetsDropdown'
-Modal.setAppElement('#root');
+Modal.setAppElement('#root')
 //import { DocsExample } from 'src/components'
 export const Dashboard = () => {
+  const navigate = useNavigate()
+  const cookies = new Cookies()
   const [data, setdata] = useState(null)
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [user, setUser] = useState(null)
+  const [userData, setUserData] = useState(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const [open, setOpen] = useState(false)
 
   const getDataFromDB = async () => {
@@ -221,18 +227,17 @@ export const Dashboard = () => {
   const [search, setSearch] = useState('')
   const [searchResults, setSearchResults] = useState([])
   const [selectedProduct, setSelectedProduct] = useState(null)
-  const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
+  const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false)
 
   const handleClickToOpen = (Product) => {
-    setIsModalOpen(true);
-    setSelectedProduct(Product);
-  };
+    setIsModalOpen(true)
+    setSelectedProduct(Product)
+  }
 
   // Function to close the modal
   const handleToClose = () => {
-    setIsModalOpen(false);
-  };
-  
+    setIsModalOpen(false)
+  }
 
   const handleSearch = () => {
     const filterdProd = products.filter((product) =>
@@ -248,30 +253,79 @@ export const Dashboard = () => {
   //   console.log(product)
   // }
   const handleDeleteConfirmation = (product) => {
-    setSelectedProduct(product);
-    setDeleteConfirmationOpen(true);
-  };
+    setSelectedProduct(product)
+    setDeleteConfirmationOpen(true)
+  }
 
   const handleDelete = () => {
     // Send the delete request to the API
-    axios.delete(`http://localhost:8080/api/products/delete/${selectedProduct.id}`)
+    axios
+      .delete(`http://localhost:8080/api/products/delete/${selectedProduct.id}`)
       .then((response) => {
-        console.log(response.data); // Log the response from the server (optional)
+        console.log(response.data) // Log the response from the server (optional)
         // Update the product list after successful deletion
-        setData(data.filter((product) => product.id !== selectedProduct.id));
+        setData(data.filter((product) => product.id !== selectedProduct.id))
       })
       .catch((error) => {
-        console.error('Error deleting product:', error);
+        console.error('Error deleting product:', error)
       })
       .finally(() => {
         // Close the delete confirmation modal and clear the selectedProduct state
-        setDeleteConfirmationOpen(false);
-        setSelectedProduct(null);
-      });
-  };
+        setDeleteConfirmationOpen(false)
+        setSelectedProduct(null)
+      })
+  }
 
+  useEffect(() => {
+    // Check if the JWT token is present in the cookie (e.g., user logged in previously)
+    // if (!cookies.get('jwtToken')) {
+    //   navigate('/login')
+    // }
+    // const jwtToken = cookies.get('jwtToken')
+    // console.log(jwtToken)
+    // const user = jwt_decode(jwtToken)
+    // console.log('User info from cookie:', user)
+
+    // setUserData(user)
+
+    if (cookies.get('jwtToken')) {
+      // Decode the JWT to get user information (optional)
+      const jwtToken = cookies.get('jwtToken')
+      const user = jwt_decode(jwtToken)
+      console.log('User info from cookie:', user)
+      setUser(user)
+      // Send a GET request to fetch user data from the backend
+      fetch('http://localhost:8080/api/test/user', {
+        method: 'GET',
+        headers: {
+          // Include the token in the 'Authorization' header
+          Authorization: `Bearer ${jwtToken}`,
+          'x-access-token': jwtToken,
+          'Content-Type': 'application/json',
+        },
+      })
+        .then((response) => {
+          // if (!response.ok) {
+          //   throw new Error('Failed to fetch user data')
+          // }
+          return response.json()
+        })
+        .then((data) => {
+          // Handle the received user data
+          console.log('User data:', data)
+          setUserData(data)
+        })
+        .catch((error) => {
+          console.error('Error fetching user data:', error.message)
+        })
+    } else {
+      navigate('/login')
+    }
+  }, [])
   return (
     <>
+      this is the user {user?.username}
+      this is data {userData?.content}
       <CRow>
         <CCol xs={12}>
           <CCard className="mb-4">
@@ -366,12 +420,20 @@ export const Dashboard = () => {
                             </CButton>
                           </CTableDataCell>
                           <CTableDataCell>
-                            <CButton color="primary" shape="rounded-pill" onClick={()=>handleClickToOpen(item)}>
+                            <CButton
+                              color="primary"
+                              shape="rounded-pill"
+                              onClick={() => handleClickToOpen(item)}
+                            >
                               View
                             </CButton>
                           </CTableDataCell>
                           <CTableDataCell>
-                            <CButton color="danger" shape="rounded-pill" onClick={() => handleDeleteConfirmation(item)}>
+                            <CButton
+                              color="danger"
+                              shape="rounded-pill"
+                              onClick={() => handleDeleteConfirmation(item)}
+                            >
                               Delete
                             </CButton>
                           </CTableDataCell>
@@ -420,8 +482,8 @@ export const Dashboard = () => {
           onClose={() => setSelectedProduct(null)} // Function to close the popup
         />
       )} */}
-         {/* Modal */}
-         <Modal
+      {/* Modal */}
+      <Modal
         isOpen={isModalOpen}
         onRequestClose={handleToClose}
         contentLabel="Product Modal"
@@ -457,7 +519,6 @@ export const Dashboard = () => {
               <p>Name: {selectedProduct.name}</p>
               <p>Price: {selectedProduct.price} </p>
               <p>Description:{selectedProduct.description}</p>
-              
             </div>
           )}
         </div>
@@ -493,7 +554,9 @@ export const Dashboard = () => {
         }}
       >
         <h2>Confirm Delete</h2>
-        <p>Are you sure you want to delete the product: {selectedProduct && selectedProduct.name}?</p>
+        <p>
+          Are you sure you want to delete the product: {selectedProduct && selectedProduct.name}?
+        </p>
         <Button onClick={() => setDeleteConfirmationOpen(false)} variant="primary">
           Cancel
         </Button>
@@ -501,7 +564,6 @@ export const Dashboard = () => {
           Delete
         </Button>
       </Modal>
-
       <WidgetsDropdown />
       <CCard className="mb-4">
         <CCardBody>
@@ -629,9 +691,7 @@ export const Dashboard = () => {
           </CRow>
         </CCardFooter>
       </CCard>
-
       <WidgetsBrand withCharts />
-
       <CRow>
         <CCol xs>
           <CCard className="mb-4">
