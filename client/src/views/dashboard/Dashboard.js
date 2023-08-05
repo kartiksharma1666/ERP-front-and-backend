@@ -253,11 +253,19 @@ export const Dashboard = () => {
   };
 
   const handleDelete = () => {
-    // Send the delete request to the API
-    axios.delete(`http://localhost:8080/api/products/delete/${selectedProduct.id}`)
+    
+    fetch(`http://localhost:8080/api/products/delete/${selectedProduct.id}`, {
+      method: 'DELETE',
+    })
       .then((response) => {
-        console.log(response.data); // Log the response from the server (optional)
-        // Update the product list after successful deletion
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json(); 
+      })
+      .then((data) => {
+        console.log(data); 
+        
         setData(data.filter((product) => product.id !== selectedProduct.id));
       })
       .catch((error) => {
@@ -269,7 +277,7 @@ export const Dashboard = () => {
         setSelectedProduct(null);
       });
   };
-
+  
   return (
     <>
       <CRow>
