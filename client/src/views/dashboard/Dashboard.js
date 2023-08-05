@@ -259,7 +259,7 @@ export const Dashboard = () => {
 
   const handleDelete = () => {
     // Send the delete request to the API
-    axios
+    fetch
       .delete(`http://localhost:8080/api/products/delete/${selectedProduct.id}`)
       .then((response) => {
         console.log(response.data) // Log the response from the server (optional)
