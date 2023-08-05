@@ -28,7 +28,7 @@ const AppHeader = () => {
 
   const handleClick = () => {
     cookies.remove('jwtToken')
-    navigate('#')
+    navigate('/login')
   }
 
   return (
