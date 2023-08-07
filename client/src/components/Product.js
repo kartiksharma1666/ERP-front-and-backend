@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { setSelectedProduct, setIsModalOpen } from './PopUp'
+import React, { useEffect, useState } from 'react'
+
 import {
   CAvatar,
   CButton,
@@ -24,6 +24,8 @@ import {
 } from '@coreui/react'
 
 const Product = (props) => {
+  const [data, setdata] = useState(null)
+
   const [search, setSearch] = useState('')
   const [searchResults, setSearchResults] = useState([])
 
@@ -38,8 +40,24 @@ const Product = (props) => {
     { id: 2, name: 'Shoes' },
     { id: 3, name: 'Belts' },
   ]
+  const product_button_style = {
+    marginRight: '75px',
+    height: '42px',
+    width: '158px',
+  }
 
   const sortedCategories = [...categories].sort((a, b) => b.order - a.order)
+
+  const getDataFromDB = async () => {
+    const res = await fetch('http://localhost:8080/api/products/all').catch((err) => {
+      console.log(err)
+    })
+
+    const resjson = await res.json()
+    console.log(resjson)
+    setdata(resjson)
+    props.setGetData(false)
+  }
 
   const handleSearch = () => {
     const filterdProd = products.filter((product) =>
@@ -47,10 +65,27 @@ const Product = (props) => {
     )
   }
 
-  const handleClickToOpen = (Product) => {
+  const handleClickToOpen = (Product, update) => {
+    if (update) {
+      props.setEdit(true)
+    }
     props.setIsModalOpen(true)
     props.setSelectedProduct(Product)
   }
+
+  const handleAddProduct = () => {
+    props.setIsModalOpen(true)
+    props.setAddProduct(true)
+  }
+
+  const handleDeleteConfirmation = (product) => {
+    props.setSelectedProduct(product)
+    props.setDeletePop(true)
+  }
+
+  useEffect(() => {
+    getDataFromDB()
+  }, [props.getData])
 
   return (
     <CRow>
@@ -86,7 +121,7 @@ const Product = (props) => {
                         onChange={(e) => setSearch(e.target.value)}
                       ></input>
                       <div className="input-group-append">
-                        <button className="btn btn-primary" onClick={handleSearch}>
+                        <button className="btn btn-primary search-button" onClick={handleSearch}>
                           Search
                         </button>
                       </div>
@@ -105,6 +140,13 @@ const Product = (props) => {
                   )}
                 </div>
               </div>
+              <button
+                className=" btn btn-primary "
+                onClick={handleAddProduct}
+                style={product_button_style}
+              >
+                Add product
+              </button>
             </div>
 
             <CTable>
@@ -120,8 +162,8 @@ const Product = (props) => {
                 </CTableRow>
               </CTableHead>
               <CTableBody>
-                {props.data &&
-                  props.data.map(
+                {data &&
+                  data.map(
                     (
                       item,
                       index, // Check if data is available before mapping
@@ -142,7 +184,11 @@ const Product = (props) => {
                           </CButton>
                         </CTableDataCell>
                         <CTableDataCell>
-                          <CButton color="success" shape="rounded-pill">
+                          <CButton
+                            color="success"
+                            shape="rounded-pill"
+                            onClick={() => handleClickToOpen(item, true)}
+                          >
                             Update
                           </CButton>
                         </CTableDataCell>
@@ -150,7 +196,7 @@ const Product = (props) => {
                           <CButton
                             color="primary"
                             shape="rounded-pill"
-                            onClick={() => handleClickToOpen(item)}
+                            onClick={() => handleClickToOpen(item, false)}
                           >
                             View
                           </CButton>
