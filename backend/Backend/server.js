@@ -73,6 +73,11 @@ app.use("/api", productRoutes)
 const categoryRoutes = require('./routes/category.routes');
 app.use("/api", categoryRoutes);
 
+const customerRoutes = require('./routes/customer.routes');
+app.use('/api', customerRoutes);
+
+const orderRoutes = require('./routes/order.routes');
+app.use('/api', orderRoutes);
 
 
 

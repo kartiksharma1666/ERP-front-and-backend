@@ -9,7 +9,7 @@ console.log("inside product routes");
 router.get('/products/all', productController.getProducts);
 router.post('/products/create', productController.createProduct);
 router.patch('/products/update', productController.updateProduct);
-router.delete('/products/delete', productController.deleteProduct);
+router.delete('/products/delete/id', productController.deleteProduct);
 
 
 

@@ -1,11 +1,16 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react'
-import ProductPopup from './ProductPopUp'
-import Modal from 'react-modal'
-import { Button } from 'react-bootstrap'
+import PopUp from 'src/components/PopUp'
+
 import Cookies from 'universal-cookie'
 import jwt_decode from 'jwt-decode'
 import { useNavigate } from 'react-router-dom'
+
+import Product from 'src/components/Product'
+
+import { CChartLine } from '@coreui/react-chartjs'
+import { getStyle, hexToRgba } from '@coreui/utils'
+import CIcon from '@coreui/icons-react'
 
 import {
   CAvatar,
@@ -29,9 +34,6 @@ import {
   CTableHeaderCell,
   CTableRow,
 } from '@coreui/react'
-import { CChartLine } from '@coreui/react-chartjs'
-import { getStyle, hexToRgba } from '@coreui/utils'
-import CIcon from '@coreui/icons-react'
 import {
   cibCcAmex,
   cibCcApplePay,
@@ -64,16 +66,21 @@ import avatar6 from 'src/assets/images/avatars/6.jpg'
 
 import WidgetsBrand from '../widgets/WidgetsBrand'
 import WidgetsDropdown from '../widgets/WidgetsDropdown'
-Modal.setAppElement('#root')
+import { Modal } from '@coreui/coreui'
+
 //import { DocsExample } from 'src/components'
 export const Dashboard = () => {
+  const [selectedProduct, setSelectedProduct] = useState(null)
+  const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
   const navigate = useNavigate()
   const cookies = new Cookies()
-  const [data, setdata] = useState(null)
+
   const [user, setUser] = useState(null)
   const [userData, setUserData] = useState(null)
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [open, setOpen] = useState(false)
+
+  const [data, setdata] = useState(null)
 
   const getDataFromDB = async () => {
     const res = await fetch('http://localhost:8080/api/products/all').catch((err) => {
@@ -211,73 +218,6 @@ export const Dashboard = () => {
       activity: 'Last week',
     },
   ]
-  const [categories, setCategories] = useState([
-    { id: 1, name: 'Cake', order: 300 },
-    { id: 2, name: 'Puff', order: 100 },
-    { id: 3, name: 'Pastries', order: 500 },
-  ])
-  const sortedCategories = [...categories].sort((a, b) => b.order - a.order)
-
-  const products = [
-    { id: 1, name: 'Jeans' },
-    { id: 2, name: 'Shoes' },
-    { id: 3, name: 'Belts' },
-  ]
-
-  const [search, setSearch] = useState('')
-  const [searchResults, setSearchResults] = useState([])
-  const [selectedProduct, setSelectedProduct] = useState(null)
-  const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false)
-
-  const handleClickToOpen = (Product) => {
-    setIsModalOpen(true)
-    setSelectedProduct(Product)
-  }
-
-  // Function to close the modal
-  const handleToClose = () => {
-    setIsModalOpen(false)
-  }
-
-  const handleSearch = () => {
-    const filterdProd = products.filter((product) =>
-      product.name.toLowerCase().includes(search.toLowerCase),
-    )
-  }
-  //   const openInPopup = item => {
-  //     setRecordForEdit(item)
-  //     setOpenPopup(true)
-  // }
-  // const handleViewClick = (product) => {
-  //   setSelectedProduct(product)
-  //   console.log(product)
-  // }
-  const handleDeleteConfirmation = (product) => {
-    setSelectedProduct(product)
-    setDeleteConfirmationOpen(true)
-  }
-
-  const handleDelete = () => {
-    // Send the delete request to the API
-    fetch
-      .delete(`http://localhost:8080/api/products/delete/${selectedProduct.id}`)
-      .then((response) => {
-        console.log(response.data) // Log the response from the server (optional)
-        // Update the product list after successful deletion
-        setData(data.filter((product) => product.id !== selectedProduct.id))
-      })
-      .catch((error) => {
-        console.error('Error deleting product:', error)
-      })
-      .finally(() => {
-        // Close the delete confirmation modal and clear the selectedProduct state
-
-        setDeleteConfirmationOpen(false);
-        setSelectedProduct(null);
-      });
-  };
-  
-   
 
   useEffect(() => {
     // Check if the JWT token is present in the cookie (e.g., user logged in previously)
@@ -325,151 +265,25 @@ export const Dashboard = () => {
       navigate('/login')
     }
   }, [])
+  const setDeleteConf =(val)=>{
+    
+    setDeleteConfirmationOpen(val);
+    setIsModalOpen(val);
+
+
+  }
 
   return (
     <>
       this is the user {user?.username}
       this is data {userData?.content}
-      <CRow>
-        <CCol xs={12}>
-          <CCard className="mb-4">
-            <CCardHeader>
-              <strong>Products</strong>
-            </CCardHeader>
-            <CCardBody>
-              <div className="d-flex">
-                <CDropdown>
-                  <CDropdownToggle color="primary">Category</CDropdownToggle>
-                  <CDropdownMenu>
-                    {sortedCategories.map((category) => (
-                      <CDropdownItem key={category.id} href="#">
-                        {category.name}
-                        <span style={{ marginLeft: '5px', color: '#800808' }}>
-                          {category.order} Orders
-                        </span>
-                      </CDropdownItem>
-                    ))}
-                  </CDropdownMenu>
-                </CDropdown>
-                <div className="container">
-                  <div className=" row justify-content-center">
-                    <div className="col-md-8">
-                      <div className="input-group mb-3">
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder="Search for Product..."
-                          value={search}
-                          onChange={(e) => setSearch(e.target.value)}
-                        ></input>
-                        <div className="input-group-append">
-                          <button className="btn btn-primary" onClick={handleSearch}>
-                            Search
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                    {searchResults.length > 0 && (
-                      <div className="row justify-content-center">
-                        <div col-md-8>
-                          {searchResults.map((product) => (
-                            <div key={product.id} className="card mb-2">
-                              <div className="card-body">{product.name}</div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              <CTable>
-                <CTableHead>
-                  <CTableRow>
-                    <CTableHeaderCell scope="col">Sr. no</CTableHeaderCell>
-                    <CTableHeaderCell scope="col">Name</CTableHeaderCell>
-                    <CTableHeaderCell scope="col">Price</CTableHeaderCell>
-                    <CTableHeaderCell scope="col"></CTableHeaderCell>
-                    <CTableHeaderCell scope="col"></CTableHeaderCell>
-                    <CTableHeaderCell scope="col"></CTableHeaderCell>
-                    <CTableHeaderCell scope="col"></CTableHeaderCell>
-                  </CTableRow>
-                </CTableHead>
-                <CTableBody>
-                  {data &&
-                    data.map(
-                      (
-                        item,
-                        index, // Check if data is available before mapping
-                      ) => (
-                        <CTableRow key={index}>
-                          <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
-                          <CTableDataCell>{item.name}</CTableDataCell>
-                          <CTableDataCell>{item.price}</CTableDataCell>
-                          <CTableDataCell>
-                            <CButton
-                              color="info"
-                              shape="rounded-pill"
-                              onClick={() => {
-                                openInPopup(item)
-                              }}
-                            >
-                              Info
-                            </CButton>
-                          </CTableDataCell>
-                          <CTableDataCell>
-                            <CButton color="success" shape="rounded-pill">
-                              Update
-                            </CButton>
-                          </CTableDataCell>
-                          <CTableDataCell>
-                            <CButton
-                              color="primary"
-                              shape="rounded-pill"
-                              onClick={() => handleClickToOpen(item)}
-                            >
-                              View
-                            </CButton>
-                          </CTableDataCell>
-                          <CTableDataCell>
-                            <CButton
-                              color="danger"
-                              shape="rounded-pill"
-                              onClick={() => handleDeleteConfirmation(item)}
-                            >
-                              Delete
-                            </CButton>
-                          </CTableDataCell>
-                        </CTableRow>
-                      ),
-                    )}
-                </CTableBody>
-              </CTable>
-
-              {/* <CTableRow>
-                      <CTableHeaderCell scope="row">2</CTableHeaderCell>
-                      <CTableDataCell>Jacob</CTableDataCell>
-                      <CTableDataCell>Thornton</CTableDataCell>
-                      <CTableDataCell><CButton color="info" shape="rounded-pill">Info</CButton></CTableDataCell>
-                      <CTableDataCell><CButton color="success" shape="rounded-pill">Update</CButton></CTableDataCell>
-                      <CTableDataCell><CButton color="primary" shape="rounded-pill">View</CButton></CTableDataCell>
-                      <CTableDataCell><CButton color="danger" shape="rounded-pill">Delete</CButton></CTableDataCell>
-                    
-                    </CTableRow>
-                    <CTableRow>
-                      <CTableHeaderCell scope="row">3</CTableHeaderCell>
-                      <CTableDataCell colSpan="2">Larry the Bird</CTableDataCell>
-                      <CTableDataCell><CButton color="info" shape="rounded-pill">Info</CButton></CTableDataCell>
-                      <CTableDataCell><CButton color="success" shape="rounded-pill">Update</CButton></CTableDataCell>
-                      <CTableDataCell><CButton color="primary" shape="rounded-pill">View</CButton></CTableDataCell>
-                      <CTableDataCell><CButton color="danger" shape="rounded-pill">Delete</CButton></CTableDataCell>
-                   
-                    </CTableRow> */}
-            </CCardBody>
-          </CCard>
-        </CCol>
-      </CRow>
+      <Product
+        data={data}
+        setData={setdata}
+        setIsModalOpen={setIsModalOpen}
+        setSelectedProduct={setSelectedProduct}
+        setDeleteConfirmationOpen={setDeleteConf}
+      />
       {/* <Popup
                 title="Employee Form"
                 openPopup={openPopup}
@@ -487,87 +301,16 @@ export const Dashboard = () => {
         />
       )} */}
       {/* Modal */}
-      <Modal
-        isOpen={isModalOpen}
-        onRequestClose={handleToClose}
-        contentLabel="Product Modal"
-        style={{
-          overlay: {
-            backgroundColor: 'rgba(0, 0, 0, 0.5)',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          },
-          content: {
-            width: '50%', // Adjust the width as needed
-            maxHeight: '80%', // Adjust the height as needed
-            maxWidth: '800px', // Limit the maximum width of the modal
-            border: '1px solid #ccc',
-            background: '#fff',
-            overflow: 'auto',
-            WebkitOverflowScrolling: 'touch',
-            borderRadius: '4px',
-            outline: 'none',
-            padding: '20px',
-            top: '50%', // Center vertically
-            left: '50%', // Center horizontally
-            transform: 'translate(-50%, -50%)', // Translate to center
-          },
-        }}
-      >
-        <div>
-          <button onClick={handleToClose}>Close</button>
-          <h2>Product Details</h2>
-          {selectedProduct && (
-            <div>
-              <p>Name: {selectedProduct.name}</p>
-              <p>Price: {selectedProduct.price} </p>
-              <p>Description:{selectedProduct.description}</p>
-            </div>
-          )}
-        </div>
-      </Modal>
-      <Modal
-        isOpen={deleteConfirmationOpen}
-        onRequestClose={() => setDeleteConfirmationOpen(false)}
-        contentLabel="Delete Confirmation"
-        className="modal"
-        overlayClassName="modal-overlay"
-        style={{
-          overlay: {
-            backgroundColor: 'rgba(0, 0, 0, 0.5)',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          },
-          content: {
-            width: '50%', // Adjust the width as needed
-            maxHeight: '80%', // Adjust the height as needed
-            maxWidth: '800px', // Limit the maximum width of the modal
-            border: '1px solid #ccc',
-            background: '#fff',
-            overflow: 'auto',
-            WebkitOverflowScrolling: 'touch',
-            borderRadius: '4px',
-            outline: 'none',
-            padding: '20px',
-            top: '50%', // Center vertically
-            left: '50%', // Center horizontally
-            transform: 'translate(-50%, -50%)', // Translate to center
-          },
-        }}
-      >
-        <h2>Confirm Delete</h2>
-        <p>
-          Are you sure you want to delete the product: {selectedProduct && selectedProduct.name}?
-        </p>
-        <Button onClick={() => setDeleteConfirmationOpen(false)} variant="primary">
-          Cancel
-        </Button>
-        <Button onClick={handleDelete} variant="danger" autoFocus>
-          Delete
-        </Button>
-      </Modal>
+      
+      <PopUp
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        selectedProduct={selectedProduct}
+        setSelectedProduct={setSelectedProduct}
+        deleteConfirmationOpen={deleteConfirmationOpen}
+        setDeleteConfirmationOpen={setDeleteConf}
+      />
+      
       <WidgetsDropdown />
       <CCard className="mb-4">
         <CCardBody>

@@ -7,11 +7,13 @@ import {
   cilCursor,
   cilDescription,
   cilDrop,
+  cilList,
   cilNotes,
   cilPencil,
   cilPuzzle,
   cilSpeedometer,
   cilStar,
+  cilUser,
 } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 
@@ -26,6 +28,27 @@ const _nav = [
       text: 'NEW',
     },
   },
+  {
+    component: CNavItem,
+    name: 'Customers',
+    to: '/dashboard/customer',
+    icon: <CIcon icon={cilUser} customClassName="nav-icon" />,
+    // badge: {
+    //   color: 'info',
+    //   text: 'NEW',
+    // },
+  },
+  {
+    component: CNavItem,
+    name: 'Orders',
+    to: '/dashboard/orders',
+    icon: <CIcon icon={cilList} customClassName="nav-icon" />,
+    // badge: {
+    //   color: 'info',
+    //   text: 'NEW',
+    // },
+  },
+  
   {
     component: CNavTitle,
     name: 'Theme',
