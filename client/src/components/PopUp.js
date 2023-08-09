@@ -108,6 +108,7 @@ const PopUp = (props) => {
     props.setAddProduct(false)
     props.setGetData(true)
     props.setIsModalOpen(false)
+    props.setEdit(false)
   }
 
   //handling add product here
@@ -134,7 +135,7 @@ const PopUp = (props) => {
     props.setAddProduct(false)
     props.setIsModalOpen(false)
     props.setGetData(true)
-    setAddData()
+    setAddData({})
   }
 
   //content to be show in pop up
@@ -240,7 +241,36 @@ const PopUp = (props) => {
           )}
         </>
       )
-    } else
+    } else if (props.deletePop) {
+      return (
+        <>
+          <h2>Confirm Delete</h2>
+          <p>
+            Are you sure you want to delete the product:{' '}
+            {props.selectedProduct && props.selectedProduct.name}?
+          </p>
+          <Button
+            onClick={() => {
+              props.setDeletePop(false)
+              handleToClose()
+            }}
+            variant="primary"
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={() => {
+              handleDelete(props.selectedProduct)
+              handleToClose()
+            }}
+            variant="danger"
+            autoFocus
+          >
+            Delete
+          </Button>
+        </>
+      )
+    } else {
       return (
         <div>
           <button className="btn btn-primary close-button" onClick={handleToClose}>
@@ -256,6 +286,7 @@ const PopUp = (props) => {
           )}
         </div>
       )
+    }
   }
 
   return (
@@ -288,9 +319,9 @@ const PopUp = (props) => {
           },
         }}
       >
-        <Content />
+        {Content()}
       </Modal>
-
+      {/* 
       <Modal
         isOpen={props.deletePop}
         onRequestClose={() => props.setDeletePop(false)}
@@ -330,7 +361,7 @@ const PopUp = (props) => {
         <Button onClick={() => handleDelete(props.selectedProduct)} variant="danger" autoFocus>
           Delete
         </Button>
-      </Modal>
+      </Modal> */}
     </>
   )
 }
