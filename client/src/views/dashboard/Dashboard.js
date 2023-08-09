@@ -69,19 +69,19 @@ export const Dashboard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [open, setOpen] = useState(false)
 
-  const getDataFromDB = async () => {
-    const res = await fetch('http://localhost:8080/api/products/all').catch((err) => {
-      console.log(err)
-    })
+  // const getDataFromDB = async () => {
+  //   const res = await fetch('http://localhost:8080/api/products/all').catch((err) => {
+  //     console.log(err)
+  //   })
 
-    const resjson = await res.json()
-    console.log(resjson)
-    setdata(resjson)
-  }
+  //   const resjson = await res.json()
+  //   console.log(resjson)
+  //   setdata(resjson)
+  // }
 
-  useEffect(() => {
-    getDataFromDB()
-  }, [])
+  // useEffect(() => {
+  //   getDataFromDB()
+  // }, [])
 
   const random = (min, max) => Math.floor(Math.random() * (max - min + 1) + min)
 
