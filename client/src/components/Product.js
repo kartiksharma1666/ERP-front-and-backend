@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { setSelectedProduct, setIsModalOpen } from './PopUp'
+import React, { useEffect, useState } from 'react'
+
 import {
   CAvatar,
   CButton,
@@ -24,9 +24,10 @@ import {
 } from '@coreui/react'
 
 const Product = (props) => {
+  const [data, setdata] = useState(null)
+
   const [search, setSearch] = useState('')
   const [searchResults, setSearchResults] = useState([])
-  const [selectedCategory, setSelectedCategory] = useState('');
 
   const [categories, setCategories] = useState([
     { id: 1, name: 'Cake', order: 300 },
@@ -34,40 +35,57 @@ const Product = (props) => {
     { id: 3, name: 'Pastries', order: 500 },
   ])
 
-  const products = [
-    { id: 1, name: 'Jeans' },
-    { id: 2, name: 'Shoes' },
-    { id: 3, name: 'Belts' },
-  ]
+  const product_button_style = {
+    marginRight: '75px',
+    height: '42px',
+    width: '158px',
+  }
 
   const sortedCategories = [...categories].sort((a, b) => b.order - a.order)
 
-  const handleSearch = () => {
-    const filteredProd = products.filter((product) =>
-      product.name.toLowerCase().includes(search.toLowerCase())
-    );
-  
-    const filteredByCategory = filteredProd.filter((product) =>
-      sortedCategories.some((category) => category.name === selectedCategory && category.id === product.categoryId)
-    );
-  const handleCategoryChange = (categoryName) => {
-      setSelectedCategory(categoryName);
-      handleSearch();
-  }
-  
-    setSearchResults(filteredByCategory);
-  };
+  const getDataFromDB = async () => {
+    const res = await fetch('http://localhost:8080/api/products/all').catch((err) => {
+      console.log(err)
+    })
 
-  const handleClickToOpen = (Product) => {
-    props.setIsModalOpen(true)
-    props.setSelectedProduct(Product)
+    const resjson = await res.json()
+    console.log(resjson)
+    setdata(resjson)
+    props.setGetData(false)
   }
+
+  const handleSearch = () => {
+    console.log(search)
+    const filterdProd = data.filter((product) =>
+      product.name.toLowerCase().includes(search.toLowerCase()),
+    )
+    setSearchResults(filterdProd)
+  }
+
+  const handleClickToOpen = (Product, key) => {
+    props.setSelectedProduct(Product)
+    if (key == 'update') {
+      props.setEdit(true)
+    }
+    if (key == 'delete') {
+      props.setDeletePop(true)
+    }
+    props.setIsModalOpen(true)
+  }
+
+  const handleAddProduct = () => {
+    props.setIsModalOpen(true)
+    props.setAddProduct(true)
+  }
+
   const handleDeleteConfirmation = (product) => {
-    
-    // Set the selected product to be deleted and open the delete confirmation modal
-    props.setSelectedProduct(product);
-    props.setDeleteConfirmationOpen(true);
-  };
+    props.setSelectedProduct(product)
+    props.setDeletePop(true)
+  }
+
+  useEffect(() => {
+    getDataFromDB()
+  }, [props.getData])
 
   return (
     <CRow>
@@ -79,16 +97,14 @@ const Product = (props) => {
           <CCardBody>
             <div className="d-flex">
               <CDropdown>
-                <CDropdownToggle color="primary">
-                  {selectedCategory ? selectedCategory : 'Category'}
-                </CDropdownToggle>
+                <CDropdownToggle color="primary">Category</CDropdownToggle>
                 <CDropdownMenu>
                   {sortedCategories.map((category) => (
-                    <CDropdownItem
-                      key={category.id}
-                      onClick={() => handleCategoryChange(category.name)} // Update selectedCategory on click
-                    >
+                    <CDropdownItem key={category.id} href="#">
                       {category.name}
+                      <span style={{ marginLeft: '5px', color: '#800808' }}>
+                        {category.order} Orders
+                      </span>
                     </CDropdownItem>
                   ))}
                 </CDropdownMenu>
@@ -105,7 +121,7 @@ const Product = (props) => {
                         onChange={(e) => setSearch(e.target.value)}
                       ></input>
                       <div className="input-group-append">
-                        <button className="btn btn-primary" onClick={handleSearch}>
+                        <button className="btn btn-primary search-button" onClick={handleSearch}>
                           Search
                         </button>
                       </div>
@@ -115,8 +131,9 @@ const Product = (props) => {
                     <div className="row justify-content-center">
                       <div col-md-8>
                         {searchResults.map((product) => (
-                          <div key={product.id} className="card mb-2">
+                          <div key={product._id} className="card mb-2">
                             <div className="card-body">{product.name}</div>
+                            <div className="card-body">{product.price}</div>
                           </div>
                         ))}
                       </div>
@@ -124,6 +141,13 @@ const Product = (props) => {
                   )}
                 </div>
               </div>
+              <button
+                className=" btn btn-primary "
+                onClick={handleAddProduct}
+                style={product_button_style}
+              >
+                Add product
+              </button>
             </div>
 
             <CTable>
@@ -139,8 +163,8 @@ const Product = (props) => {
                 </CTableRow>
               </CTableHead>
               <CTableBody>
-                {props.data &&
-                  props.data.map(
+                {data &&
+                  data.map(
                     (
                       item,
                       index, // Check if data is available before mapping
@@ -161,7 +185,11 @@ const Product = (props) => {
                           </CButton>
                         </CTableDataCell>
                         <CTableDataCell>
-                          <CButton color="success" shape="rounded-pill">
+                          <CButton
+                            color="success"
+                            shape="rounded-pill"
+                            onClick={() => handleClickToOpen(item, 'update')}
+                          >
                             Update
                           </CButton>
                         </CTableDataCell>
@@ -169,7 +197,7 @@ const Product = (props) => {
                           <CButton
                             color="primary"
                             shape="rounded-pill"
-                            onClick={() => handleClickToOpen(item)}
+                            onClick={() => handleClickToOpen(item, 'view')}
                           >
                             View
                           </CButton>
@@ -178,7 +206,7 @@ const Product = (props) => {
                           <CButton
                             color="danger"
                             shape="rounded-pill"
-                            onClick={() => handleDeleteConfirmation(item)}
+                            onClick={() => handleClickToOpen(item, 'delete')}
                           >
                             Delete
                           </CButton>

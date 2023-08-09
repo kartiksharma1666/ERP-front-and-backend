@@ -1,3 +1,10 @@
 .errors{
     color:red;
 }
+
+.close-button{
+    position: absolute;
+    right: 26px;
+    top: 28px;
+}
+
