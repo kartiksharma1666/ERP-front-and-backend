@@ -70,37 +70,6 @@ import { Modal } from '@coreui/coreui'
 
 //import { DocsExample } from 'src/components'
 export const Dashboard = () => {
-<<<<<<< HEAD
-  const [selectedProduct, setSelectedProduct] = useState(null)
-  const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false)
-  const [isModalOpen, setIsModalOpen] = useState(false)
-
-  const navigate = useNavigate()
-  const cookies = new Cookies()
-
-  const [user, setUser] = useState(null)
-  const [userData, setUserData] = useState(null)
-
-  const [data, setdata] = useState(null)
-
-  const getDataFromDB = async () => {
-    const res = await fetch('http://localhost:8080/api/products/all').catch((err) => {
-      console.log(err)
-    })
-
-    const resjson = await res.json()
-    console.log(resjson)
-    setdata(resjson)
-  }
-
-  useEffect(() => {
-    getDataFromDB()
-  }, [])
-
-  const random = (min, max) => Math.floor(Math.random() * (max - min + 1) + min)
-
-=======
->>>>>>> 504032b99d41571f0dbd164a840b1333ca5cd355
   const progressExample = [
     { title: 'Visits', value: '29.703 Users', percent: 40, color: 'success' },
     { title: 'Unique', value: '24.093 Users', percent: 20, color: 'info' },
@@ -221,8 +190,6 @@ export const Dashboard = () => {
       activity: 'Last week',
     },
   ]
-<<<<<<< HEAD
-=======
 
   const [selectedProduct, setSelectedProduct] = useState({})
   const [deletePop, setDeletePop] = useState(false)
@@ -239,7 +206,6 @@ export const Dashboard = () => {
   const [addProduct, setAddProduct] = useState(false)
 
   const random = (min, max) => Math.floor(Math.random() * (max - min + 1) + min)
->>>>>>> 504032b99d41571f0dbd164a840b1333ca5cd355
 
   useEffect(() => {
     // Check if the JWT token is present in the cookie (e.g., user logged in previously)
@@ -300,13 +266,6 @@ export const Dashboard = () => {
       this is the user {user?.username}
       this is data {userData?.content}
       <Product
-<<<<<<< HEAD
-        data={data}
-        setData={setdata}
-        setIsModalOpen={setIsModalOpen}
-        setSelectedProduct={setSelectedProduct}
-        setDeleteConfirmationOpen={setDeleteConf}
-=======
         setIsModalOpen={setIsModalOpen}
         setSelectedProduct={setSelectedProduct}
         setEdit={setEdit}
@@ -316,7 +275,6 @@ export const Dashboard = () => {
         setAddProduct={setAddProduct}
         deletePop={deletePop}
         setDeletePop={setDeletePop}
->>>>>>> 504032b99d41571f0dbd164a840b1333ca5cd355
       />
       {/* <Popup
                 title="Employee Form"
@@ -335,21 +293,11 @@ export const Dashboard = () => {
         />
       )} */}
       {/* Modal */}
-<<<<<<< HEAD
-      
-=======
->>>>>>> 504032b99d41571f0dbd164a840b1333ca5cd355
       <PopUp
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
         selectedProduct={selectedProduct}
         setSelectedProduct={setSelectedProduct}
-<<<<<<< HEAD
-        deleteConfirmationOpen={deleteConfirmationOpen}
-        setDeleteConfirmationOpen={setDeleteConf}
-      />
-      
-=======
         getData={getData}
         setGetData={setGetData}
         edit={edit}
@@ -360,7 +308,6 @@ export const Dashboard = () => {
         setDeletePop={setDeletePop}
       />
       {/* useless code ?????????????????????????????????????????????????????????????????? */}
->>>>>>> 504032b99d41571f0dbd164a840b1333ca5cd355
       <WidgetsDropdown />
       <CCard className="mb-4">
         <CCardBody>

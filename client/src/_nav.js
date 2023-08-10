@@ -29,25 +29,25 @@ const _nav = [
       color: 'info',
     },
   },
-  {
-    component: CNavItem,
-    name: 'Customers',
-    to: '/Customers',
-    icon: <CIcon icon={cilPeople} customClassName="nav-icon" />,
-    badge: {
-      color: 'info',
-    },
-  },
-  {
-    component: CNavItem,
-    name: 'Orders',
-    to: '/Orders',
-    icon: <CIcon icon={cilTask} customClassName="nav-icon" />,
-    badge: {
-      color: 'info',
-      // text: 'NEW',
-    },
-  },
+  // {
+  //   component: CNavItem,
+  //   name: 'Customers',
+  //   to: '/Customers',
+  //   icon: <CIcon icon={cilPeople} customClassName="nav-icon" />,
+  //   badge: {
+  //     color: 'info',
+  //   },
+  // },
+  // {
+  //   component: CNavItem,
+  //   name: 'Orders',
+  //   to: '/Orders',
+  //   icon: <CIcon icon={cilTask} customClassName="nav-icon" />,
+  //   badge: {
+  //     color: 'info',
+  //     // text: 'NEW',
+  //   },
+  // },
   {
     component: CNavItem,
     name: 'Customers',
