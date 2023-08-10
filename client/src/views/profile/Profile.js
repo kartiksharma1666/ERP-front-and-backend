@@ -1,6 +1,6 @@
 import { CRow, CCol, CCard, CCardHeader, CCardBody } from '@coreui/react';
 import React, { useState } from 'react'
-import {FaEnvelope,FaUserClock,FaPhoneAlt,FaGlobe,FaStore} from 'react-icons/fa'
+import {FaEnvelope,FaUserClock,FaPhoneAlt,FaGlobe,FaLanguage} from 'react-icons/fa'
 import {BiSolidMessageSquare} from 'react-icons/bi'
 
 
@@ -13,9 +13,10 @@ const Profile = () => {
         image: '',
         email: 'omkar@gmail.com',
         phone: '+91 88501 47242',
-        age: 21,
+        age: '21yrs',
         country: 'India',
-        store: ['storeX','storeY','storeZ']
+        store: ['storeX','storeY','storeZ'],
+        username: 'omkar21'
     },
         {
         id: 2,
@@ -23,9 +24,10 @@ const Profile = () => {
         image: '',
         email: 'kartik@gmail.com',
         phone: '+91 98685 39396',
-        age: 21,
+        age: '21yrs',
         country: 'India',
-        store: ['storeX','storeY','storeZ']
+        store: ['storeX','storeY','storeZ'],
+        username: 'kartik21'
     },
         {
         id: 3,
@@ -33,25 +35,29 @@ const Profile = () => {
         image: '',
         email: 'omkar@gmail.com',
         phone: '+91 88501 47242',
-        age: 21,
+        age: '21yrs',
         country: 'India',
-        store: ['storeX','storeY','storeZ']
+        store: ['storeX','storeY','storeZ'],
+        username: 'gurleen21'
     },
         {
         id: 4, 
-        name: 'Omkar',
+        name: 'Dacosta',
         image: '',
         email: 'omkar@gmail.com',
         phone: '+91 88501 47242',
-        age: 21,
+        age: '21yrs',
         country: 'India',
-        store: ['storeX','storeY','storeZ']
+        store: ['storeX','storeY','storeZ'],
+        username: 'dacosta21'
     }
 ]
     
     const selectedProfile = profileData.find((profile) => profile.id ===1)
     
     const [selectedImage, setSelectedImage] = useState(null);
+    const [selectedLanguage, setSelectedLanguage] = useState('');
+
 
     const handleImageChange = (event) => {
         const file = event.target.files[0];
@@ -66,14 +72,14 @@ const Profile = () => {
 
     const profileStyle = {
         display: 'flex',
-        justifyContent: 'space-around',
-        marginTop: '20px'
+        marginTop: '60px'
     }
     
     const imageStyle = {
         width: '200px',
         height: '200px',
         borderRadius: '50%',
+        cursor: 'pointer'
 
     };
 
@@ -87,18 +93,25 @@ const Profile = () => {
      color: 'white'
     }
 
+    const languages = [
+        'English',
+        'Spanish',
+        'French',
+        'German',
+        //Add more language
+    ];
+    
+
 
     return (
         <CRow>
             <CCol xs={20}>
-                <CCard className='mb-4'>
-                <CCardHeader>
-              <strong>Profile</strong>
-            </CCardHeader>
-            <CCardBody>
+                
              
-                <div className=' profile-container' style={profileStyle}>
-                    <div className='imgage-upload'>
+                <div className=' profile-container'>
+                    <h1>Profile</h1>
+                    <hr />
+                    <div className='imgage-upload'  style={profileStyle}>
                         <div className='admin-img'>
                             <label htmlFor='image-upload' className='add-img ms-4' title='Add a profile photo'>
                                 {selectedImage ? (
@@ -115,34 +128,77 @@ const Profile = () => {
                                 style={{ display: 'none' }}
                             />
                         </div>
+                        <div className='' style={{marginLeft: '100px'}}>
+                            <h1>{selectedProfile.name}</h1>
+                            <p><span style={{color:'blue'}}>{selectedProfile.email}</span> - Administrator</p>
+                            <p>{selectedProfile.age}</p>
+                            <p>{selectedProfile.store[2]}</p>
+                        </div>
                     </div>
-                    <section className='profile-content align-item center' style={profileContentStyle}>
+                    <section className='profile-content align-item center' >
+                     <h2 style={{marginTop: '70px'}}>Account</h2>
                      {selectedProfile && (
                         <div className='profile-details'>
-                            <div className='profile-name mt-4'>
-                                <h5><FaUserClock/> Name:{'  '}<span>{selectedProfile.name}</span> </h5>
+                            <div className='profile-name mt-4' style={{display: 'flex'}}>
+                                <h5><FaUserClock/> Name </h5>
+                               <p style={{marginLeft:'250px',
+                            width:'50%', border: '1px solid  #B2BEB5',borderRadius:'5px', background:'white',padding:'5px',
+                            marginBottom:'10px'}}>{selectedProfile.name}</p>
                             </div>
-                            <div className='profile-email mt-4'>
-                            <h5><FaEnvelope/> Email:{'  '}<span>{selectedProfile.email}</span> </h5>
+                            <div className='profile-email mt-4' style={{display: 'flex'}}>
+                            <h5><FaEnvelope/> Email</h5>
+                            <p style={{marginLeft:'250px',
+                            width:'50%', border: '1px solid  #B2BEB5', borderRadius:'5px',background:'white',padding:'5px',
+                            marginBottom:'10px'}}>{selectedProfile.email}</p>
                             </div>
-                            <div className='profile-phone mt-4'>
-                            <h5><FaPhoneAlt/> Phone:{'  '}<span>{selectedProfile.phone}</span> </h5>
+                            <div className='profile-phone mt-4' style={{display: 'flex'}}>
+                            <h5><FaPhoneAlt/> Phone </h5>
+                            <p style={{marginLeft:'250px',
+                            width:'50%', border: '1px solid  #B2BEB5', borderRadius:'5px',background:'white',padding:'5px',
+                            marginBottom:'10px'}}>{selectedProfile.phone}</p>
                             </div>
-                            <div className='profile-phone mt-4'>
-                            <h5><BiSolidMessageSquare/> Age:{'  '}<span>{selectedProfile.age}</span> </h5>
+                            <div className='profile-name mt-4' style={{display: 'flex'}}>
+                                <h5><FaUserClock/> Username </h5>
+                               <p style={{marginLeft:'210px',
+                            width:'50%', border: '1px solid  #B2BEB5',borderRadius:'5px', background:'white',padding:'5px',
+                            marginBottom:'10px'}}>{selectedProfile.username}</p>
                             </div>
-                            <div className='profile-phone mt-4'>
-                            <h5><FaGlobe/> Country:{'  '}<span>{selectedProfile.country}</span> </h5>
+                            
+                            <div className='profile-phone mt-4' style={{display: 'flex'}}>
+                            <h5><FaGlobe/> Country </h5>
+                            <p style={{marginLeft:'230px',
+                            width:'50%', border: '1px solid  #B2BEB5',borderRadius:'5px', background:'white',padding:'5px',
+                            marginBottom:'10px'}}>{selectedProfile.country}</p>
                             </div>
-                            <div className='profile-phone mt-4'>
-                            <h5><FaStore/> Store:{'  '}<span>{selectedProfile.store[2]}</span> </h5>
-                            </div>
+                            <div className='language mt-4' style={{ display: 'flex' }}>
+    <h5><FaLanguage/> Language</h5>
+    <select
+        value={selectedLanguage}
+        onChange={(e) => setSelectedLanguage(e.target.value)}
+        style={{
+            marginLeft: '210px',
+            width: '50%',
+            border: '1px solid #B2BEB5',
+            borderRadius: '5px',
+            background: 'white',
+            padding: '5px',
+            marginBottom: '10px',
+        }}
+    >
+        <option value=''>Select a language</option>
+        {languages.map((language) => (
+            <option key={language} value={language}>
+                {language}
+            </option>
+        ))}
+    </select>
+</div>
+
                         </div>
                      )}
                     </section>
                 </div>
-                </CCardBody>
-                </CCard>
+               
             </CCol>
         </CRow>
     )
