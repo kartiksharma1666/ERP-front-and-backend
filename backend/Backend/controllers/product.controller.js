@@ -79,17 +79,25 @@ exports.updateProduct = async (req, res, next) => {
 
 exports.deleteProduct = async (req, res, next) => {
   try {
+    console.log(req.params);
     const product = await Product.findById(req.params.id);
-    // retrieve current image ID and remove the image-related code since we're not deleting the image
+    if (!product) {
+      // If the product with the given ID is not found, return an error response
+      return res.status(404).json({ success: false, message: 'Product not found' });
+    }
 
-    const rmProduct = await Product.findByIdAndDelete(req.params.id);
+    // If the product is found, proceed with deleting it
+    const deletedProduct = await Product.findByIdAndDelete(req.params.id);
+    if (!deletedProduct) {
+      // If the deletion process fails, return an error response
+      return res.status(500).json({ success: false, message: 'Failed to delete product' });
+    }
 
-    res.status(201).json({
-      success: true,
-      message: "Product deleted",
-    });
+    // If the product is successfully deleted, return a success response
+    res.status(200).json({ success: true, message: 'Product deleted', deletedProduct });
   } catch (error) {
-    console.log(error);
-    next(error);
+    // If an error occurs during the deletion process, handle and return the error response
+    console.error(error);
+    res.status(500).json({ success: false, message: 'Error deleting product', error });
   }
 };
