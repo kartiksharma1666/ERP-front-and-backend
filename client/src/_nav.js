@@ -38,6 +38,15 @@ const _nav = [
   },
   {
     component: CNavItem,
+    name: 'Billing',
+    to: '/Billing',
+    icon: <CIcon icon={cilPeople} customClassName="nav-icon" />,
+    badge: {
+      color: 'info',
+    },
+  },
+  {
+    component: CNavItem,
     name: 'Orders',
     to: '/Orders',
     icon: <CIcon icon={cilTask} customClassName="nav-icon" />,
