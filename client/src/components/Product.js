@@ -35,14 +35,12 @@ const Product = (props) => {
     { id: 3, name: 'Pastries', order: 500 },
   ])
 
-  const products = [
-    { id: 1, name: 'Jeans' },
-    { id: 2, name: 'Shoes' },
-    { id: 3, name: 'Belts' },
-  ]
   const product_button_style = {
     marginRight: '75px',
-    height: '42px',
+
+    height: '50px',
+=======
+ 
     width: '158px',
   }
 
@@ -60,17 +58,22 @@ const Product = (props) => {
   }
 
   const handleSearch = () => {
-    const filterdProd = products.filter((product) =>
-      product.name.toLowerCase().includes(search.toLowerCase),
+    console.log(search)
+    const filterdProd = data.filter((product) =>
+      product.name.toLowerCase().includes(search.toLowerCase()),
     )
+    setSearchResults(filterdProd)
   }
 
-  const handleClickToOpen = (Product, update) => {
-    if (update) {
+  const handleClickToOpen = (Product, key) => {
+    props.setSelectedProduct(Product)
+    if (key == 'update') {
       props.setEdit(true)
     }
+    if (key == 'delete') {
+      props.setDeletePop(true)
+    }
     props.setIsModalOpen(true)
-    props.setSelectedProduct(Product)
   }
 
   const handleAddProduct = () => {
@@ -131,8 +134,9 @@ const Product = (props) => {
                     <div className="row justify-content-center">
                       <div col-md-8>
                         {searchResults.map((product) => (
-                          <div key={product.id} className="card mb-2">
+                          <div key={product._id} className="card mb-2">
                             <div className="card-body">{product.name}</div>
+                            <div className="card-body">{product.price}</div>
                           </div>
                         ))}
                       </div>
@@ -149,7 +153,11 @@ const Product = (props) => {
               </button>
             </div>
 
+
+            <CTable className="mb-0 border" hover responsive>
+=======
             <CTable>
+
               <CTableHead>
                 <CTableRow>
                   <CTableHeaderCell scope="col">Sr. no</CTableHeaderCell>
@@ -187,7 +195,7 @@ const Product = (props) => {
                           <CButton
                             color="success"
                             shape="rounded-pill"
-                            onClick={() => handleClickToOpen(item, true)}
+                            onClick={() => handleClickToOpen(item, 'update')}
                           >
                             Update
                           </CButton>
@@ -196,7 +204,7 @@ const Product = (props) => {
                           <CButton
                             color="primary"
                             shape="rounded-pill"
-                            onClick={() => handleClickToOpen(item, false)}
+                            onClick={() => handleClickToOpen(item, 'view')}
                           >
                             View
                           </CButton>
@@ -205,7 +213,7 @@ const Product = (props) => {
                           <CButton
                             color="danger"
                             shape="rounded-pill"
-                            onClick={() => handleDeleteConfirmation(item)}
+                            onClick={() => handleClickToOpen(item, 'delete')}
                           >
                             Delete
                           </CButton>

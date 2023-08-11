@@ -14,10 +14,11 @@ const PopUp = (props) => {
   useEffect(() => {
     if (props.edit) {
       setUpdatedData({
-        id: props.selectedProduct._id,
-        Name: props.selectedProduct?.name,
-        Price: props.selectedProduct?.price,
-        Description: props.selectedProduct?.description,
+        id: props.selectedCustomer._id,
+        name: props.selectedCustomer?.name,
+        email: props.selectedCustomer?.email,
+        phone: props.selectedCustomer?.phone,
+        address: props.selectedCustomer?.address
       })
     }
   }, [props])
@@ -25,27 +26,39 @@ const PopUp = (props) => {
   const handleToClose = () => {
     props.setIsModalOpen(false)
     props.setEdit(false)
-    props.setAddProduct(false)
+    props.setAddCustomer(false)
   }
 
   //   const openInPopup = item => {
   //     setRecordForEdit(item)
   //     setOpenPopup(true)
   // }
-  // const handleViewClick = (product) => {
-  //   setSelectedProduct(product)
-  //   console.log(product)
+  // const handleViewClick = (Customer) => {
+  //   setSelectedCustomer(Customer)
+  //   console.log(Customer)
   // }
 
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target
+  //   console.log(name, value)
+  //   setUpdatedData((prev) => {
+  //     return {
+  //       ...prev,
+  //       [name]: value,
+  //     }
+  //   })
+  // }
   const handleChange = (e) => {
+    
     const { name, value } = e.target
     console.log(name, value)
-    setUpdatedData((prev) => {
+    setUpdatedData((up)=>{
       return {
-        ...prev,
+        ...up,
         [name]: value,
       }
     })
+    
   }
   const handleChangeOfAdd = (e) => {
     const { name, value } = e.target
@@ -60,9 +73,9 @@ const PopUp = (props) => {
 
   // handling delete here
 
-  const handleDelete = (product) => {
+  const handleDelete = (customer) => {
     // Send the delete request to the API
-    fetch(`http://localhost:8080/api/products/delete/${product?._id}`, {
+    fetch(`http://localhost:8080/api/customer/delete/${customer?._id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -70,17 +83,17 @@ const PopUp = (props) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('Product updated successfully:', data)
+        console.log('Customer updated successfully:', data)
         // Optionally, you can show a success message or redirect to another page.
       })
       .catch((error) => {
-        console.error('Error updating product:', error)
+        console.error('Error updating customer:', error)
         // Optionally, you can show an error message or handle the error in other ways.
       })
 
-    // Close the delete confirmation modal and clear the selectedProduct state
+    // Close the delete confirmation modal and clear the selectedCustomer state
     props.setDeletePop(false)
-    props.setSelectedProduct(null)
+    props.setSelectedCustomer(null)
     props.setGetData(true)
   }
 
@@ -89,7 +102,7 @@ const PopUp = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    fetch('http://localhost:8080/api/products/update', {
+    fetch('http://localhost:8080/api/customer/update', {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -98,24 +111,24 @@ const PopUp = (props) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('Product updated successfully:', data)
+        console.log('Customer updated successfully:', data)
         // Optionally, you can show a success message or redirect to another page.
       })
       .catch((error) => {
-        console.error('Error updating product:', error)
+        console.error('Error updating Customer:', error)
         // Optionally, you can show an error message or handle the error in other ways.
       })
-    props.setAddProduct(false)
+    props.setAddCustomer(false)
     props.setGetData(true)
     props.setIsModalOpen(false)
     props.setEdit(false)
   }
 
-  //handling add product here
-  const handleAddProduct = (e) => {
+  //handling add Customer here
+  const handleAddCustomer = (e) => {
     e.preventDefault()
 
-    fetch('http://localhost:8080/api/products/create', {
+    fetch('http://localhost:8080/api/customer/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -124,15 +137,15 @@ const PopUp = (props) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('Product created successfully:', data)
+        console.log('Customer created successfully:', data)
         // Optionally, you can show a success message or redirect to another page.
       })
       .catch((error) => {
-        console.error('Error creating product:', error)
+        console.error('Error creating Customer:', error)
         // Optionally, you can show an error message or handle the error in other ways.
       })
 
-    props.setAddProduct(false)
+    props.setAddCustomer(false)
     props.setIsModalOpen(false)
     props.setGetData(true)
     setAddData({})
@@ -146,9 +159,9 @@ const PopUp = (props) => {
           <button className="btn btn-primary close-button" onClick={handleToClose}>
             Close
           </button>
-          <h2 style={{ marginBottom: '30px' }}>Product Details</h2>
+          <h2 style={{ marginBottom: '30px' }}>Customer Details</h2>
           <CForm onSubmit={handleSubmit}>
-            {props.selectedProduct && (
+            {props.selectedCustomer && (
               <div>
                 <p>
                   <label>
@@ -157,29 +170,29 @@ const PopUp = (props) => {
                       name="Name"
                       placeholder="Name"
                       onChange={handleChange}
-                      value={updatedData.Name}
+                      value={updatedData.name}
                     />
                   </label>
                 </p>
                 <p>
                   <label>
-                    Price
+                    Email
                     <input
-                      name="Price"
-                      placeholder="Price"
+                      name="Email"
+                      placeholder="Email"
                       onChange={handleChange}
-                      value={updatedData.Price}
+                      value={updatedData.email}
                     />
                   </label>
                 </p>
                 <p>
                   <label>
-                    Description
+                    Phone
                     <input
-                      name="Description"
-                      placeholder="Description"
+                      name="Phone"
+                      placeholder="Phone no"
                       onChange={handleChange}
-                      value={updatedData.Description}
+                      value={updatedData.phone}
                     />
                   </label>
                 </p>
@@ -192,7 +205,7 @@ const PopUp = (props) => {
           </CForm>
         </div>
       )
-    } else if (props.addProduct) {
+    } else if (props.addCustomer) {
       return (
         <>
           {addData && (
@@ -200,8 +213,8 @@ const PopUp = (props) => {
               <button className="btn btn-primary close-button" onClick={handleToClose}>
                 Close
               </button>
-              <h2 style={{ marginBottom: '30px' }}> Enter Product Details</h2>
-              <CForm onSubmit={handleAddProduct}>
+              <h2 style={{ marginBottom: '30px' }}> Enter Customer Details</h2>
+              <CForm onSubmit={handleAddCustomer}>
                 <div>
                   <p></p>
                   <input
@@ -212,28 +225,28 @@ const PopUp = (props) => {
                   />
                   <p></p>
                   <input
-                    name="Price"
-                    placeholder="Price"
+                    name="Email"
+                    placeholder="Email"
                     onChange={handleChangeOfAdd}
-                    value={addData.Price}
+                    value={addData.email}
                   />
                   <p></p>
                   <input
-                    name="Description"
-                    placeholder="Description"
+                    name="Phone"
+                    placeholder="Phone no"
                     onChange={handleChangeOfAdd}
-                    value={addData.Description}
+                    value={addData.phone}
                   />
                   <p></p>
                   <input
-                    name="Category"
-                    placeholder="Category"
+                    name="Address"
+                    placeholder="Address"
                     onChange={handleChangeOfAdd}
-                    value={addData.Category}
-                  />
+                    value={addData.address}
+                  /> 
                   <p></p>
                   <CButton color="success" shape="rounded-pill" type="submit">
-                    Add Product
+                    Add Customer
                   </CButton>
                 </div>
               </CForm>
@@ -246,8 +259,8 @@ const PopUp = (props) => {
         <>
           <h2>Confirm Delete</h2>
           <p>
-            Are you sure you want to delete the product:{' '}
-            {props.selectedProduct && props.selectedProduct.name}?
+            Are you sure you want to delete the Customer:{' '}
+            {props.selectedCustomer && props.selectedCustomer.name}?
           </p>
           <Button
             onClick={() => {
@@ -260,7 +273,7 @@ const PopUp = (props) => {
           </Button>
           <Button
             onClick={() => {
-              handleDelete(props.selectedProduct)
+              handleDelete(props.selectedCustomer)
               handleToClose()
             }}
             variant="danger"
@@ -276,12 +289,13 @@ const PopUp = (props) => {
           <button className="btn btn-primary close-button" onClick={handleToClose}>
             Close
           </button>
-          <h2 style={{ marginBottom: '30px' }}>Product Details</h2>
-          {props.selectedProduct && (
+          <h2 style={{ marginBottom: '30px' }}>Customer Details</h2>
+          {props.selectedCustomer && (
             <div>
-              <p>Name: {props.selectedProduct.name}</p>
-              <p>Price: {props.selectedProduct.price} </p>
-              <p>Description:{props.selectedProduct.description}</p>
+              <p>Name: {props.selectedCustomer.name}</p>
+              <p>Email: {props.selectedCustomer.email} </p>
+              <p>Phone:{props.selectedCustomer.phone}</p>
+              <p>Address:{props.selectedCustomer.address}</p>
             </div>
           )}
         </div>
@@ -294,7 +308,7 @@ const PopUp = (props) => {
       <Modal
         isOpen={props.isModalOpen}
         onRequestClose={handleToClose}
-        contentLabel="Product Modal"
+        contentLabel="Customer Modal"
         style={{
           overlay: {
             backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -325,7 +339,7 @@ const PopUp = (props) => {
       <Modal
         isOpen={props.deletePop}
         onRequestClose={() => props.setDeletePop(false)}
-        contentLabel="Product Modal"
+        contentLabel="Customer Modal"
         style={{
           overlay: {
             backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -352,13 +366,13 @@ const PopUp = (props) => {
       >
         <h2>Confirm Delete</h2>
         <p>
-          Are you sure you want to delete the product:{' '}
-          {props.selectedProduct && props.selectedProduct.name}?
+          Are you sure you want to delete the Customer:{' '}
+          {props.selectedCustomer && props.selectedCustomer.name}?
         </p>
         <Button onClick={() => props.setDeletePop(false)} variant="primary">
           Cancel
         </Button>
-        <Button onClick={() => handleDelete(props.selectedProduct)} variant="danger" autoFocus>
+        <Button onClick={() => handleDelete(props.selectedCustomer)} variant="danger" autoFocus>
           Delete
         </Button>
       </Modal> */}

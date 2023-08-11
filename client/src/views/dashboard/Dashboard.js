@@ -253,6 +253,14 @@ export const Dashboard = () => {
       navigate('/login')
     }
   }, [])
+  const setDeleteConf =(val)=>{
+    
+    setDeleteConfirmationOpen(val);
+    setIsModalOpen(val);
+
+
+  }
+
   return (
     <>
       this is the user {user?.username}
