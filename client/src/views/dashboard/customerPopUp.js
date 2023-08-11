@@ -1,80 +1,48 @@
-import React, { useEffect, useState } from 'react'
-import Modal from 'react-modal'
-import { Button } from 'react-bootstrap'
+import React, { useEffect, useState } from 'react';
+import Modal from 'react-modal';
+import { Button } from 'react-bootstrap';
+import { CButton, CForm } from '@coreui/react';
 
-import { CButton, CForm } from '@coreui/react'
+Modal.setAppElement('#root');
 
-Modal.setAppElement('#root')
-const PopUp = (props) => {
-  // Function to close the modal
-
-  const [updatedData, setUpdatedData] = useState({})
-  const [addData, setAddData] = useState({})
+const CustomerPopUp = (props) => {
+  const [updatedData, setUpdatedData] = useState({});
+  const [addData, setAddData] = useState({});
 
   useEffect(() => {
     if (props.edit) {
       setUpdatedData({
         id: props.selectedCustomer._id,
-        name: props.selectedCustomer?.name,
-        email: props.selectedCustomer?.email,
-        phone: props.selectedCustomer?.phone,
-        address: props.selectedCustomer?.address
-      })
+        Name: props.selectedCustomer?.name,
+        Email: props.selectedCustomer?.email,
+        Phone: props.selectedCustomer?.phone,
+      });
     }
-  }, [props])
+  }, [props]);
 
   const handleToClose = () => {
-    props.setIsModalOpen(false)
-    props.setEdit(false)
-    props.setAddCustomer(false)
-  }
+    props.setIsModalOpen(false);
+    props.setEdit(false);
+    props.setAddCustomer(false);
+  };
 
-  //   const openInPopup = item => {
-  //     setRecordForEdit(item)
-  //     setOpenPopup(true)
-  // }
-  // const handleViewClick = (Customer) => {
-  //   setSelectedCustomer(Customer)
-  //   console.log(Customer)
-  // }
-
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target
-  //   console.log(name, value)
-  //   setUpdatedData((prev) => {
-  //     return {
-  //       ...prev,
-  //       [name]: value,
-  //     }
-  //   })
-  // }
   const handleChange = (e) => {
-    
-    const { name, value } = e.target
-    console.log(name, value)
-    setUpdatedData((up)=>{
-      return {
-        ...up,
-        [name]: value,
-      }
-    })
-    
-  }
-  const handleChangeOfAdd = (e) => {
-    const { name, value } = e.target
-    console.log(name, value)
-    setAddData((prev) => {
-      return {
-        ...prev,
-        [name]: value,
-      }
-    })
-  }
+    const { name, value } = e.target;
+    setUpdatedData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
-  // handling delete here
+  const handleChangeOfAdd = (e) => {
+    const { name, value } = e.target;
+    setAddData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   const handleDelete = (customer) => {
-    // Send the delete request to the API
     fetch(`http://localhost:8080/api/customer/delete/${customer?._id}`, {
       method: 'DELETE',
       headers: {
@@ -83,24 +51,19 @@ const PopUp = (props) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('Customer updated successfully:', data)
-        // Optionally, you can show a success message or redirect to another page.
+        console.log('Customer deleted successfully:', data);
       })
       .catch((error) => {
-        console.error('Error updating customer:', error)
-        // Optionally, you can show an error message or handle the error in other ways.
-      })
+        console.error('Error deleting customer:', error);
+      });
 
-    // Close the delete confirmation modal and clear the selectedCustomer state
-    props.setDeletePop(false)
-    props.setSelectedCustomer(null)
-    props.setGetData(true)
-  }
-
-  // handling update data here
+    props.setDeletePop(false);
+    props.setSelectedCustomer(null);
+    props.setGetData(true);
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     fetch('http://localhost:8080/api/customer/update', {
       method: 'PATCH',
@@ -111,23 +74,21 @@ const PopUp = (props) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('Customer updated successfully:', data)
-        // Optionally, you can show a success message or redirect to another page.
+        console.log('Customer updated successfully:', data);
       })
       .catch((error) => {
-        console.error('Error updating Customer:', error)
-        // Optionally, you can show an error message or handle the error in other ways.
-      })
-    props.setAddCustomer(false)
-    props.setGetData(true)
-    props.setIsModalOpen(false)
-    props.setEdit(false)
-  }
+        console.error('Error updating customer:', error);
+      });
 
-  //handling add Customer here
+    props.setAddCustomer(false);
+    props.setGetData(true);
+    props.setIsModalOpen(false);
+    props.setEdit(false);
+  };
+
   const handleAddCustomer = (e) => {
-    e.preventDefault()
-
+    e.preventDefault();
+  
     fetch('http://localhost:8080/api/customer/create', {
       method: 'POST',
       headers: {
@@ -137,19 +98,23 @@ const PopUp = (props) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('Customer created successfully:', data)
-        // Optionally, you can show a success message or redirect to another page.
+        if (data.success) {
+          console.log('Customer created successfully:', data);
+        } else {
+          console.error('Error creating customer:', data.error);
+        }
       })
       .catch((error) => {
-        console.error('Error creating Customer:', error)
-        // Optionally, you can show an error message or handle the error in other ways.
-      })
+        console.error('API request error:', error);
+      });
+  
+    props.setAddCustomer(false);
+    props.setIsModalOpen(false);
+    props.setGetData(true);
+    setAddData({});
+  };
+  
 
-    props.setAddCustomer(false)
-    props.setIsModalOpen(false)
-    props.setGetData(true)
-    setAddData({})
-  }
 
   //content to be show in pop up
   const Content = () => {
@@ -380,4 +345,4 @@ const PopUp = (props) => {
   )
 }
 
-export default PopUp
+export default CustomerPopUp
