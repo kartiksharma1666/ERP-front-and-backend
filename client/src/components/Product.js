@@ -39,6 +39,7 @@ const Product = (props) => {
     marginRight: '75px',
 
     height: '50px', 
+
     width: '158px',
   }
 
@@ -151,11 +152,7 @@ const Product = (props) => {
               </button>
             </div>
 
-
             <CTable className="mb-0 border" hover responsive>
-              </CTable>
-            <CTable>
-
               <CTableHead>
                 <CTableRow>
                   <CTableHeaderCell scope="col">Sr. no</CTableHeaderCell>
