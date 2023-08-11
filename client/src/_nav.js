@@ -16,7 +16,7 @@ import {
   cilStar,
 
   cilUser,
-=======
+
 
   cilTask,
 } from '@coreui/icons'
@@ -31,9 +31,10 @@ const _nav = [
     badge: {
       color: 'info',
 
-=======
+
     },
   },
+ {
 
     component: CNavItem,
     name: 'Customers',
