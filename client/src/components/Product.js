@@ -38,7 +38,7 @@ const Product = (props) => {
   const product_button_style = {
     marginRight: '75px',
 
-    height: '50px',
+    height: '50px', 
 
     width: '158px',
   }
