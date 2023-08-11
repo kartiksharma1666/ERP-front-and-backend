@@ -65,12 +65,12 @@ const _nav = [
     // },
   },
   
-  {
-    component: CNavItem,
-    name: 'Customer',
-    to: '/customer',
-    icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
-  },
+  // {
+  //   component: CNavItem,
+  //   name: 'Customer',
+  //   to: '/customer',
+  //   icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
+  // },
   {
     component: CNavTitle,
     name: 'Theme',
