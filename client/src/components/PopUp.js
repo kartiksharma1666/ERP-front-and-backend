@@ -46,6 +46,7 @@ const PopUp = (props) => {
         [name]: value,
       }
     })
+    console.log(setUpdatedData);
   }
   const handleChangeOfAdd = (e) => {
     const { name, value } = e.target
