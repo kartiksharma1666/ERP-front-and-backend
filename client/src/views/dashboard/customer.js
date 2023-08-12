@@ -90,24 +90,11 @@ const Customer = () => {
 
   useEffect(() => {
     getDataFromDB()
-  }, [])
+  }, [getData])
 
   return (
     <div>
-      <CustomerPopUp
-        isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
-        selectedCustomer={selectedCustomer}
-        setSelectedCustomer={setSelectedCustomer}
-        getData={getData}
-        setGetData={setGetData}
-        edit={edit}
-        setEdit={setEdit}
-        addCustomer={addCustomer}
-        setAddCustomer={setAddCustomer}
-        deletePop={deletePop}
-        setDeletePop={setDeletePop}
-      />
+      
       <CRow>
         <CCol xs={12}>
           <CCard className="mb-4">
@@ -228,7 +215,22 @@ const Customer = () => {
           </CCard>
         </CCol>
       </CRow>
+      <CustomerPopUp
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        selectedCustomer={selectedCustomer}
+        setSelectedCustomer={setSelectedCustomer}
+        getData={getData}
+        setGetData={setGetData}
+        edit={edit}
+        setEdit={setEdit}
+        addCustomer={addCustomer}
+        setAddCustomer={setAddCustomer}
+        deletePop={deletePop}
+        setDeletePop={setDeletePop}
+      />
     </div>
+    
   )
 }
 

@@ -25,20 +25,27 @@ import {
 
 const Product = (props) => {
   const [data, setdata] = useState(null)
-
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const [search, setSearch] = useState('')
   const [searchResults, setSearchResults] = useState([])
 
   const [categories, setCategories] = useState([
-    { id: 1, name: 'Cake', order: 300 },
-    { id: 2, name: 'Puff', order: 100 },
-    { id: 3, name: 'Pastries', order: 500 },
+    { id: '64c3775566062b43e58fb083', name: 'Cake' },
+    { id: '64c343c8abf9eec08af28f68', name: 'Puff' },
+    { id: '3', name: 'Pastries' },
   ])
+  const filteredProducts = selectedCategory
+  ? data.filter(product => product.category._id === selectedCategory)
+  : data;
+
+
+
 
   const product_button_style = {
     marginRight: '75px',
 
     height: '50px', 
+
     width: '158px',
   }
 
@@ -97,19 +104,22 @@ const Product = (props) => {
           </CCardHeader>
           <CCardBody>
             <div className="d-flex">
-              <CDropdown>
-                <CDropdownToggle color="primary">Category</CDropdownToggle>
+            <CDropdown>
+                <CDropdownToggle color="primary">
+                  Category
+                </CDropdownToggle>
                 <CDropdownMenu>
+                <CDropdownItem onClick={() => setSelectedCategory(null)}>All</CDropdownItem>
                   {sortedCategories.map((category) => (
-                    <CDropdownItem key={category.id} href="#">
+                    <CDropdownItem
+                      key={category.id}
+                      onClick={() => setSelectedCategory(category.id)} // Update the selected category
+                    >
                       {category.name}
-                      <span style={{ marginLeft: '5px', color: '#800808' }}>
-                        {category.order} Orders
-                      </span>
                     </CDropdownItem>
                   ))}
                 </CDropdownMenu>
-              </CDropdown>
+              </CDropdown>              
               <div className="container">
                 <div className=" row justify-content-center">
                   <div className="col-md-8">
@@ -151,11 +161,7 @@ const Product = (props) => {
               </button>
             </div>
 
-
             <CTable className="mb-0 border" hover responsive>
-              </CTable>
-            <CTable>
-
               <CTableHead>
                 <CTableRow>
                   <CTableHeaderCell scope="col">Sr. no</CTableHeaderCell>
@@ -165,19 +171,17 @@ const Product = (props) => {
                   <CTableHeaderCell scope="col"></CTableHeaderCell>
                   <CTableHeaderCell scope="col"></CTableHeaderCell>
                   <CTableHeaderCell scope="col"></CTableHeaderCell>
+                  
                 </CTableRow>
               </CTableHead>
               <CTableBody>
-                {data &&
-                  data.map(
-                    (
-                      item,
-                      index, // Check if data is available before mapping
-                    ) => (
+              {data ? (
+                filteredProducts.map((item, index) => (
                       <CTableRow key={index}>
                         <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
                         <CTableDataCell>{item.name}</CTableDataCell>
                         <CTableDataCell>{item.price}</CTableDataCell>
+                        
                         <CTableDataCell>
                           <CButton
                             color="info"
@@ -217,8 +221,12 @@ const Product = (props) => {
                           </CButton>
                         </CTableDataCell>
                       </CTableRow>
-                    ),
-                  )}
+                    ))
+                    ) : (
+                      <tr>
+                        <td colSpan={7}>Loading...</td>
+                      </tr>
+                    )}
               </CTableBody>
             </CTable>
           </CCardBody>

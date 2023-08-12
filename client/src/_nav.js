@@ -15,6 +15,7 @@ import {
   cilSpeedometer,
   cilStar,
   cilUser,
+
   cilTask,
 } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
@@ -27,9 +28,11 @@ const _nav = [
     icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
     badge: {
       color: 'info',
+
     },
   },
   {
+
     component: CNavItem,
     name: 'Customers',
     to: '/dashboard/customer',

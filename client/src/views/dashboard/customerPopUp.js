@@ -1,80 +1,65 @@
-import React, { useEffect, useState } from 'react'
-import Modal from 'react-modal'
-import { Button } from 'react-bootstrap'
+import React, { useEffect, useState } from 'react';
+import Modal from 'react-modal';
+import { Button } from 'react-bootstrap';
+import { CButton, CForm } from '@coreui/react';
 
-import { CButton, CForm } from '@coreui/react'
+Modal.setAppElement('#root');
 
-Modal.setAppElement('#root')
-const PopUp = (props) => {
-  // Function to close the modal
-
-  const [updatedData, setUpdatedData] = useState({})
-  const [addData, setAddData] = useState({})
+const CustomerPopUp = (props) => {
+  const [updatedData, setUpdatedData] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    address: ""
+  });
+  
+  const [addData, setAddData] = useState({});
 
   useEffect(() => {
     if (props.edit) {
+      console.log("props.edit:", props.edit);
+      console.log("props.selectedCustomer:", props.selectedCustomer);
       setUpdatedData({
         id: props.selectedCustomer._id,
         name: props.selectedCustomer?.name,
-        email: props.selectedCustomer?.email,
         phone: props.selectedCustomer?.phone,
+        email: props.selectedCustomer?.email,
         address: props.selectedCustomer?.address
-      })
+        
+      });
+      
     }
-  }, [props])
+  }, [props.edit, props.selectedCustomer]);
+  useEffect(() => {
+    console.log("Updated data:", updatedData);
+  }, [updatedData]);
+  
 
   const handleToClose = () => {
-    props.setIsModalOpen(false)
-    props.setEdit(false)
-    props.setAddCustomer(false)
-  }
+    props.setIsModalOpen(false);
+    props.setEdit(false);
+    props.setAddCustomer(false);
+  };
 
-  //   const openInPopup = item => {
-  //     setRecordForEdit(item)
-  //     setOpenPopup(true)
-  // }
-  // const handleViewClick = (Customer) => {
-  //   setSelectedCustomer(Customer)
-  //   console.log(Customer)
-  // }
-
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target
-  //   console.log(name, value)
-  //   setUpdatedData((prev) => {
-  //     return {
-  //       ...prev,
-  //       [name]: value,
-  //     }
-  //   })
-  // }
   const handleChange = (e) => {
-    
-    const { name, value } = e.target
-    console.log(name, value)
-    setUpdatedData((up)=>{
-      return {
-        ...up,
-        [name]: value,
-      }
-    })
-    
-  }
-  const handleChangeOfAdd = (e) => {
-    const { name, value } = e.target
-    console.log(name, value)
-    setAddData((prev) => {
-      return {
-        ...prev,
-        [name]: value,
-      }
-    })
-  }
+    const { name, value } = e.target;
+    console.log("inside handleChange");
+    setUpdatedData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+    console.log("updated data :", updatedData);
+  };
 
-  // handling delete here
+  const handleChangeOfAdd = (e) => {
+    const { name, value } = e.target;
+    setAddData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   const handleDelete = (customer) => {
-    // Send the delete request to the API
     fetch(`http://localhost:8080/api/customer/delete/${customer?._id}`, {
       method: 'DELETE',
       headers: {
@@ -83,51 +68,48 @@ const PopUp = (props) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('Customer updated successfully:', data)
-        // Optionally, you can show a success message or redirect to another page.
+        console.log('Customer deleted successfully:', data);
       })
       .catch((error) => {
-        console.error('Error updating customer:', error)
-        // Optionally, you can show an error message or handle the error in other ways.
-      })
+        console.error('Error deleting customer:', error);
+      });
 
-    // Close the delete confirmation modal and clear the selectedCustomer state
-    props.setDeletePop(false)
-    props.setSelectedCustomer(null)
-    props.setGetData(true)
-  }
-
-  // handling update data here
+    props.setDeletePop(false);
+    props.setSelectedCustomer(null);
+    props.setGetData(true);
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     fetch('http://localhost:8080/api/customer/update', {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
+      
+      
       body: JSON.stringify(updatedData),
+      
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('Customer updated successfully:', data)
-        // Optionally, you can show a success message or redirect to another page.
+        console.log('Customer updated successfully:', data);
+        console.log("inside handleSubmit :",updatedData);
       })
       .catch((error) => {
-        console.error('Error updating Customer:', error)
-        // Optionally, you can show an error message or handle the error in other ways.
-      })
-    props.setAddCustomer(false)
-    props.setGetData(true)
-    props.setIsModalOpen(false)
-    props.setEdit(false)
-  }
+        console.error('Error updating customer:', error);
+      });
 
-  //handling add Customer here
+    props.setAddCustomer(false);
+    props.setGetData(true);
+    props.setIsModalOpen(false);
+    props.setEdit(false);
+  };
+
   const handleAddCustomer = (e) => {
-    e.preventDefault()
-
+    e.preventDefault();
+  
     fetch('http://localhost:8080/api/customer/create', {
       method: 'POST',
       headers: {
@@ -137,19 +119,23 @@ const PopUp = (props) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('Customer created successfully:', data)
-        // Optionally, you can show a success message or redirect to another page.
+        if (data.success) {
+          console.log('Customer created successfully:', data);
+        } else {
+          console.error('Error creating customer:', data.error);
+        }
       })
       .catch((error) => {
-        console.error('Error creating Customer:', error)
-        // Optionally, you can show an error message or handle the error in other ways.
-      })
+        console.error('API request error:', error);
+      });
+  
+    props.setAddCustomer(false);
+    props.setIsModalOpen(false);
+    props.setGetData(true);
+    setAddData({});
+  };
+  
 
-    props.setAddCustomer(false)
-    props.setIsModalOpen(false)
-    props.setGetData(true)
-    setAddData({})
-  }
 
   //content to be show in pop up
   const Content = () => {
@@ -167,7 +153,7 @@ const PopUp = (props) => {
                   <label>
                     Name
                     <input
-                      name="Name"
+                      name="name"
                       placeholder="Name"
                       onChange={handleChange}
                       value={updatedData.name}
@@ -178,7 +164,7 @@ const PopUp = (props) => {
                   <label>
                     Email
                     <input
-                      name="Email"
+                      name="email"
                       placeholder="Email"
                       onChange={handleChange}
                       value={updatedData.email}
@@ -189,10 +175,19 @@ const PopUp = (props) => {
                   <label>
                     Phone
                     <input
-                      name="Phone"
+                      name="phone"
                       placeholder="Phone no"
                       onChange={handleChange}
                       value={updatedData.phone}
+                    />
+                  </label>
+                  <label>
+                    Address
+                    <input
+                      name="address"
+                      placeholder="Address"
+                      onChange={handleChange}
+                      value={updatedData.address}
                     />
                   </label>
                 </p>
@@ -218,28 +213,28 @@ const PopUp = (props) => {
                 <div>
                   <p></p>
                   <input
-                    name="Name"
+                    name="name"
                     placeholder="Name"
                     onChange={handleChangeOfAdd}
-                    value={addData.Name}
+                    value={addData.name}
                   />
                   <p></p>
                   <input
-                    name="Email"
+                    name="email"
                     placeholder="Email"
                     onChange={handleChangeOfAdd}
                     value={addData.email}
                   />
                   <p></p>
                   <input
-                    name="Phone"
+                    name="phone"
                     placeholder="Phone no"
                     onChange={handleChangeOfAdd}
                     value={addData.phone}
                   />
                   <p></p>
                   <input
-                    name="Address"
+                    name="address"
                     placeholder="Address"
                     onChange={handleChangeOfAdd}
                     value={addData.address}
@@ -380,4 +375,4 @@ const PopUp = (props) => {
   )
 }
 
-export default PopUp
+export default CustomerPopUp
