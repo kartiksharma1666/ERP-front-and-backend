@@ -238,9 +238,9 @@ const Product = (props) => {
                       </CTableDataCell>
                     </CTableRow>
                   ))
-                        }  (
+                        }  
                   
-                )
+                
               </CTableBody>
             </CTable>
           </CCardBody>
