@@ -25,31 +25,38 @@ import {
 
 const Product = (props) => {
   const [data, setdata] = useState(null)
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(null)
   const [search, setSearch] = useState('')
   const [searchResults, setSearchResults] = useState([])
 
-  const [categories, setCategories] = useState([
-    { id: '64c3775566062b43e58fb083', name: 'Cake' },
-    { id: '64c343c8abf9eec08af28f68', name: 'Puff' },
-    { id: '3', name: 'Pastries' },
-  ])
+  const [categories, setCategories] = useState([])
+  const fetchCategories = () => {
+    // Make an API call to fetch categories from your backend
+    fetch('http://localhost:8080/api/category/all')
+      .then((response) => response.json())
+      .then((data) => {
+        setCategories(data.categories)
+        console.log(data) // Update the state with fetched categories
+      })
+      .catch((error) => {
+        console.error('Error fetching categories:', error)
+      })
+  }
   const filteredProducts = selectedCategory
-  ? data.filter(product => product.category._id === selectedCategory)
+  ? data.filter((product) => product.category._id === selectedCategory)
   : data;
-
-
-
+  
 
   const product_button_style = {
     marginRight: '75px',
 
-    height: '50px', 
+    height: '50px',
 
     width: '158px',
   }
 
-  const sortedCategories = [...categories].sort((a, b) => b.order - a.order)
+  const sortedCategories = Array.isArray(categories) ? [...categories].sort((a, b) => b.order - a.order) : [];
+
 
   const getDataFromDB = async () => {
     const res = await fetch('http://localhost:8080/api/products/all').catch((err) => {
@@ -93,7 +100,17 @@ const Product = (props) => {
 
   useEffect(() => {
     getDataFromDB()
+    fetchCategories()
   }, [props.getData])
+  useEffect(() => {
+    // Log the category.$oid value for each product
+    if (data) {
+      data.forEach(product => {
+        console.log("Product ID:", product._id);
+        console.log("Category ID:", product.category._id);
+      });
+    }
+  }, [data]);
 
   return (
     <CRow>
@@ -104,22 +121,23 @@ const Product = (props) => {
           </CCardHeader>
           <CCardBody>
             <div className="d-flex">
-            <CDropdown>
-                <CDropdownToggle color="primary">
-                  Category
-                </CDropdownToggle>
+              <CDropdown>
+                <CDropdownToggle color="primary">Category</CDropdownToggle>
                 <CDropdownMenu>
-                <CDropdownItem onClick={() => setSelectedCategory(null)}>All</CDropdownItem>
-                  {sortedCategories.map((category) => (
-                    <CDropdownItem
-                      key={category.id}
-                      onClick={() => setSelectedCategory(category.id)} // Update the selected category
-                    >
-                      {category.name}
-                    </CDropdownItem>
-                  ))}
+                  <CDropdownItem onClick={() => setSelectedCategory(null)}>All</CDropdownItem>
+                  {sortedCategories.length > 0 &&
+                    sortedCategories.map((category) => (
+                      <CDropdownItem
+                        key={category._id}
+                        onClick={() => setSelectedCategory(category._id)}
+                      >
+                        
+                        {category.name}
+                      </CDropdownItem>
+                      
+                    ))}
                 </CDropdownMenu>
-              </CDropdown>              
+              </CDropdown>
               <div className="container">
                 <div className=" row justify-content-center">
                   <div className="col-md-8">
@@ -171,62 +189,58 @@ const Product = (props) => {
                   <CTableHeaderCell scope="col"></CTableHeaderCell>
                   <CTableHeaderCell scope="col"></CTableHeaderCell>
                   <CTableHeaderCell scope="col"></CTableHeaderCell>
-                  
                 </CTableRow>
               </CTableHead>
               <CTableBody>
-              {data ? (
-                filteredProducts.map((item, index) => (
-                      <CTableRow key={index}>
-                        <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
-                        <CTableDataCell>{item.name}</CTableDataCell>
-                        <CTableDataCell>{item.price}</CTableDataCell>
-                        
-                        <CTableDataCell>
-                          <CButton
-                            color="info"
-                            shape="rounded-pill"
-                            onClick={() => {
-                              openInPopup(item)
-                            }}
-                          >
-                            Info
-                          </CButton>
-                        </CTableDataCell>
-                        <CTableDataCell>
-                          <CButton
-                            color="success"
-                            shape="rounded-pill"
-                            onClick={() => handleClickToOpen(item, 'update')}
-                          >
-                            Update
-                          </CButton>
-                        </CTableDataCell>
-                        <CTableDataCell>
-                          <CButton
-                            color="primary"
-                            shape="rounded-pill"
-                            onClick={() => handleClickToOpen(item, 'view')}
-                          >
-                            View
-                          </CButton>
-                        </CTableDataCell>
-                        <CTableDataCell>
-                          <CButton
-                            color="danger"
-                            shape="rounded-pill"
-                            onClick={() => handleClickToOpen(item, 'delete')}
-                          >
-                            Delete
-                          </CButton>
-                        </CTableDataCell>
-                      </CTableRow>
-                    ))
-                    ) : (
-                      <tr>
-                        <td colSpan={7}>Loading...</td>
-                      </tr>
-                    )}
+              {data && filteredProducts && filteredProducts.map((item, index) => (
+                    <CTableRow key={index}>
+                      <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
+                      <CTableDataCell>{item.name}</CTableDataCell>
+                      <CTableDataCell>{item.price}</CTableDataCell>
+
+                      <CTableDataCell>
+                        <CButton
+                          color="info"
+                          shape="rounded-pill"
+                          onClick={() => {
+                            openInPopup(item)
+                          }}
+                        >
+                          Info
+                        </CButton>
+                      </CTableDataCell>
+                      <CTableDataCell>
+                        <CButton
+                          color="success"
+                          shape="rounded-pill"
+                          onClick={() => handleClickToOpen(item, 'update')}
+                        >
+                          Update
+                        </CButton>
+                      </CTableDataCell>
+                      <CTableDataCell>
+                        <CButton
+                          color="primary"
+                          shape="rounded-pill"
+                          onClick={() => handleClickToOpen(item, 'view')}
+                        >
+                          View
+                        </CButton>
+                      </CTableDataCell>
+                      <CTableDataCell>
+                        <CButton
+                          color="danger"
+                          shape="rounded-pill"
+                          onClick={() => handleClickToOpen(item, 'delete')}
+                        >
+                          Delete
+                        </CButton>
+                      </CTableDataCell>
+                    </CTableRow>
+                  ))
+                        }  
+                  
+                
               </CTableBody>
             </CTable>
           </CCardBody>
