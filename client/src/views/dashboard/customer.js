@@ -90,7 +90,7 @@ const Customer = () => {
 
   useEffect(() => {
     getDataFromDB()
-  }, [])
+  }, [getData])
 
   return (
     <div>
