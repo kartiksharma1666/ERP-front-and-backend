@@ -6,19 +6,34 @@ import { CButton, CForm } from '@coreui/react';
 Modal.setAppElement('#root');
 
 const CustomerPopUp = (props) => {
-  const [updatedData, setUpdatedData] = useState({});
+  const [updatedData, setUpdatedData] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    address: ""
+  });
+  
   const [addData, setAddData] = useState({});
 
   useEffect(() => {
     if (props.edit) {
+      console.log("props.edit:", props.edit);
+      console.log("props.selectedCustomer:", props.selectedCustomer);
       setUpdatedData({
         id: props.selectedCustomer._id,
-        Name: props.selectedCustomer?.name,
-        Email: props.selectedCustomer?.email,
-        Phone: props.selectedCustomer?.phone,
+        name: props.selectedCustomer?.name,
+        phone: props.selectedCustomer?.phone,
+        email: props.selectedCustomer?.email,
+        address: props.selectedCustomer?.address
+        
       });
+      
     }
-  }, [props]);
+  }, [props.edit, props.selectedCustomer]);
+  useEffect(() => {
+    console.log("Updated data:", updatedData);
+  }, [updatedData]);
+  
 
   const handleToClose = () => {
     props.setIsModalOpen(false);
@@ -28,10 +43,12 @@ const CustomerPopUp = (props) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.log("inside handleChange");
     setUpdatedData((prev) => ({
       ...prev,
       [name]: value,
     }));
+    console.log("updated data :", updatedData);
   };
 
   const handleChangeOfAdd = (e) => {
@@ -70,11 +87,15 @@ const CustomerPopUp = (props) => {
       headers: {
         'Content-Type': 'application/json',
       },
+      
+      
       body: JSON.stringify(updatedData),
+      
     })
       .then((response) => response.json())
       .then((data) => {
         console.log('Customer updated successfully:', data);
+        console.log("inside handleSubmit :",updatedData);
       })
       .catch((error) => {
         console.error('Error updating customer:', error);
@@ -132,7 +153,7 @@ const CustomerPopUp = (props) => {
                   <label>
                     Name
                     <input
-                      name="Name"
+                      name="name"
                       placeholder="Name"
                       onChange={handleChange}
                       value={updatedData.name}
@@ -143,7 +164,7 @@ const CustomerPopUp = (props) => {
                   <label>
                     Email
                     <input
-                      name="Email"
+                      name="email"
                       placeholder="Email"
                       onChange={handleChange}
                       value={updatedData.email}
@@ -154,10 +175,19 @@ const CustomerPopUp = (props) => {
                   <label>
                     Phone
                     <input
-                      name="Phone"
+                      name="phone"
                       placeholder="Phone no"
                       onChange={handleChange}
                       value={updatedData.phone}
+                    />
+                  </label>
+                  <label>
+                    Address
+                    <input
+                      name="address"
+                      placeholder="Address"
+                      onChange={handleChange}
+                      value={updatedData.address}
                     />
                   </label>
                 </p>
@@ -183,28 +213,28 @@ const CustomerPopUp = (props) => {
                 <div>
                   <p></p>
                   <input
-                    name="Name"
+                    name="name"
                     placeholder="Name"
                     onChange={handleChangeOfAdd}
-                    value={addData.Name}
+                    value={addData.name}
                   />
                   <p></p>
                   <input
-                    name="Email"
+                    name="email"
                     placeholder="Email"
                     onChange={handleChangeOfAdd}
                     value={addData.email}
                   />
                   <p></p>
                   <input
-                    name="Phone"
+                    name="phone"
                     placeholder="Phone no"
                     onChange={handleChangeOfAdd}
                     value={addData.phone}
                   />
                   <p></p>
                   <input
-                    name="Address"
+                    name="address"
                     placeholder="Address"
                     onChange={handleChangeOfAdd}
                     value={addData.address}
