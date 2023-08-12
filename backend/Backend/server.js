@@ -64,7 +64,7 @@ require("./routes/auth.routes")(app);
 
 require("./routes/user.routes")(app);
 
-require("./routes/category.routes")(app);
+// require("./routes/category.routes")(app);
 
 require("./routes/billing.routes")(app);
 
@@ -81,8 +81,8 @@ app.use("/api", invoiceRoutes);
 // const productRoutes = require('./routes/product.routes');
 // app.use("/api", productRoutes)
 
-// const categoryRoutes = require('./routes/category.routes');
-// app.use("/api", categoryRoutes);
+const categoryRoutes = require('./routes/category.routes');
+app.use("/api", categoryRoutes);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {

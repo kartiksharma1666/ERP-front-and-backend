@@ -17,6 +17,7 @@ import {
   cilUser,
 
   cilTask,
+  cilCart,
 } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 
@@ -35,7 +36,7 @@ const _nav = [
 
     component: CNavItem,
     name: 'Customers',
-    to: '/dashboard/customer',
+    to: '/customer',
     icon: <CIcon icon={cilUser} customClassName="nav-icon" />,
     // badge: {
     //   color: 'info',
@@ -44,9 +45,9 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: 'Billing',
-    to: '/Billing',
-    icon: <CIcon icon={cilPeople} customClassName="nav-icon" />,
+    name: 'Category',
+    to: '/Category',
+    icon: <CIcon icon={cilCart} customClassName="nav-icon" />,
     badge: {
       color: 'info',
     },
@@ -54,7 +55,7 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Orders',
-    to: '/dashboard/orders',
+    to: '/orders',
     icon: <CIcon icon={cilList} customClassName="nav-icon" />,
     // badge: {
     //   color: 'info',
