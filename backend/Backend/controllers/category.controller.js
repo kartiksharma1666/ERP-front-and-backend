@@ -1,5 +1,6 @@
 const Category = require("../models/category.model");
 const ErrorResponse = require('../utils/errorResponse');
+const mongoose = require("mongoose");
 
 
 exports.createCategory = async (req, res, next)=>{
@@ -39,19 +40,26 @@ exports.getCategories = async (req, res, next)=>{
 }
 exports.updateCategory = async (req, res, next) => {
     try {
-      const { id } = req.params;
-      const category = await Category.findByIdAndUpdate(id, req.body, {
-        new: true,
-        runValidators: true,
-      });
-  
-      if (!category) {
-        return next(new ErrorResponse('Category not found', 404));
-      }
+      const id = new mongoose.Types.ObjectId(req.body.id);
+
+    const currentCategory = await Category.findById(id);
+
+    //build the data object
+    const data = {
+      name: req.body.name,
+      
+    };
+
+    // You can exclude the image-related code since we're not updating the image
+
+    const categoryUpdate = await Category.findOneAndUpdate(id, data, {
+      new: true,
+    });
+      
   
       res.status(200).json({
         success: true,
-        category,
+        categoryUpdate,
       });
     } catch (error) {
       console.log(error);
@@ -60,15 +68,17 @@ exports.updateCategory = async (req, res, next) => {
   };
   exports.deleteCategory = async (req, res, next) => {
     try {
-      const { id } = req.params;
-      const category = await Category.findByIdAndDelete(id);
+      
+      
+      const category = await Category.findByIdAndDelete(req.params.categoryId);
+      
   
       if (!category) {
         return next(new ErrorResponse('Category not found', 404));
       }
   
       // Delete the corresponding products for the category
-      await Product.deleteMany({ category: id });
+      await Product.deleteMany({ category: req.params.categoryId });
   
       res.status(200).json({
         success: true,
