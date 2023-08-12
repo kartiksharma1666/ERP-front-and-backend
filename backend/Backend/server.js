@@ -66,15 +66,18 @@ require("./routes/user.routes")(app);
 
 require("./routes/category.routes")(app);
 
-
-const customerRoutes = require('./routes/customer.routes');
-app.use('/api', customerRoutes);
-
-const orderRoutes = require('./routes/order.routes');
-app.use('/api', orderRoutes);
+require("./routes/billing.routes")(app);
 
 require("./routes/product.routes")(app);
 
+const customerRoutes = require("./routes/customer.routes");
+app.use("/api", customerRoutes);
+
+const orderRoutes = require("./routes/order.routes");
+app.use("/api", orderRoutes);
+
+const invoiceRoutes = require("./routes/billing.routes");
+app.use("/api", invoiceRoutes);
 // const productRoutes = require('./routes/product.routes');
 // app.use("/api", productRoutes)
 

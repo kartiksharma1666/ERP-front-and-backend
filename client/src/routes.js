@@ -53,7 +53,7 @@ const Modals = React.lazy(() => import('./views/notifications/modals/Modals'))
 const Toasts = React.lazy(() => import('./views/notifications/toasts/Toasts'))
 
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
-// const Profile = React.lazy(() => import('./views/profile/Profile') )
+const Profile = React.lazy(() => import('./views/profile/Profile') )
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -103,7 +103,6 @@ const routes = [
   { path: '/notifications/toasts', name: 'Toasts', element: Toasts },
   { path: '/widgets', name: 'Widgets', element: Widgets },
   { path: '/profile', name: 'Profile', element: Profile },
-
   { path: '/billing', name: 'Billing', element: Billing },
 
 
