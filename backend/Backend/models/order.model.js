@@ -14,7 +14,7 @@ const orderSchema = new mongoose.Schema({
     maxlength: 32,
   },
   totalAmount: {
-    type: Number,
+    type: String,
     required: [true, 'Please add the total amount'],
   },
   // Add more fields as needed for the order model
