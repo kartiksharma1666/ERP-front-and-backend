@@ -8,15 +8,15 @@ Modal.setAppElement('#root');
 const OrderPopUp = (props) => {
   const [updatedOrder, setUpdatedOrder] = useState({
     orderNumber: "",
-    customer: "",
-    totalPrice: 0
+    customerName: "",
+    totalAmount: ""
     
   });
 
   const [addOrder, setAddOrder] = useState({
-    newOrderNumber: "",
-    newcustomer: "",
-    newTotalPrice: 0,
+    neworderNumber: "",
+    newcustomerName: "",
+    newtotalAmount: "",
     // Add other fields for adding an order
   });
 
@@ -24,8 +24,8 @@ const OrderPopUp = (props) => {
     if (props.edit) {
       setUpdatedOrder({
         orderNumber: props.selectedOrder?.orderNumber,
-        customer: props.selectedOrder?.customer,
-        totalPrice: props.selectedOrder?.totalPrice
+        customerName: props.selectedOrder?.customerName,
+        totalAmount: props.selectedOrder?.totalAmount
         // Update other fields as needed
       });
     }
@@ -62,10 +62,10 @@ const OrderPopUp = (props) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('Customer deleted successfully:', data);
+        console.log('customerName deleted successfully:', data);
       })
       .catch((error) => {
-        console.error('Error deleting customer:', error);
+        console.error('Error deleting customerName:', error);
       });
     props.setDeletePop(false);
     props.setSelectedOrder(null);
@@ -81,13 +81,13 @@ const OrderPopUp = (props) => {
       },
       
       
-      body: JSON.stringify(updatedData),
+      body: JSON.stringify(updatedOrder),
       
     })
       .then((response) => response.json())
       .then((data) => {
         console.log('order updated successfully:', data);
-        console.log("inside handleSubmit :",updatedData);
+        console.log("inside handleSubmit :",updatedOrder);
       })
       .catch((error) => {
         console.error('Error updating order:', error);
@@ -99,12 +99,18 @@ const OrderPopUp = (props) => {
 
   const handleAddOrder = (e) => {
     e.preventDefault();
+    console.log("add Order :", addOrder);
+  
     fetch('http://localhost:8080/api/order/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(addData),
+      body: JSON.stringify({
+        orderNumber: addOrder.neworderNumber,
+        customerName: addOrder.newcustomerName,
+        totalAmount: addOrder.newtotalAmount,
+      }),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -117,11 +123,17 @@ const OrderPopUp = (props) => {
       .catch((error) => {
         console.error('API request error:', error);
       });
+  
     props.setAddOrder(false);
     props.setIsModalOpen(false);
     props.setGetData(true);
-    setAddOrder({});
+    setAddOrder({
+      neworderNumber: "",
+      newcustomerName: "",
+      newtotalAmount: "",
+    });
   };
+  
 
   const Content = () => {
     if (props.edit === true) {
@@ -147,12 +159,12 @@ const OrderPopUp = (props) => {
                 </p>
                 <p>
                   <label>
-                    Customer
+                    customerName
                     <input
-                      name="customer"
-                      placeholder="Customer"
+                      name="customerName"
+                      placeholder="customer Name"
                       onChange={handleChange}
-                      value={updatedOrder.customer}
+                      value={updatedOrder.customerName}
                     />
                   </label>
                 </p>
@@ -160,10 +172,10 @@ const OrderPopUp = (props) => {
                   <label>
                     Total Price
                     <input
-                      name="totalPrice"
+                      name="totalAmount"
                       placeholder="Total Price"
                       onChange={handleChange}
-                      value={updatedOrder.totalPrice}
+                      value={updatedOrder.totalAmount}
                     />
                   </label>
                 </p>
@@ -187,26 +199,26 @@ const OrderPopUp = (props) => {
             <div>
               <p>
                 <input
-                  name="newOrderNumber"
+                  name="neworderNumber"
                   placeholder="Order Number"
                   onChange={handleChangeOfAdd}
-                  value={addOrder.newOrderNumber}
+                  value={addOrder.neworderNumber}
                 />
               </p>
               <p>
                 <input
-                  name="newcustomer"
-                  placeholder="Customer"
+                  name="newcustomerName"
+                  placeholder="customerName"
                   onChange={handleChangeOfAdd}
-                  value={addOrder.newcustomer}
+                  value={addOrder.newcustomerName}
                 />
               </p>
               <p>
                 <input
-                  name="newTotalPrice"
+                  name="newtotalAmount"
                   placeholder="Total Price"
                   onChange={handleChangeOfAdd}
-                  value={addOrder.newTotalPrice}
+                  value={addOrder.newtotalAmount}
                 />
               </p>
               {/* Add other order fields as needed */}
@@ -243,8 +255,8 @@ const OrderPopUp = (props) => {
           {props.selectedOrder && (
             <div>
               <p>Order Number: {props.selectedOrder.orderNumber}</p>
-              <p>Total Price: {props.selectedOrder.totalPrice}</p>
-              <p>Customer :{props.selectedOrder.customer}</p>
+              <p>Total Price: {props.selectedOrder.totalAmount}</p>
+              <p>customerName :{props.selectedOrder.customerName}</p>
             </div>
           )}
         </div>

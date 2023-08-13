@@ -37,8 +37,9 @@ const Orders = () => {
     try {
       const res = await fetch('http://localhost:8080/api/order/all');
       const resjson = await res.json();
-      if (resjson.success && Array.isArray(resjson.order)) {
-        setData(resjson.order);
+      if (resjson.success && Array.isArray(resjson.orders)) {
+        setData(resjson.orders);
+        console.log("inside orders")
       } else {
         console.error('Invalid data format from API:', resjson);
         setData([]); // Set an empty array to prevent map errors

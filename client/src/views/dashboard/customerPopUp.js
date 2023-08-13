@@ -17,8 +17,7 @@ const CustomerPopUp = (props) => {
 
   useEffect(() => {
     if (props.edit) {
-      console.log("props.edit:", props.edit);
-      console.log("props.selectedCustomer:", props.selectedCustomer);
+      
       setUpdatedData({
         id: props.selectedCustomer._id,
         name: props.selectedCustomer?.name,
@@ -30,9 +29,7 @@ const CustomerPopUp = (props) => {
       
     }
   }, [props.edit, props.selectedCustomer]);
-  useEffect(() => {
-    console.log("Updated data:", updatedData);
-  }, [updatedData]);
+  
   
 
   const handleToClose = () => {
@@ -43,12 +40,12 @@ const CustomerPopUp = (props) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log("inside handleChange");
+    
     setUpdatedData((prev) => ({
       ...prev,
       [name]: value,
     }));
-    console.log("updated data :", updatedData);
+    
   };
 
   const handleChangeOfAdd = (e) => {
@@ -94,8 +91,7 @@ const CustomerPopUp = (props) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('Customer updated successfully:', data);
-        console.log("inside handleSubmit :",updatedData);
+        
       })
       .catch((error) => {
         console.error('Error updating customer:', error);
