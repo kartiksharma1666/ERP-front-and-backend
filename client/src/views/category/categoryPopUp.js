@@ -100,6 +100,16 @@ const CategoryPopUp = (props) => {
     props.setGetData(true);
   };
 
+  const popup = {
+    marginTop : '25px'
+  }
+
+  const updatebox ={
+    width: '300px', 
+    marginTop: '-5px',
+    height: '35px',
+    marginLeft: '10px'
+  }
   
   const Content = () => {
     if (props.edit === true) {
@@ -108,13 +118,13 @@ const CategoryPopUp = (props) => {
           <button className="btn btn-primary close-button" onClick={handleToClose}>
             Close
           </button>
-          <h2 style={{ marginBottom: '30px' }}>Edit Category</h2>
+          <h2 style={{ marginTop: '-15px' }}>Edit Category</h2>
           <CForm onSubmit={handleSubmit}>
           <div>
-              <p>
+              <p style={popup}>
                 <label>
                   Category Name
-                  <input
+                  <input style={updatebox}
                     name="name"
                     placeholder="Category Name"
                     onChange={handleChange}
@@ -135,13 +145,13 @@ const CategoryPopUp = (props) => {
           <button className="btn btn-primary close-button" onClick={handleToClose}>
             Close
           </button>
-          <h2 style={{ marginBottom: '30px' }}>Add Category</h2>
+          <h2 style={{ marginTop: '-15px' }}>Add Category</h2>
           <CForm onSubmit={handleAddCategory}>
           <div>
-              <p>
+              <p style={popup}>
                 <label>
                   Category Name
-                  <input
+                  <input style={updatebox}
                     name="name"
                     placeholder="Category Name"
                     onChange={handleChange}
@@ -149,7 +159,7 @@ const CategoryPopUp = (props) => {
                   />
                 </label>
               </p>
-              <CButton color="success" shape="rounded-pill" type="submit">
+              <CButton color="success" shape="rounded-pill" type="submit" style = {{marginTop: '10px'}}>
                 Add Category
               </CButton>
             </div>
@@ -174,6 +184,7 @@ const CategoryPopUp = (props) => {
             Cancel
           </Button>
           <Button
+          style={{marginLeft: '20px'}}
             onClick={() => {
               handleDelete(props.selectedCategory);
               handleToClose();
@@ -216,9 +227,9 @@ const CategoryPopUp = (props) => {
           alignItems: 'center',
         },
         content: {
-          width: '50%',
-          maxHeight: '80%',
-          maxWidth: '800px',
+          width: '50%', // Adjust the width as needed
+          height: '230px', // Adjust the height as needed
+          maxWidth: '700px',
           border: '1px solid #ccc',
           background: '#fff',
           overflow: 'auto',

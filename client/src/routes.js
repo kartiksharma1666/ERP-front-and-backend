@@ -6,6 +6,7 @@ import orders from './views/dashboard/orders';
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Customer = React.lazy(() => import('./views/dashboard/customer'))
 const Billing = React.lazy(() => import('./views/billing/Billing'))
+const Inventory = React.lazy(() => import('./views/Inventory/Inventory'))
 const Category = React.lazy(() => import('./views/category/category'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
@@ -62,6 +63,7 @@ const routes = [
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
   { path: '/Category', name: 'Category', element: Category},
   { path: '/billing', name: 'Billing', element: Billing},
+  { path: '/Inventory', name: 'Inventory', element: Inventory},
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', element: Colors },
   { path: '/theme/typography', name: 'Typography', element: Typography },

@@ -53,7 +53,7 @@ const Profile = () => {
     }
 ]
     
-    const selectedProfile = profileData.find((profile) => profile.id ===1)
+    const selectedProfile = profileData.find((profile) => profile.id === 3)
     
     const [selectedImage, setSelectedImage] = useState(null);
     const [selectedLanguage, setSelectedLanguage] = useState('');
@@ -72,16 +72,27 @@ const Profile = () => {
 
     const profileStyle = {
         display: 'flex',
-        marginTop: '60px'
+        marginTop: '50px'
     }
     
     const imageStyle = {
-        width: '200px',
-        height: '200px',
+        width: '170px',
+        height: '170px',
         borderRadius: '50%',
-        cursor: 'pointer'
-
+        cursor: 'pointer',
+        marginLeft: '-25px'
     };
+
+    const profile = {
+        marginLeft:'10px',
+        width:'35%',
+        height: '20%',
+        border: '1px solid  #B2BEB5',
+        borderRadius:'5px', 
+        background:'white',
+        padding:'3px',
+        marginBottom: '0px'
+    }
 
     const profileContentStyle = {
      marginRight: '50px',
@@ -128,62 +139,45 @@ const Profile = () => {
                                 style={{ display: 'none' }}
                             />
                         </div>
-                        <div className='' style={{marginLeft: '50px'}}>
-                            <h1>{selectedProfile.name}</h1>
+                        <div className='' style={{marginLeft: '50px', marginTop: '20px'}}>
+                            <h3>{selectedProfile.name}</h3>
                             <p><span style={{color:'blue'}}>{selectedProfile.email}</span> - Administrator</p>
-                            <p>{selectedProfile.age}</p>
-                            <p>{selectedProfile.store[2]}</p>
+                            <p style={{marginTop: '-10px'}}>{selectedProfile.age}</p>
+                            <p style={{marginTop: '-10px'}}>{selectedProfile.store[2]}</p>
                         </div>
                     </div>
                     <section className='profile-content align-item center' >
-                     <h2 style={{marginTop: '70px'}}>Account</h2>
+                     <h2 style={{marginTop: '50px'}}>Account</h2>
+                     <hr />
                      {selectedProfile && (
                         <div className='profile-details'>
                             <div className='profile-name mt-4' style={{display: 'flex'}}>
                                 <h5><FaUserClock/> Name </h5>
-                               <p style={{marginLeft:'95px',
-                            width:'50%', border: '1px solid  #B2BEB5',borderRadius:'5px', background:'white',padding:'5px',
-                            marginBottom:'10px'}}>{selectedProfile.name}</p>
+                               <p style={profile}>{selectedProfile.name}</p>
                             </div>
                             <div className='profile-email mt-4' style={{display: 'flex'}}>
                             <h5><FaEnvelope/> Email</h5>
-                            <p style={{marginLeft:'100px',
-                            width:'50%', border: '1px solid  #B2BEB5', borderRadius:'5px',background:'white',padding:'5px',
-                            marginBottom:'10px'}}>{selectedProfile.email}</p>
+                            <p style={profile}>{selectedProfile.email}</p>
                             </div>
                             <div className='profile-phone mt-4' style={{display: 'flex'}}>
                             <h5><FaPhoneAlt/> Phone </h5>
-                            <p style={{marginLeft:'94px',
-                            width:'50%', border: '1px solid  #B2BEB5', borderRadius:'5px',background:'white',padding:'5px',
-                            marginBottom:'10px'}}>{selectedProfile.phone}</p>
+                            <p style={profile}>{selectedProfile.phone}</p>
                             </div>
                             <div className='profile-name mt-4' style={{display: 'flex'}}>
                                 <h5><FaUserClock/> Username </h5>
-                               <p style={{marginLeft:'60px',
-                            width:'50%', border: '1px solid  #B2BEB5',borderRadius:'5px', background:'white',padding:'5px',
-                            marginBottom:'10px'}}>{selectedProfile.username}</p>
+                               <p style={profile}>{selectedProfile.username}</p>
                             </div>
                             
                             <div className='profile-phone mt-4' style={{display: 'flex'}}>
                             <h5><FaGlobe/> Country </h5>
-                            <p style={{marginLeft:'80px',
-                            width:'50%', border: '1px solid  #B2BEB5',borderRadius:'5px', background:'white',padding:'5px',
-                            marginBottom:'10px'}}>{selectedProfile.country}</p>
+                            <p style={profile}>{selectedProfile.country}</p>
                             </div>
                             <div className='language mt-4' style={{ display: 'flex' }}>
     <h5><FaLanguage/> Language</h5>
     <select
         value={selectedLanguage}
         onChange={(e) => setSelectedLanguage(e.target.value)}
-        style={{
-            marginLeft: '64px',
-            width: '50%',
-            border: '1px solid #B2BEB5',
-            borderRadius: '5px',
-            background: 'white',
-            padding: '5px',
-            marginBottom: '10px',
-        }}
+        style={profile}
     >
         <option value=''>Select a language</option>
         {languages.map((language) => (

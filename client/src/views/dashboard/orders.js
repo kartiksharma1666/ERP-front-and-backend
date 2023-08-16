@@ -28,9 +28,8 @@ const Orders = () => {
   const [getData, setGetData] = useState(false);
 
   const order_button_style = {
-    marginRight: '50px',
     height: '40px',
-    width: '155px',
+    width: '150px',
   };
 
   const getDataFromDB = async () => {
@@ -91,7 +90,7 @@ const Orders = () => {
                   <div className=" row justify-content-center">
                     <div className="col-md-8">
                       <div className="input-group mb-3">
-                        <input
+                        <input style={{borderRadius: '5px', marginLeft:'-200px'}}
                           type="text"
                           className="form-control"
                           placeholder="Search for Customers..."
