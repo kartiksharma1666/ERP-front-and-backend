@@ -48,11 +48,8 @@ const Product = (props) => {
   
 
   const product_button_style = {
-    marginRight: '75px',
-
-    height: '50px',
-
-    width: '158px',
+    height: '40px',
+    width: '150px',
   }
 
   const sortedCategories = Array.isArray(categories) ? [...categories].sort((a, b) => b.order - a.order) : [];
@@ -122,7 +119,7 @@ const Product = (props) => {
           <CCardBody>
             <div className="d-flex">
               <CDropdown>
-                <CDropdownToggle color="primary">Category</CDropdownToggle>
+                <CDropdownToggle color="primary" style={{height: '40px'}}>Category</CDropdownToggle>
                 <CDropdownMenu>
                   <CDropdownItem onClick={() => setSelectedCategory(null)}>All</CDropdownItem>
                   {sortedCategories.length > 0 &&
@@ -142,7 +139,7 @@ const Product = (props) => {
                 <div className=" row justify-content-center">
                   <div className="col-md-8">
                     <div className="input-group mb-3">
-                      <input
+                      <input style={{borderRadius: '5px'}}
                         type="text"
                         className="form-control"
                         placeholder="Search for Product..."
