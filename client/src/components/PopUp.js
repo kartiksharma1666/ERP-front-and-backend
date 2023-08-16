@@ -291,9 +291,10 @@ const PopUp = (props) => {
           <h2 style={{ marginBottom: '30px' }}>Product Details</h2>
           {props.selectedProduct && (
             <div style={popup}>
-              <p>Name: {props.selectedProduct.name}</p>
-              <p>Price: {props.selectedProduct.price} </p>
-              <p>Description:{props.selectedProduct.description}</p>
+              <p>Name: {props.selectedProduct.name || ""}</p>
+              <p>Price: {props.selectedProduct.price || ""} </p>
+              <p>Description:{props.selectedProduct.description || ""}</p>
+
             </div>
           )}
         </div>

@@ -75,8 +75,8 @@ app.use('/api', orderRoutes);
 
 require("./routes/product.routes")(app);
 
-// const productRoutes = require('./routes/product.routes');
-// app.use("/api", productRoutes)
+const inventoryRoutes = require('./routes/inventory.routes');
+app.use('/api/inventory', inventoryRoutes);
 
 const categoryRoutes = require('./routes/category.routes');
 app.use("/api", categoryRoutes);
