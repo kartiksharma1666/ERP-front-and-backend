@@ -36,15 +36,17 @@ const Product = (props) => {
       .then((response) => response.json())
       .then((data) => {
         setCategories(data.categories)
-        console.log(data) // Update the state with fetched categories
+        console.log(data.categories) // Update the state with fetched categories
       })
       .catch((error) => {
         console.error('Error fetching categories:', error)
       })
   }
   const filteredProducts = selectedCategory
-  ? data.filter((product) => product.category._id === selectedCategory)
+  ? data.filter((product) => product.category && product.category._id === selectedCategory)
   : data;
+
+
   
 
   const product_button_style = {
