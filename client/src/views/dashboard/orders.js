@@ -28,9 +28,8 @@ const Orders = () => {
   const [getData, setGetData] = useState(false);
 
   const order_button_style = {
-    marginRight: '50px',
     height: '40px',
-    width: '155px',
+    width: '150px',
   };
 
   const getDataFromDB = async () => {

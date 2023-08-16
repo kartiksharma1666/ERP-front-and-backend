@@ -38,10 +38,8 @@ const Customer = () => {
   const [getData, setGetData] = useState(false)
 
   const product_button_style = {
-    marginRight: '50px',
     height: '40px',
-    width: '173px',
-
+    width: '150px',
   }
 
   const getDataFromDB = async () => {
