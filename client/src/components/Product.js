@@ -104,7 +104,7 @@ const Product = (props) => {
   }, [props.getData])
   useEffect(() => {
     // Log the category.$oid value for each product
-    if (data) {
+    if (data && data._id) {
       data.forEach(product => {
         console.log("Product ID:", product._id);
         console.log("Category ID:", product.category._id);
