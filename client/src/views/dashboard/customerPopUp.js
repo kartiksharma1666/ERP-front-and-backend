@@ -153,6 +153,7 @@ const CustomerPopUp = (props) => {
                       placeholder="Name"
                       onChange={handleChange}
                       value={updatedData.name}
+                      className='input-style'
                     />
                   </label>
                 </p>
@@ -164,6 +165,7 @@ const CustomerPopUp = (props) => {
                       placeholder="Email"
                       onChange={handleChange}
                       value={updatedData.email}
+                      className='input-style'
                     />
                   </label>
                 </p>
@@ -175,6 +177,7 @@ const CustomerPopUp = (props) => {
                       placeholder="Phone no"
                       onChange={handleChange}
                       value={updatedData.phone}
+                      className='input-style'
                     />
                   </label>
                   <label>
@@ -184,6 +187,7 @@ const CustomerPopUp = (props) => {
                       placeholder="Address"
                       onChange={handleChange}
                       value={updatedData.address}
+                      className='input-style'
                     />
                   </label>
                 </p>
@@ -213,6 +217,7 @@ const CustomerPopUp = (props) => {
                     placeholder="Name"
                     onChange={handleChangeOfAdd}
                     value={addData.name}
+                   className='input-style'
                   />
                   <p></p>
                   <input
@@ -220,6 +225,7 @@ const CustomerPopUp = (props) => {
                     placeholder="Email"
                     onChange={handleChangeOfAdd}
                     value={addData.email}
+                    className='input-style'
                   />
                   <p></p>
                   <input
@@ -227,6 +233,7 @@ const CustomerPopUp = (props) => {
                     placeholder="Phone no"
                     onChange={handleChangeOfAdd}
                     value={addData.phone}
+                    className='input-style'
                   />
                   <p></p>
                   <input
@@ -234,6 +241,7 @@ const CustomerPopUp = (props) => {
                     placeholder="Address"
                     onChange={handleChangeOfAdd}
                     value={addData.address}
+                    className='input-style'
                   /> 
                   <p></p>
                   <CButton color="success" shape="rounded-pill" type="submit">

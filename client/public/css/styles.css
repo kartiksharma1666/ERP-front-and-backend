@@ -8,3 +8,30 @@
     top: 28px;
 }
 
+.customer-add-btn{
+   
+        position: fixed;
+        bottom: 20px; 
+        right: 20px; 
+        z-index: 1000;  
+}
+
+.input-style{
+width: 100%;
+padding: 5px;
+border: 1px solid #c0bfbf;
+border-radius: 8px;
+}
+.order-input-style{
+width: 100%;
+padding: 5px;
+border: 1px solid #c0bfbf;
+border-radius: 8px;
+}
+
+.order-add-btn{
+    position: fixed;
+    right: 10px;
+    bottom: 410px; 
+    z-index: 1000;  
+}

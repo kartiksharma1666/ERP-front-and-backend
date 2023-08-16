@@ -154,6 +154,7 @@ const OrderPopUp = (props) => {
                       placeholder="Order Number"
                       onChange={handleChange}
                       value={updatedOrder.orderNumber}
+                      className='order-input-style'
                     />
                   </label>
                 </p>
@@ -165,6 +166,7 @@ const OrderPopUp = (props) => {
                       placeholder="customer Name"
                       onChange={handleChange}
                       value={updatedOrder.customerName}
+                      className='order-input-style'
                     />
                   </label>
                 </p>
@@ -176,6 +178,7 @@ const OrderPopUp = (props) => {
                       placeholder="Total Price"
                       onChange={handleChange}
                       value={updatedOrder.totalAmount}
+                      className='order-input-style'
                     />
                   </label>
                 </p>

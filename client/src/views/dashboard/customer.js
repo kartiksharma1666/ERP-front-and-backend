@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import CustomerPopUp from './customerPopUp'
+import FloatingButton from '../FloatingButton'
 
 import {
   CAvatar,
@@ -37,9 +38,10 @@ const Customer = () => {
   const [getData, setGetData] = useState(false)
 
   const product_button_style = {
-    marginRight: '75px',
-    height: '50px',
-    width: '158px',
+    marginRight: '50px',
+    height: '40px',
+    width: '173px',
+
   }
 
   const getDataFromDB = async () => {
@@ -102,7 +104,7 @@ const Customer = () => {
               <strong>Customers</strong>
             </CCardHeader>
             <CCardBody>
-              <div className="d-flex">
+              <div className="d-flex mt-2">
                 <div className="container">
                   <div className=" row justify-content-center">
                     <div className="col-md-8">
@@ -135,16 +137,18 @@ const Customer = () => {
                     )}
                   </div>
                 </div>
+                <div>
                 <button
-                  className=" btn btn-primary "
+                  className=" btn btn-primary"
                   onClick={handleAddCustomer}
                   style={product_button_style}
                 >
                   Add Customer
                 </button>
+                </div>
               </div>
 
-              <CTable className="mb-0 border" hover responsive>
+              <CTable className="mb-0 border mt-4" hover responsive>
                 <CTableHead>
                   <CTableRow>
                     <CTableHeaderCell scope="col">Sr. no</CTableHeaderCell>
@@ -229,6 +233,7 @@ const Customer = () => {
         deletePop={deletePop}
         setDeletePop={setDeletePop}
       />
+      <FloatingButton />
     </div>
     
   )
