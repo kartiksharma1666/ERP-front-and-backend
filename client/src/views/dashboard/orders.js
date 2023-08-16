@@ -28,8 +28,9 @@ const Orders = () => {
   const [getData, setGetData] = useState(false);
 
   const order_button_style = {
+    marginRight: '50px',
     height: '40px',
-    width: '150px',
+    width: '155px',
   };
 
   const getDataFromDB = async () => {
@@ -85,8 +86,8 @@ const Orders = () => {
               <strong>Orders</strong>
             </CCardHeader>
             <CCardBody>
-            <div className="d-flex">
-                <div className="container">
+            <div className="d-flex mt-2">
+                <div className="container ">
                   <div className=" row justify-content-center">
                     <div className="col-md-8">
                       <div className="input-group mb-3">
@@ -96,6 +97,7 @@ const Orders = () => {
                           placeholder="Search for Customers..."
                           value={search}
                           onChange={(e) => setSearch(e.target.value)}
+                          stye={{width: '81%'}}
                         ></input>
                         <div className="input-group-append">
                           <button className="btn btn-primary search-button" onClick={handleSearch}>
@@ -118,16 +120,18 @@ const Orders = () => {
                     )}
                   </div>
                 </div>
+                <div>
                 <button
-                  className=" btn btn-primary "
+                  className=" btn btn-primary order-add-btn"
                   onClick={handleAddOrder}
                   style={order_button_style}
                 >
                   Add Order
                 </button>
+                </div>
               </div>
 
-              <CTable className="mb-0 border" hover responsive>
+              <CTable className="mb-0 border mt-4" hover responsive>
                 <CTableHead>
                   <CTableRow>
                     <CTableHeaderCell scope="col">Sr. no</CTableHeaderCell>

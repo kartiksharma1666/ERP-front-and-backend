@@ -139,8 +139,8 @@ const Profile = () => {
                                 style={{ display: 'none' }}
                             />
                         </div>
-                        <div className='' style={{marginLeft: '50px', marginTop: '20px'}}>
-                            <h3>{selectedProfile.name}</h3>
+                        <div className='' style={{marginLeft: '50px'}}>
+                            <h1>{selectedProfile.name}</h1>
                             <p><span style={{color:'blue'}}>{selectedProfile.email}</span> - Administrator</p>
                             <p style={{marginTop: '-10px'}}>{selectedProfile.age}</p>
                             <p style={{marginTop: '-10px'}}>{selectedProfile.store[2]}</p>
@@ -153,31 +153,49 @@ const Profile = () => {
                         <div className='profile-details'>
                             <div className='profile-name mt-4' style={{display: 'flex'}}>
                                 <h5><FaUserClock/> Name </h5>
-                               <p style={profile}>{selectedProfile.name}</p>
+                               <p style={{marginLeft:'95px',
+                            width:'50%', border: '1px solid  #B2BEB5',borderRadius:'5px', background:'white',padding:'5px',
+                            marginBottom:'10px'}}>{selectedProfile.name}</p>
                             </div>
                             <div className='profile-email mt-4' style={{display: 'flex'}}>
                             <h5><FaEnvelope/> Email</h5>
-                            <p style={profile}>{selectedProfile.email}</p>
+                            <p style={{marginLeft:'100px',
+                            width:'50%', border: '1px solid  #B2BEB5', borderRadius:'5px',background:'white',padding:'5px',
+                            marginBottom:'10px'}}>{selectedProfile.email}</p>
                             </div>
                             <div className='profile-phone mt-4' style={{display: 'flex'}}>
                             <h5><FaPhoneAlt/> Phone </h5>
-                            <p style={profile}>{selectedProfile.phone}</p>
+                            <p style={{marginLeft:'94px',
+                            width:'50%', border: '1px solid  #B2BEB5', borderRadius:'5px',background:'white',padding:'5px',
+                            marginBottom:'10px'}}>{selectedProfile.phone}</p>
                             </div>
                             <div className='profile-name mt-4' style={{display: 'flex'}}>
                                 <h5><FaUserClock/> Username </h5>
-                               <p style={profile}>{selectedProfile.username}</p>
+                               <p style={{marginLeft:'60px',
+                            width:'50%', border: '1px solid  #B2BEB5',borderRadius:'5px', background:'white',padding:'5px',
+                            marginBottom:'10px'}}>{selectedProfile.username}</p>
                             </div>
                             
                             <div className='profile-phone mt-4' style={{display: 'flex'}}>
                             <h5><FaGlobe/> Country </h5>
-                            <p style={profile}>{selectedProfile.country}</p>
+                            <p style={{marginLeft:'80px',
+                            width:'50%', border: '1px solid  #B2BEB5',borderRadius:'5px', background:'white',padding:'5px',
+                            marginBottom:'10px'}}>{selectedProfile.country}</p>
                             </div>
                             <div className='language mt-4' style={{ display: 'flex' }}>
     <h5><FaLanguage/> Language</h5>
     <select
         value={selectedLanguage}
         onChange={(e) => setSelectedLanguage(e.target.value)}
-        style={profile}
+        style={{
+            marginLeft: '64px',
+            width: '50%',
+            border: '1px solid #B2BEB5',
+            borderRadius: '5px',
+            background: 'white',
+            padding: '5px',
+            marginBottom: '10px',
+        }}
     >
         <option value=''>Select a language</option>
         {languages.map((language) => (
