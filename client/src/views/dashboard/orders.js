@@ -30,6 +30,7 @@ const Orders = () => {
   const order_button_style = {
     height: '40px',
     width: '150px',
+    marginRight: '50px'
   };
 
   const getDataFromDB = async () => {
@@ -87,10 +88,10 @@ const Orders = () => {
             <CCardBody>
             <div className="d-flex mt-2">
                 <div className="container ">
-                  <div className=" row justify-content-center">
+                  <div className=" row justify-content-center" style={{marginRight: '50px'}}>
                     <div className="col-md-8">
                       <div className="input-group mb-3">
-                        <input style={{borderRadius: '5px', marginLeft:'-200px'}}
+                        <input style={{borderRadius: '5px'}}
                           type="text"
                           className="form-control"
                           placeholder="Search for Customers..."

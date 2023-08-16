@@ -35,3 +35,103 @@ border-radius: 8px;
     bottom: 410px; 
     z-index: 1000;  
 }
+
+.fab button{
+    position: fixed;
+    bottom: 100px;
+    right: -10px;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+   background: #f44336;
+   font-size: 25px;
+  border: none;
+ z-index: 3;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+ }
+
+ .fab button:hover {
+  cursor: pointer
+ }
+
+ .box{
+    position: fixed;
+    bottom: 150px;
+    right: -35px;
+    height: 0px;
+    transition-delay: 0.3s;
+    width: 80px;
+    transition: 0.5s cubic-bezier(0.445, 0.05,0.55,0.95);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+ }
+
+ .floatbtn{
+    overflow: hidden;
+    border-radius: 50%;
+    transition: 0.4s ease-in;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border: none;
+ }
+
+ .item1{
+    transition-delay: 0.2s;
+    background: rgb(24, 24, 170);
+    color: #fff;
+ }
+ .item2{
+    transition-delay: 0.2s;
+    background: #f44336;
+    color: #fff;
+ }
+ .item3{
+    transition-delay: 0.3s;
+    background: rgb(109, 109, 248);
+    color: #fff;
+ }
+ .item4{
+    transition-delay: 0.4s;
+    background: rgb(58, 182, 110);
+    color: #fff;
+    margin-bottom: 60px;
+ }
+ 
+ .floatbtn:hover{
+    cursor: pointer;
+    transform: rotate(360deg);
+    transition: all 0.5s;
+ }
+ 
+ .box-active{
+    height: 290px;
+ }
+
+ .fab button:active{
+    transform: rotate(180deg);
+ }
+
+ .modal-input{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    margin-top: 10px;
+ }
+
+ .modal-input input{
+    margin-top: 5px;
+    border-radius: 8px;
+    padding: 5px;
+    border:1px solid #c0bfbf;
+ }
+
+
+

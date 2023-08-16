@@ -1,17 +1,24 @@
 import React from 'react'
-import {MdAdd} from 'react-icons/md'
+import {MdAdd, MdOutlineCreateNewFolder, MdMenu} from 'react-icons/md'
+import {AiOutlineEdit, AiTwotoneDelete} from 'react-icons/ai'
 
  const FloatingButton = () => {
+    
+    const handleFabClick = () => {
+        document.querySelector('.box').classList.toggle('box-active');
+        document.querySelector('.fab').classList.toggle('fab-active');
+      };
+   
     return (
         <div>
         <div className='fab'>
-            <button><MdAdd /></button>
+            <button onClick={handleFabClick} className='fabbtn'><MdAdd /></button>
         </div>
         <div className='box'>
-            <button></button>
-            <button></button>
-            <button></button>
-            <button></button>
+            <button className='floatbtn item1'><AiOutlineEdit /></button>
+            <button className='floatbtn item2'><MdOutlineCreateNewFolder /></button>
+            <button className='floatbtn item3'><AiTwotoneDelete /></button>
+            <button className='floatbtn item4'><MdMenu /></button>
         </div>
         </div>
     )

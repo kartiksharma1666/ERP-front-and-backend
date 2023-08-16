@@ -107,7 +107,7 @@ const Customer = () => {
                   <div className=" row justify-content-center">
                     <div className="col-md-8">
                       <div className="input-group mb-3">
-                        <input style={{borderRadius: '5px', marginLeft: '-200px'}}
+                        <input style={{borderRadius: '5px', }}
                           type="text"
                           className="form-control"
                           placeholder="Search for Customers..."
@@ -231,7 +231,6 @@ const Customer = () => {
         deletePop={deletePop}
         setDeletePop={setDeletePop}
       />
-      <FloatingButton />
     </div>
     
   )

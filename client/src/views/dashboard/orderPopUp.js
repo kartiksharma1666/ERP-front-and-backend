@@ -141,7 +141,7 @@ const OrderPopUp = (props) => {
   const inputbox = {
     width: '50%', 
     marginTop: '-5px',
-    height: '35px'
+    height: '35px',
   }
 
   const updatebox ={
