@@ -166,7 +166,7 @@ const Billing = () => {
               borderRadius: '8px',
             }}
           >
-            <h5>Details</h5>
+            <h5>Customer Details</h5>
 
             <p>
               <BiSolidUser style={{ fontSize: '14px' }} /> {billing.name}
@@ -189,7 +189,7 @@ const Billing = () => {
             </button>
           </div>
         </div>
-        <div className="d-flex">
+        {/*  <div className="d-flex">
           <div
             className="invoice "
             style={{
@@ -201,7 +201,7 @@ const Billing = () => {
               borderRadius: '8px',
             }}
           >
-            <h5>History</h5>
+           <h5>History</h5>
             <div style={{ marginTop: '25px' }}>
               <div className="d-flex">
                 <BiEnvelope
@@ -279,8 +279,10 @@ const Billing = () => {
             >
               Ask a question
             </button>
+            
           </div>
         </div>
+        */}
 
         <div className="billing-bar d-flex">
           <div
