@@ -36,23 +36,22 @@ const Product = (props) => {
       .then((response) => response.json())
       .then((data) => {
         setCategories(data.categories)
-        console.log(data) // Update the state with fetched categories
+        console.log(data.categories) // Update the state with fetched categories
       })
       .catch((error) => {
         console.error('Error fetching categories:', error)
       })
   }
   const filteredProducts = selectedCategory
-  ? data.filter((product) => product.category._id === selectedCategory)
+  ? data.filter((product) => product.category && product.category._id === selectedCategory)
   : data;
+
+
   
 
   const product_button_style = {
-    marginRight: '75px',
-
-    height: '50px',
-
-    width: '158px',
+    height: '40px',
+    width: '150px',
   }
 
   const sortedCategories = Array.isArray(categories) ? [...categories].sort((a, b) => b.order - a.order) : [];
@@ -104,7 +103,7 @@ const Product = (props) => {
   }, [props.getData])
   useEffect(() => {
     // Log the category.$oid value for each product
-    if (data) {
+    if (data && data._id) {
       data.forEach(product => {
         console.log("Product ID:", product._id);
         console.log("Category ID:", product.category._id);
@@ -122,7 +121,7 @@ const Product = (props) => {
           <CCardBody>
             <div className="d-flex">
               <CDropdown>
-                <CDropdownToggle color="primary">Category</CDropdownToggle>
+                <CDropdownToggle color="primary" style={{height: '40px'}}>Category</CDropdownToggle>
                 <CDropdownMenu>
                   <CDropdownItem onClick={() => setSelectedCategory(null)}>All</CDropdownItem>
                   {sortedCategories.length > 0 &&
@@ -142,7 +141,7 @@ const Product = (props) => {
                 <div className=" row justify-content-center">
                   <div className="col-md-8">
                     <div className="input-group mb-3">
-                      <input
+                      <input style={{borderRadius: '5px'}}
                         type="text"
                         className="form-control"
                         placeholder="Search for Product..."

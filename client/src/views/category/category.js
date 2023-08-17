@@ -73,6 +73,11 @@ const Category = () => {
     setAddCategory(true);
   };
 
+  const product_button_style = {
+    height: '40px',
+    width: '150px',
+  }
+
   return (
     <div>
       <CCard className="mb-4">
@@ -84,7 +89,7 @@ const Category = () => {
             <div className="container">
               {/* Search bar */}
               <div className="input-group mb-3">
-                <input
+                <input style={{borderRadius: '5px'}}
                   type="text"
                   className="form-control"
                   placeholder="Search for Categories..."
@@ -161,7 +166,7 @@ const Category = () => {
                 </CTableBody>
               </CTable>
             </div>
-            <button className="btn btn-primary" onClick={handleAddCategory}>
+            <button style={product_button_style} className="btn btn-primary" onClick={handleAddCategory}>
               Add Category
             </button>
           </div>

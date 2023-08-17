@@ -28,17 +28,17 @@ const Orders = () => {
   const [getData, setGetData] = useState(false);
 
   const order_button_style = {
-    marginRight: '75px',
-    height: '50px',
-    width: '158px',
+    height: '40px',
+    width: '150px',
   };
 
   const getDataFromDB = async () => {
     try {
       const res = await fetch('http://localhost:8080/api/order/all');
       const resjson = await res.json();
-      if (resjson.success && Array.isArray(resjson.order)) {
-        setData(resjson.order);
+      if (resjson.success && Array.isArray(resjson.orders)) {
+        setData(resjson.orders);
+        console.log("inside orders")
       } else {
         console.error('Invalid data format from API:', resjson);
         setData([]); // Set an empty array to prevent map errors
@@ -90,7 +90,7 @@ const Orders = () => {
                   <div className=" row justify-content-center">
                     <div className="col-md-8">
                       <div className="input-group mb-3">
-                        <input
+                        <input style={{borderRadius: '5px', marginLeft:'-200px'}}
                           type="text"
                           className="form-control"
                           placeholder="Search for Customers..."

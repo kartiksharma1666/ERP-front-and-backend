@@ -8,15 +8,15 @@ Modal.setAppElement('#root');
 const OrderPopUp = (props) => {
   const [updatedOrder, setUpdatedOrder] = useState({
     orderNumber: "",
-    customer: "",
-    totalPrice: 0
+    customerName: "",
+    totalAmount: ""
     
   });
 
   const [addOrder, setAddOrder] = useState({
-    newOrderNumber: "",
-    newcustomer: "",
-    newTotalPrice: 0,
+    neworderNumber: "",
+    newcustomerName: "",
+    newtotalAmount: "",
     // Add other fields for adding an order
   });
 
@@ -24,8 +24,8 @@ const OrderPopUp = (props) => {
     if (props.edit) {
       setUpdatedOrder({
         orderNumber: props.selectedOrder?.orderNumber,
-        customer: props.selectedOrder?.customer,
-        totalPrice: props.selectedOrder?.totalPrice
+        customerName: props.selectedOrder?.customerName,
+        totalAmount: props.selectedOrder?.totalAmount
         // Update other fields as needed
       });
     }
@@ -62,10 +62,10 @@ const OrderPopUp = (props) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('Customer deleted successfully:', data);
+        console.log('customerName deleted successfully:', data);
       })
       .catch((error) => {
-        console.error('Error deleting customer:', error);
+        console.error('Error deleting customerName:', error);
       });
     props.setDeletePop(false);
     props.setSelectedOrder(null);
@@ -81,13 +81,13 @@ const OrderPopUp = (props) => {
       },
       
       
-      body: JSON.stringify(updatedData),
+      body: JSON.stringify(updatedOrder),
       
     })
       .then((response) => response.json())
       .then((data) => {
         console.log('order updated successfully:', data);
-        console.log("inside handleSubmit :",updatedData);
+        console.log("inside handleSubmit :",updatedOrder);
       })
       .catch((error) => {
         console.error('Error updating order:', error);
@@ -99,12 +99,18 @@ const OrderPopUp = (props) => {
 
   const handleAddOrder = (e) => {
     e.preventDefault();
+    console.log("add Order :", addOrder);
+  
     fetch('http://localhost:8080/api/order/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(addData),
+      body: JSON.stringify({
+        orderNumber: addOrder.neworderNumber,
+        customerName: addOrder.newcustomerName,
+        totalAmount: addOrder.newtotalAmount,
+      }),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -117,11 +123,33 @@ const OrderPopUp = (props) => {
       .catch((error) => {
         console.error('API request error:', error);
       });
+  
     props.setAddOrder(false);
     props.setIsModalOpen(false);
     props.setGetData(true);
-    setAddOrder({});
+    setAddOrder({
+      neworderNumber: "",
+      newcustomerName: "",
+      newtotalAmount: "",
+    });
   };
+  
+  const popup = {
+    marginTop : '25px'
+  }
+
+  const inputbox = {
+    width: '50%', 
+    marginTop: '-5px',
+    height: '35px'
+  }
+
+  const updatebox ={
+    width: '300px', 
+    marginTop: '-5px',
+    height: '35px',
+    marginLeft: '10px'
+  }
 
   const Content = () => {
     if (props.edit === true) {
@@ -130,14 +158,14 @@ const OrderPopUp = (props) => {
           <button className="btn btn-primary close-button" onClick={handleToClose}>
             Close
           </button>
-          <h2 style={{ marginBottom: '30px' }}>Order Details</h2>
+          <h2 style={{ marginTop: '-15px' }}>Order Details</h2>
           <CForm onSubmit={handleSubmit}>
             {props.selectedOrder && (
               <div>
-                <p>
+                <p style={popup}>
                   <label>
                     Order Number
-                    <input
+                    <input style={updatebox}
                       name="orderNumber"
                       placeholder="Order Number"
                       onChange={handleChange}
@@ -145,30 +173,30 @@ const OrderPopUp = (props) => {
                     />
                   </label>
                 </p>
-                <p>
+                <p style={popup}>
                   <label>
-                    Customer
-                    <input
-                      name="customer"
-                      placeholder="Customer"
+                    customerName
+                    <input style={updatebox}
+                      name="customerName"
+                      placeholder="customer Name"
                       onChange={handleChange}
-                      value={updatedOrder.customer}
+                      value={updatedOrder.customerName}
                     />
                   </label>
                 </p>
-                <p>
+                <p style={popup}>
                   <label>
                     Total Price
-                    <input
-                      name="totalPrice"
+                    <input style={updatebox}
+                      name="totalAmount"
                       placeholder="Total Price"
                       onChange={handleChange}
-                      value={updatedOrder.totalPrice}
+                      value={updatedOrder.totalAmount}
                     />
                   </label>
                 </p>
                 {/* Add other order fields as needed */}
-                <CButton color="success" shape="rounded-pill" type="submit">
+                <CButton color="success" shape="rounded-pill" type="submit" style = {{marginTop: '10px'}}>
                   Update
                 </CButton>
               </div>
@@ -182,35 +210,35 @@ const OrderPopUp = (props) => {
           <button className="btn btn-primary close-button" onClick={handleToClose}>
             Close
           </button>
-          <h2 style={{ marginBottom: '30px' }}>Enter Order Details</h2>
+          <h2 style={{ marginTop: '-15px' }}>Enter Order Details</h2>
           <CForm onSubmit={handleAddOrder}>
             <div>
-              <p>
-                <input
-                  name="newOrderNumber"
+              <p style={popup}>
+                <input style={inputbox}
+                  name="neworderNumber"
                   placeholder="Order Number"
                   onChange={handleChangeOfAdd}
-                  value={addOrder.newOrderNumber}
+                  value={addOrder.neworderNumber}
                 />
               </p>
-              <p>
-                <input
-                  name="newcustomer"
-                  placeholder="Customer"
+              <p style={popup}>
+                <input style={inputbox}
+                  name="newcustomerName"
+                  placeholder="customerName"
                   onChange={handleChangeOfAdd}
-                  value={addOrder.newcustomer}
+                  value={addOrder.newcustomerName}
                 />
               </p>
-              <p>
-                <input
-                  name="newTotalPrice"
+              <p style={popup}>
+                <input style={inputbox}
+                  name="newtotalAmount"
                   placeholder="Total Price"
                   onChange={handleChangeOfAdd}
-                  value={addOrder.newTotalPrice}
+                  value={addOrder.newtotalAmount}
                 />
               </p>
               {/* Add other order fields as needed */}
-              <CButton color="success" shape="rounded-pill" type="submit">
+              <CButton color="success" shape="rounded-pill" type="submit" style = {{marginTop: '10px'}}>
                 Add Order
               </CButton>
             </div>
@@ -228,7 +256,9 @@ const OrderPopUp = (props) => {
           <Button onClick={() => handleToClose()} variant="primary">
             Cancel
           </Button>
-          <Button onClick={() => handleDelete(props.selectedOrder)} variant="danger" autoFocus>
+          <Button 
+          style={{marginLeft: '20px'}}
+          onClick={() => handleDelete(props.selectedOrder)} variant="danger" autoFocus>
             Delete
           </Button>
         </div>
@@ -241,10 +271,10 @@ const OrderPopUp = (props) => {
           </button>
           <h2 style={{ marginBottom: '30px' }}>Order Details</h2>
           {props.selectedOrder && (
-            <div>
+            <div style={popup}>
               <p>Order Number: {props.selectedOrder.orderNumber}</p>
-              <p>Total Price: {props.selectedOrder.totalPrice}</p>
-              <p>Customer :{props.selectedOrder.customer}</p>
+              <p>Total Price: {props.selectedOrder.totalAmount}</p>
+              <p>customerName :{props.selectedOrder.customerName}</p>
             </div>
           )}
         </div>
@@ -267,8 +297,8 @@ const OrderPopUp = (props) => {
           },
           content: {
             width: '50%', // Adjust the width as needed
-            maxHeight: '80%', // Adjust the height as needed
-            maxWidth: '800px', // Limit the maximum width of the modal
+            height: '340px', // Adjust the height as needed
+            maxWidth: '700px', // Limit the maximum width of the modal
             border: '1px solid #ccc',
             background: '#fff',
             overflow: 'auto',

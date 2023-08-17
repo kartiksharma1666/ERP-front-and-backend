@@ -33,9 +33,13 @@ exports.getOrders = async (req, res, next) => {
 
 exports.updateOrder = async (req, res, next) => {
   try {
-    const id = new mongoose.Types.ObjectId(req.body.id);
+    const orderNumber = req.body.orderNumber;
 
-    const currentOrder = await Order.findById(id);
+    const currentOrder = await Order.findOne({ orderNumber });
+
+    if (!currentOrder) {
+      return res.status(404).json({ success: false, message: "Order not found" });
+    }
 
     const data = {
       orderNumber: req.body.orderNumber,
@@ -43,7 +47,7 @@ exports.updateOrder = async (req, res, next) => {
       totalAmount: req.body.totalAmount,
     };
 
-    const orderUpdate = await Order.findOneAndUpdate(id, data, {
+    const orderUpdate = await Order.findOneAndUpdate({ orderNumber }, data, {
       new: true,
     });
 
@@ -56,6 +60,8 @@ exports.updateOrder = async (req, res, next) => {
     next(error);
   }
 };
+
+
 
 exports.deleteOrder = async (req, res, next) => {
   try {

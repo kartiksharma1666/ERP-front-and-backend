@@ -80,8 +80,10 @@ const invoiceRoutes = require("./routes/billing.routes");
 app.use("/api", invoiceRoutes);
 // const productRoutes = require('./routes/product.routes');
 // app.use("/api", productRoutes)
+const inventoryRoutes = require("./routes/inventory.routes");
+app.use("/api/inventory", inventoryRoutes);
 
-const categoryRoutes = require('./routes/category.routes');
+const categoryRoutes = require("./routes/category.routes");
 app.use("/api", categoryRoutes);
 
 const PORT = process.env.PORT || 8080;

@@ -139,6 +139,16 @@ const PopUp = (props) => {
     setAddData({})
   }
 
+  const popup = {
+    marginTop : '25px'
+  }
+
+  const inputbox = {
+    width: '50%', 
+    marginTop: '-5px',
+    height: '35px'
+  }
+
   //content to be show in pop up
   const Content = () => {
     if (props.edit == true) {
@@ -147,14 +157,14 @@ const PopUp = (props) => {
           <button className="btn btn-primary close-button" onClick={handleToClose}>
             Close
           </button>
-          <h2 style={{ marginBottom: '30px' }}>Product Details</h2>
+          <h2 style={{ marginTop: '-15px' }}>Product Details</h2>
           <CForm onSubmit={handleSubmit}>
             {props.selectedProduct && (
               <div>
-                <p>
+                <p style={popup}>
                   <label>
                     Name
-                    <input
+                    <input style={inputbox}
                       name="Name"
                       placeholder="Name"
                       onChange={handleChange}
@@ -162,10 +172,10 @@ const PopUp = (props) => {
                     />
                   </label>
                 </p>
-                <p>
+                <p style={popup}>
                   <label>
                     Price
-                    <input
+                    <input style={inputbox}
                       name="Price"
                       placeholder="Price"
                       onChange={handleChange}
@@ -173,10 +183,10 @@ const PopUp = (props) => {
                     />
                   </label>
                 </p>
-                <p>
+                <p style={popup}>
                   <label>
                     Description
-                    <input
+                    <input style={inputbox}
                       name="Description"
                       placeholder="Description"
                       onChange={handleChange}
@@ -201,39 +211,39 @@ const PopUp = (props) => {
               <button className="btn btn-primary close-button" onClick={handleToClose}>
                 Close
               </button>
-              <h2 style={{ marginBottom: '30px' }}> Enter Product Details</h2>
+              <h2 style={{ marginTop: '-15px'}}> Enter Product Details</h2>
               <CForm onSubmit={handleAddProduct}>
                 <div>
-                  <p></p>
-                  <input
+                  <p style={popup}></p>
+                  <input style={inputbox}
                     name="Name"
                     placeholder="Name"
                     onChange={handleChangeOfAdd}
                     value={addData.Name}
                   />
-                  <p></p>
-                  <input
+                  <p style={popup}></p>
+                  <input style={inputbox}
                     name="Price"
                     placeholder="Price"
                     onChange={handleChangeOfAdd}
                     value={addData.Price}
                   />
-                  <p></p>
-                  <input
+                  <p style={popup}></p>
+                  <input style={inputbox}
                     name="Description"
                     placeholder="Description"
                     onChange={handleChangeOfAdd}
                     value={addData.Description}
                   />
-                  <p></p>
-                  <input
+                  <p style={popup}></p>
+                  <input style={inputbox}
                     name="Category"
                     placeholder="Category"
                     onChange={handleChangeOfAdd}
                     value={addData.Category}
                   />
                   <p></p>
-                  <CButton color="success" shape="rounded-pill" type="submit">
+                  <CButton color="success" shape="rounded-pill" type="submit" style={{marginTop: '15px'}}>
                     Add Product
                   </CButton>
                 </div>
@@ -260,6 +270,7 @@ const PopUp = (props) => {
             Cancel
           </Button>
           <Button
+          style={{marginLeft: '20px'}}
             onClick={() => {
               handleDelete(props.selectedProduct)
               handleToClose()
@@ -279,10 +290,11 @@ const PopUp = (props) => {
           </button>
           <h2 style={{ marginBottom: '30px' }}>Product Details</h2>
           {props.selectedProduct && (
-            <div>
-              <p>Name: {props.selectedProduct.name}</p>
-              <p>Price: {props.selectedProduct.price} </p>
-              <p>Description:{props.selectedProduct.description}</p>
+            <div style={popup}>
+              <p>Name: {props.selectedProduct.name || ""}</p>
+              <p>Price: {props.selectedProduct.price || ""} </p>
+              <p>Description:{props.selectedProduct.description || ""}</p>
+
             </div>
           )}
         </div>
@@ -305,8 +317,8 @@ const PopUp = (props) => {
           },
           content: {
             width: '50%', // Adjust the width as needed
-            maxHeight: '80%', // Adjust the height as needed
-            maxWidth: '800px', // Limit the maximum width of the modal
+            height: '400px', // Adjust the height as needed
+            maxWidth: '700px', // Limit the maximum width of the modal
             border: '1px solid #ccc',
             background: '#fff',
             overflow: 'auto',

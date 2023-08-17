@@ -54,7 +54,7 @@ import "rsuite/dist/rsuite.min.css";
                 <p><BsCalendarDate style={{fontSize: '14px'}}/>  {billing.date}</p>
                 <p><AiOutlineNumber style={{fontSize: '14px'}}/>  {billing.invoiceNumber}</p>
                
-                <button className='btn btn-primary' style={{alignItems: 'center', width:'100%'}}>Invoice PDF</button>
+                <button className='btn btn-primary' style={{alignItems: 'center', width:'100%', marginTop: '20px'}}>Invoice PDF</button>
              </div>
                </div>
                <div className='d-flex'>
@@ -162,12 +162,12 @@ import "rsuite/dist/rsuite.min.css";
                     </CTableBody> 
                 </CTable>
 
-                <p style={{marginLeft: '510px', marginTop: '-80px'}}>Due Date</p>
-                <DatePicker style={{width: '200px', marginLeft: '500px'}}></DatePicker>
+                <p style={{marginLeft: '540px', marginTop: '-75px'}}>Due Date</p>
+                <DatePicker style={{width: '200px', marginLeft: '530px'}}></DatePicker>
 
-                <p style={{marginLeft: '1050px', marginTop:'-120px'}}>Currency</p>
+                <p style={{marginLeft: '1100px', marginTop:'-120px', padding: '2px'}}>Currency</p>
                 <CDropdown>
-                <CDropdownToggle color='' style={{fontSize: '15px', marginLeft: '1036px', border: '1px solid #fff', background: '#fff'}}>Select Currency</CDropdownToggle>
+                <CDropdownToggle color='' style={{fontSize: '15px', marginLeft: '1095px', border: '1px solid #fff', background: '#fff', width: '200px', marginBottom: '-5px'}}>Select Currency</CDropdownToggle>
                 <CDropdownMenu>
                     <CDropdownItem>Rupees</CDropdownItem>
                     <CDropdownItem>Dollars</CDropdownItem>
