@@ -9,6 +9,7 @@ import {SiDialogflow} from 'react-icons/si'
 import {AiFillDelete} from 'react-icons/ai'
 import { DatePicker } from "rsuite";
 import "rsuite/dist/rsuite.min.css";
+import FloatingButton from '../FloatingButton'
 
  const Billing = () => {    
      const billing ={
@@ -187,6 +188,7 @@ import "rsuite/dist/rsuite.min.css";
             <button className='btn btn-primary' style={{alignItems: 'center', width:'15%', marginTop:'25px', marginLeft: '550px'}}>Save and Continue</button>
             </div>
             </CCol>
+            <FloatingButton />
         </CRow>
     )
 

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import CustomerPopUp from './customerPopUp'
+import FloatingButton from '../FloatingButton'
 
 import {
   CAvatar,
@@ -101,12 +102,12 @@ const Customer = () => {
               <strong>Customers</strong>
             </CCardHeader>
             <CCardBody>
-              <div className="d-flex">
+              <div className="d-flex mt-2">
                 <div className="container">
                   <div className=" row justify-content-center">
                     <div className="col-md-8">
                       <div className="input-group mb-3">
-                        <input style={{borderRadius: '5px', marginLeft: '-200px'}}
+                        <input style={{borderRadius: '5px', }}
                           type="text"
                           className="form-control"
                           placeholder="Search for Customers..."
@@ -134,16 +135,18 @@ const Customer = () => {
                     )}
                   </div>
                 </div>
+                <div>
                 <button
-                  className=" btn btn-primary "
+                  className=" btn btn-primary"
                   onClick={handleAddCustomer}
                   style={product_button_style}
                 >
                   Add Customer
                 </button>
+                </div>
               </div>
 
-              <CTable className="mb-0 border" hover responsive>
+              <CTable className="mb-0 border mt-4" hover responsive>
                 <CTableHead>
                   <CTableRow>
                     <CTableHeaderCell scope="col">Sr. no</CTableHeaderCell>

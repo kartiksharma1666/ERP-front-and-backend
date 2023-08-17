@@ -141,7 +141,7 @@ const InventoryPopUp = (props) => {
             {props.selectedInventory && (
               <div>
                 <p>
-                  <label>
+                  <label className='modal-input'>
                     Product
                     <input
                       name="product"
@@ -152,7 +152,7 @@ const InventoryPopUp = (props) => {
                   </label>
                 </p>
                 <p>
-                  <label>
+                  <label className='modal-input'>
                     Weight
                     <input
                       name="weight"
@@ -163,7 +163,7 @@ const InventoryPopUp = (props) => {
                   </label>
                 </p>
                 <p>
-                  <label>
+                  <label className='modal-input'>
                     Quantity
                     <input
                       name="quantity"
@@ -174,7 +174,7 @@ const InventoryPopUp = (props) => {
                   </label>
                 </p>
                 <p>
-                  <label>
+                  <label className='modal-input'>
                     Category
                     <input
                       name="category"
@@ -198,7 +198,7 @@ const InventoryPopUp = (props) => {
           <h2>Add Inventory</h2>
           <CForm onSubmit={handleAddInventory}>
             <p>
-              <label>
+              <label className='modal-input'>
                 Product
                 <input
                   name="product"
@@ -209,7 +209,7 @@ const InventoryPopUp = (props) => {
               </label>
             </p>
             <p>
-              <label>
+              <label className='modal-input'>
                 Weight
                 <input
                   name="weight"
@@ -220,7 +220,7 @@ const InventoryPopUp = (props) => {
               </label>
             </p>
             <p>
-              <label>
+              <label className='modal-input'>
                 Quantity
                 <input
                   name="quantity"
@@ -231,7 +231,7 @@ const InventoryPopUp = (props) => {
               </label>
             </p>
             <p>
-              <label>
+              <label className='modal-input'>
                 Category
                 <input
                   name="category"
