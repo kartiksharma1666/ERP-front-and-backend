@@ -26,6 +26,8 @@ import { AiFillDelete } from 'react-icons/ai'
 import { DatePicker } from 'rsuite'
 import 'rsuite/dist/rsuite.min.css'
 
+import FloatingButton from '../FloatingButton'
+
 const Billing = () => {
   const initialState = {
     items: [{ itemName: '', unitPrice: '', quantity: '', discount: '' }],
@@ -264,6 +266,7 @@ const Billing = () => {
                 <SiDialogflow style={{ color: '#6681e8', fontSize: '50px' }} />
               </h5>
             </div>
+
             <div style={{ marginTop: '15px' }}>
               <h4>Ask us</h4>
               <p>
@@ -484,6 +487,7 @@ const Billing = () => {
           </button>
         </div>
       </CCol>
+      <FloatingButton />
     </CRow>
   )
 }
