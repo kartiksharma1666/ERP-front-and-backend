@@ -43,19 +43,17 @@ const Product = (props) => {
       })
   }
   const filteredProducts = selectedCategory
-  ? data.filter((product) => product.category && product.category._id === selectedCategory)
-  : data;
-
-
-  
+    ? data.filter((product) => product.category && product.category._id === selectedCategory)
+    : data
 
   const product_button_style = {
     height: '40px',
     width: '150px',
   }
 
-  const sortedCategories = Array.isArray(categories) ? [...categories].sort((a, b) => b.order - a.order) : [];
-
+  const sortedCategories = Array.isArray(categories)
+    ? [...categories].sort((a, b) => b.order - a.order)
+    : []
 
   const getDataFromDB = async () => {
     const res = await fetch('http://localhost:8080/api/products/all').catch((err) => {
@@ -68,10 +66,10 @@ const Product = (props) => {
     props.setGetData(false)
   }
 
-  const handleSearch = () => {
-    console.log(search)
+  const handleSearch = (e) => {
+    setSearch(e.target.value)
     const filterdProd = data.filter((product) =>
-      product.name.toLowerCase().includes(search.toLowerCase()),
+      product.name.toLowerCase().includes(e.target.value.toLowerCase()),
     )
     setSearchResults(filterdProd)
   }
@@ -104,12 +102,130 @@ const Product = (props) => {
   useEffect(() => {
     // Log the category.$oid value for each product
     if (data && data._id) {
-      data.forEach(product => {
-        console.log("Product ID:", product._id);
-        console.log("Category ID:", product.category._id);
-      });
+      data.forEach((product) => {
+        console.log('Product ID:', product._id)
+        console.log('Category ID:', product.category._id)
+      })
     }
-  }, [data]);
+  }, [data])
+
+  const AllProduct = () => {
+    return (
+      <>
+        {data &&
+          filteredProducts &&
+          filteredProducts.map((item, index) => (
+            <CTableRow key={index}>
+              <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
+              <CTableDataCell>{item.name}</CTableDataCell>
+              <CTableDataCell>{item.price}</CTableDataCell>
+
+              <CTableDataCell>
+                <CButton
+                  color="info"
+                  shape="rounded-pill"
+                  onClick={() => {
+                    openInPopup(item)
+                  }}
+                >
+                  Info
+                </CButton>
+              </CTableDataCell>
+              <CTableDataCell>
+                <CButton
+                  color="success"
+                  shape="rounded-pill"
+                  onClick={() => handleClickToOpen(item, 'update')}
+                >
+                  Update
+                </CButton>
+              </CTableDataCell>
+              <CTableDataCell>
+                <CButton
+                  color="primary"
+                  shape="rounded-pill"
+                  onClick={() => handleClickToOpen(item, 'view')}
+                >
+                  View
+                </CButton>
+              </CTableDataCell>
+              <CTableDataCell>
+                <CButton
+                  color="danger"
+                  shape="rounded-pill"
+                  onClick={() => handleClickToOpen(item, 'delete')}
+                >
+                  Delete
+                </CButton>
+              </CTableDataCell>
+            </CTableRow>
+          ))}
+      </>
+    )
+  }
+
+  const SearchComponent = () => {
+    return (
+      <>
+        {/* {searchResults?.map((product) => (
+              <div key={product._id} className="card mb-2">
+                <div className="card-body">{product.name}</div>
+                <div className="card-body">{product.price}</div>
+              </div>
+            ))} */}
+        {searchResults.length > 0 ? (
+          searchResults.map((item, index) => (
+            <CTableRow key={index}>
+              <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
+              <CTableDataCell>{item.name}</CTableDataCell>
+              <CTableDataCell>{item.price}</CTableDataCell>
+
+              <CTableDataCell>
+                <CButton
+                  color="info"
+                  shape="rounded-pill"
+                  onClick={() => {
+                    openInPopup(item)
+                  }}
+                >
+                  Info
+                </CButton>
+              </CTableDataCell>
+              <CTableDataCell>
+                <CButton
+                  color="success"
+                  shape="rounded-pill"
+                  onClick={() => handleClickToOpen(item, 'update')}
+                >
+                  Update
+                </CButton>
+              </CTableDataCell>
+              <CTableDataCell>
+                <CButton
+                  color="primary"
+                  shape="rounded-pill"
+                  onClick={() => handleClickToOpen(item, 'view')}
+                >
+                  View
+                </CButton>
+              </CTableDataCell>
+              <CTableDataCell>
+                <CButton
+                  color="danger"
+                  shape="rounded-pill"
+                  onClick={() => handleClickToOpen(item, 'delete')}
+                >
+                  Delete
+                </CButton>
+              </CTableDataCell>
+            </CTableRow>
+          ))
+        ) : (
+          <>no Products found</>
+        )}
+      </>
+    )
+  }
 
   return (
     <CRow>
@@ -121,7 +237,9 @@ const Product = (props) => {
           <CCardBody>
             <div className="d-flex">
               <CDropdown>
-                <CDropdownToggle color="primary" style={{height: '40px'}}>Category</CDropdownToggle>
+                <CDropdownToggle color="primary" style={{ height: '40px' }}>
+                  Category
+                </CDropdownToggle>
                 <CDropdownMenu>
                   <CDropdownItem onClick={() => setSelectedCategory(null)}>All</CDropdownItem>
                   {sortedCategories.length > 0 &&
@@ -130,10 +248,8 @@ const Product = (props) => {
                         key={category._id}
                         onClick={() => setSelectedCategory(category._id)}
                       >
-                        
                         {category.name}
                       </CDropdownItem>
-                      
                     ))}
                 </CDropdownMenu>
               </CDropdown>
@@ -141,32 +257,18 @@ const Product = (props) => {
                 <div className=" row justify-content-center">
                   <div className="col-md-8">
                     <div className="input-group mb-3">
-                      <input style={{borderRadius: '5px'}}
+                      <input
+                        style={{ borderRadius: '5px' }}
                         type="text"
                         className="form-control"
                         placeholder="Search for Product..."
                         value={search}
-                        onChange={(e) => setSearch(e.target.value)}
+                        spellCheck="false"
+                        onChange={handleSearch}
                       ></input>
-                      <div className="input-group-append">
-                        <button className="btn btn-primary search-button" onClick={handleSearch}>
-                          Search
-                        </button>
-                      </div>
+                      <div className="input-group-append"></div>
                     </div>
                   </div>
-                  {searchResults.length > 0 && (
-                    <div className="row justify-content-center">
-                      <div col-md-8>
-                        {searchResults.map((product) => (
-                          <div key={product._id} className="card mb-2">
-                            <div className="card-body">{product.name}</div>
-                            <div className="card-body">{product.price}</div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
                 </div>
               </div>
               <button
@@ -190,57 +292,7 @@ const Product = (props) => {
                   <CTableHeaderCell scope="col"></CTableHeaderCell>
                 </CTableRow>
               </CTableHead>
-              <CTableBody>
-              {data && filteredProducts && filteredProducts.map((item, index) => (
-                    <CTableRow key={index}>
-                      <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
-                      <CTableDataCell>{item.name}</CTableDataCell>
-                      <CTableDataCell>{item.price}</CTableDataCell>
-
-                      <CTableDataCell>
-                        <CButton
-                          color="info"
-                          shape="rounded-pill"
-                          onClick={() => {
-                            openInPopup(item)
-                          }}
-                        >
-                          Info
-                        </CButton>
-                      </CTableDataCell>
-                      <CTableDataCell>
-                        <CButton
-                          color="success"
-                          shape="rounded-pill"
-                          onClick={() => handleClickToOpen(item, 'update')}
-                        >
-                          Update
-                        </CButton>
-                      </CTableDataCell>
-                      <CTableDataCell>
-                        <CButton
-                          color="primary"
-                          shape="rounded-pill"
-                          onClick={() => handleClickToOpen(item, 'view')}
-                        >
-                          View
-                        </CButton>
-                      </CTableDataCell>
-                      <CTableDataCell>
-                        <CButton
-                          color="danger"
-                          shape="rounded-pill"
-                          onClick={() => handleClickToOpen(item, 'delete')}
-                        >
-                          Delete
-                        </CButton>
-                      </CTableDataCell>
-                    </CTableRow>
-                  ))
-                        }  
-                  
-                
-              </CTableBody>
+              <CTableBody>{search.length > 0 ? <SearchComponent /> : <AllProduct />}</CTableBody>
             </CTable>
           </CCardBody>
         </CCard>
