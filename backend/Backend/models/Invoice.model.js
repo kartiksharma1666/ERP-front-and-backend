@@ -35,4 +35,30 @@ const InvoiceSchema = mongoose.Schema({
 // const InvoiceModel = mongoose.model("InvoiceModel", InvoiceSchema);
 // export default InvoiceModel;
 
-module.exports = mongoose.model("InvoiceModel", InvoiceSchema);
+module.exports = mongoose.model("Invoice", InvoiceSchema);
+
+// "dueDate": '1987-09-28',
+// "currency": "INR",
+// "items": [
+//   { "itemName": "Vanila Cake", "unitPrice": "200", "quantity": "2", "discount": "0" },
+// ],
+// "rates": "18",
+// "vat": "72",
+// "total": 472,
+// "subTotal": 400,
+// "notes": "after delivery",
+// "status": "uppaid",
+// "invoiceNumber": "1",
+// "type": "Invoice",
+// "creator": ["omkar"],
+// "totalAmountReceived": "0",
+// "client": { "name": "kalu", "email": "tanu", "phone": "822288855", "address": "near dog station" },
+// "paymentRecords": [
+//   {
+//     "amountPaid": 200,
+//     "datePaid": '1987-09-28',
+//     "paymentMethod": "gpay",
+//     "note": "delivery on time",
+//     "paidBy": "kalu",
+//   },
+// ],

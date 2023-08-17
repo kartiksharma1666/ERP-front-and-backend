@@ -32,6 +32,7 @@ module.exports = function (app) {
   });
   app.get("/api/Billing/count", InvoiceController.getTotalCount); //use to generate invoice serial number
   app.get("/api/Billing/:id", InvoiceController.getInvoice);
+  app.get("/api/Billing/getInvoices/all", InvoiceController.getInvoices);
   app.get("/api/Billing/", InvoiceController.getInvoicesByUser);
   app.post("/api/Billing/", InvoiceController.createInvoice);
   app.patch("/api/Billing/:id", InvoiceController.updateInvoice);

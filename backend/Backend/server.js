@@ -76,8 +76,8 @@ app.use("/api", customerRoutes);
 const orderRoutes = require("./routes/order.routes");
 app.use("/api", orderRoutes);
 
-const invoiceRoutes = require("./routes/billing.routes");
-app.use("/api", invoiceRoutes);
+// const invoiceRoutes = require("./routes/billing.routes");
+// app.use("/api", invoiceRoutes);
 // const productRoutes = require('./routes/product.routes');
 // app.use("/api", productRoutes)
 const inventoryRoutes = require("./routes/inventory.routes");
