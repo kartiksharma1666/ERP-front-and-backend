@@ -36,14 +36,15 @@ border-radius: 8px;
     z-index: 1000;  
 }
 
+
 .fab button{
     position: fixed;
     bottom: 100px;
-    right: -10px;
+    right: 20px;
     border-radius: 50%;
     width: 60px;
     height: 60px;
-   background: #f44336;
+   background: #5460ff;
    font-size: 25px;
   border: none;
  z-index: 3;
@@ -53,21 +54,22 @@ border-radius: 8px;
  justify-content: center;
  }
 
- .fab button:hover {
-  cursor: pointer
- }
+.fab button:hover {
+    cursor: pointer
+   }
 
- .box{
+.box{
     position: fixed;
     bottom: 150px;
-    right: -35px;
+    right: 26px;
     height: 0px;
     transition-delay: 0.3s;
-    width: 80px;
+    width: 160px;
     transition: 0.5s cubic-bezier(0.445, 0.05,0.55,0.95);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items:end;
  }
 
  .floatbtn{
@@ -83,26 +85,18 @@ border-radius: 8px;
     border: none;
  }
 
- .item1{
-    transition-delay: 0.2s;
-    background: rgb(24, 24, 170);
-    color: #fff;
- }
- .item2{
-    transition-delay: 0.2s;
-    background: #f44336;
-    color: #fff;
- }
- .item3{
-    transition-delay: 0.3s;
-    background: rgb(109, 109, 248);
-    color: #fff;
- }
+
  .item4{
     transition-delay: 0.4s;
-    background: rgb(58, 182, 110);
+    padding: 5px;
+    background:#b3b1b1;
     color: #fff;
-    margin-bottom: 60px;
+    font-size: 30px;
+    font-weight: 500;
+ }
+ .fab button:hover{
+    transform: rotate(230deg);
+    transition: all 0.1s;
  }
  
  .floatbtn:hover{
@@ -112,13 +106,30 @@ border-radius: 8px;
  }
  
  .box-active{
-    height: 290px;
+    height: 60px;
  }
 
  .fab button:active{
     transform: rotate(180deg);
  }
+ .add-customer-span {
+    opacity: 0;
+    transition: opacity 0.3s ease-in;
+ }
 
+ .add-customer-span.show {
+    opacity: 1;
+    border: 1px solid #3E424e;
+    background: #3E424e;
+    padding: 4px 3px;
+    color:#fff;
+    border-radius: 8px;
+    margin-right: 10px;
+    margin-top: 5px;
+  }
+
+
+ 
  .modal-input{
     display: flex;
     flex-direction: column;
@@ -132,6 +143,10 @@ border-radius: 8px;
     padding: 5px;
     border:1px solid #c0bfbf;
  }
+
+
+
+
 
 
 
