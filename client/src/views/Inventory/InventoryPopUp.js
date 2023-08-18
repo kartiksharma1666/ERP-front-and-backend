@@ -129,6 +129,24 @@ const InventoryPopUp = (props) => {
     setAddData({});
   };
 
+  const popup = {
+    marginTop : '25px'
+  }
+
+  const inputbox = {
+    width: '300px', 
+    marginTop: '-5px',
+    height: '35px',
+    marginLeft: '10px'
+  }
+
+  const updatebox ={
+    width: '300px', 
+    marginTop: '-5px',
+    height: '35px',
+    marginLeft: '10px'
+  }
+
   const Content = () => {
     if (props.edit) {
       return (
@@ -136,55 +154,59 @@ const InventoryPopUp = (props) => {
           <button className="btn btn-primary close-button" onClick={handleToClose}>
             Close
           </button>
-          <h2>Inventory Details</h2>
+          <h2 style={{ marginTop: '-15px' }}>Inventory Details</h2>
           <CForm onSubmit={handleSubmit}>
             {props.selectedInventory && (
               <div>
-                <p>
-                  <label className='modal-input'>
+                <p style={popup}>
+                  <label>
                     Product
-                    <input
+                    <input style={updatebox}
                       name="product"
                       placeholder="Product"
                       onChange={handleChange}
                       value={updatedData.product}
+                      className='input-style'
                     />
                   </label>
                 </p>
-                <p>
-                  <label className='modal-input'>
+                <p style={popup}>
+                  <label>
                     Weight
-                    <input
+                    <input style={updatebox}
                       name="weight"
                       placeholder="Weight"
                       onChange={handleChange}
                       value={updatedData.weight}
+                      className='input-style'
                     />
                   </label>
                 </p>
-                <p>
-                  <label className='modal-input'>
+                <p style={popup}>
+                  <label>
                     Quantity
-                    <input
+                    <input style={updatebox}
                       name="quantity"
                       placeholder="Quantity"
                       onChange={handleChange}
                       value={updatedData.quantity}
+                      className='input-style'
                     />
                   </label>
                 </p>
-                <p>
-                  <label className='modal-input'>
+                <p style={popup}>
+                  <label>
                     Category
-                    <input
+                    <input style={updatebox}
                       name="category"
                       placeholder="Category"
                       onChange={handleChange}
                       value={updatedData.category}
+                      className='input-style'
                     />
                   </label>
                 </p>
-                <CButton color="success" shape="rounded-pill" type="submit">
+                <CButton color="success" shape="rounded-pill" type="submit" style = {{marginTop: '10px'}}>
                   Update
                 </CButton>
               </div>
@@ -195,53 +217,60 @@ const InventoryPopUp = (props) => {
     } else if (props.addInventory) {
       return (
         <div>
-          <h2>Add Inventory</h2>
+          <button className="btn btn-primary close-button" onClick={handleToClose}>
+                Close
+          </button>
+          <h2 style={{marginTop: '-15px'}} >Add Inventory</h2>
           <CForm onSubmit={handleAddInventory}>
-            <p>
-              <label className='modal-input'>
+            <p style={popup}>
+              <label>
                 Product
-                <input
+                <input style={inputbox}
                   name="product"
                   placeholder="Product"
                   onChange={handleChangeOfAdd}
                   value={addData.product}
+                  className='input-style'
                 />
               </label>
             </p>
-            <p>
-              <label className='modal-input'>
-                Weight
-                <input
+            <p style={popup}>
+              <label>
+                Weight 
+                <input style={inputbox}
                   name="weight"
                   placeholder="Weight"
                   onChange={handleChangeOfAdd}
                   value={addData.weight}
+                  className='input-style'
                 />
               </label>
             </p>
-            <p>
-              <label className='modal-input'>
+            <p style={popup}>
+              <label>
                 Quantity
-                <input
+                <input style={inputbox}
                   name="quantity"
                   placeholder="Quantity"
                   onChange={handleChangeOfAdd}
                   value={addData.quantity}
+                  className='input-style'
                 />
               </label>
             </p>
-            <p>
-              <label className='modal-input'>
+            <p style={popup}>
+              <label>
                 Category
-                <input
+                <input style={inputbox}
                   name="category"
                   placeholder="Category"
                   onChange={handleChangeOfAdd}
                   value={addData.category}
+                  className='input-style'
                 />
               </label>
             </p>
-            <CButton color="success" shape="rounded-pill" type="submit">
+            <CButton color="success" shape="rounded-pill" type="submit" style = {{marginTop: '10px'}}>
               Add Inventory
             </CButton>
           </CForm>
@@ -266,11 +295,12 @@ const InventoryPopUp = (props) => {
                 <strong>Category:</strong> {props.selectedInventory.category}
               </p>
               <p>Are you sure you want to delete this inventory?</p>
-              <CButton color="danger" onClick={() => handleDelete(props.selectedInventory)}>
-                Delete
-              </CButton>
-              <CButton color="secondary" onClick={handleToClose}>
+              
+              <CButton color="secondary" onClick={handleToClose} style={{ marginTop: '20px', borderRadius: '20px'}}>
                 Cancel
+              </CButton>
+              <CButton color="danger" onClick={() => handleDelete(props.selectedInventory)} style={{ marginLeft: '20px', marginTop: '20px', borderRadius: '20px'}}>
+                Delete
               </CButton>
             </div>
           )}
@@ -316,8 +346,8 @@ const InventoryPopUp = (props) => {
           },
           content: {
             width: '50%', // Adjust the width as needed
-            maxHeight: '80%', // Adjust the height as needed
-            maxWidth: '800px', // Limit the maximum width of the modal
+            height: '390px', // Adjust the height as needed
+            maxWidth: '700px', // Limit the maximum width of the modal
             border: '1px solid #ccc',
             background: '#fff',
             overflow: 'auto',

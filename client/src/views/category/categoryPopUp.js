@@ -104,9 +104,17 @@ const CategoryPopUp = (props) => {
     marginTop : '25px'
   }
 
+  const inputbox = {
+    width: '300px', 
+    marginLeft: '10px',
+    marginTop: '-5px',
+    height: '35px'
+  }
+
   const updatebox ={
-    width: '500px', 
-    marginTop: '10px',
+    width: '300px', 
+    marginLeft: '10px',
+    marginTop: '-5px',
     height: '35px',
     
   }
@@ -122,17 +130,18 @@ const CategoryPopUp = (props) => {
           <CForm onSubmit={handleSubmit}>
           <div>
               <p style={popup}>
-                <label className='modal-input'>
+                <label>
                   Category Name
                   <input style={updatebox}
                     name="name"
                     placeholder="Category Name"
                     onChange={handleChange}
                     value={updatedData.name}
+                    className='input-style'
                   />
                 </label>
               </p>
-              <CButton color="success" shape="rounded-pill" type="submit">
+              <CButton color="success" shape="rounded-pill" type="submit" style = {{marginTop: '10px'}}>
                 Update Category
               </CButton>
             </div>
@@ -149,13 +158,14 @@ const CategoryPopUp = (props) => {
           <CForm onSubmit={handleAddCategory}>
           <div>
               <p style={popup}>
-                <label className='modal-input'>
+                <label>
                   Category Name
-                  <input style={updatebox}
+                  <input style={inputbox}
                     name="name"
                     placeholder="Category Name"
                     onChange={handleChange}
                     value={updatedData.name}
+                    className='input-style'
                   />
                 </label>
               </p>
@@ -175,6 +185,7 @@ const CategoryPopUp = (props) => {
             {props.selectedCategory && props.selectedCategory.name}?
           </p>
           <Button
+          style={{marginTop: '20px', borderRadius: '20px'}}
             onClick={() => {
               props.setDeletePop(false);
               handleToClose();
@@ -184,7 +195,7 @@ const CategoryPopUp = (props) => {
             Cancel
           </Button>
           <Button
-          style={{marginLeft: '20px'}}
+          style={{marginLeft: '20px', marginTop: '20px', borderRadius: '20px'}}
             onClick={() => {
               handleDelete(props.selectedCategory);
               handleToClose();
