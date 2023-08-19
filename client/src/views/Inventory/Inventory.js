@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import InventoryPopUp from "./InventoryPopUp"; // Import the appropriate InventoryPopUp component
+import "./Inventory.css";
 import {
   CButton,
   CCard,
@@ -25,6 +26,9 @@ const Inventory = () => {
   const [edit, setEdit] = useState(false);
   const [addInventory, setAddInventory] = useState(false);
   const [getData, setGetData] = useState(false);
+
+  const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
 
   const inventory_button_style = {
     marginRight: "75px",
@@ -55,9 +59,28 @@ const Inventory = () => {
       console.error(error);
     }
   };
+  const fetchSuggestions = async (query) => {
+    try {
+      const res = await fetch("http://localhost:8080/api/inventory/all");
+      const resjson = await res.json();
+      if (resjson.success && Array.isArray(resjson.inventory)) {
+        const formattedInventory = resjson.inventory.filter((item) =>
+          item.product.toLowerCase().includes(query.toLowerCase())
+        );
+        setSuggestions(
+          formattedInventory.map((item) => item.product)
+        );
+      } else {
+        console.error("Invalid data format from API:", resjson);
+        setSuggestions([]);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
   
 
-  const handleSearch = () => {
+  const handleSearch = async () => {
     const filteredInventory = data.filter((item) =>
       item.product.toLowerCase().includes(search.toLowerCase())
     );
@@ -80,10 +103,24 @@ const Inventory = () => {
     setSelectedInventory(inventory);
     setDeletePop(true);
   };
+  const handleClearSearch = () => {
+    setSearch("");
+    setSearchResults([]);
+    setShowSuggestions(false);
+  };
 
   useEffect(() => {
     getDataFromDB();
   }, [getData]);
+
+  useEffect(() => {
+    if (search.length > 0) {
+      fetchSuggestions(search);
+      setShowSuggestions(true);
+    } else {
+      setShowSuggestions(false);
+    }
+  }, [search]);
 
   return (
     <div>
@@ -101,6 +138,41 @@ const Inventory = () => {
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                   />
+                  {showSuggestions && suggestions.length > 0 && (
+                    <div className="dropdown suggestion-dropdown">
+                      {/* <button
+                        className="btn btn-primary search-button"
+                        onClick={handleSearch}
+                      >
+                        
+                      </button> */}
+                      <div className="dropdown-content">
+                        {suggestions.map((suggestion, index) => (
+                          <div
+                            key={index}
+                            className="suggestion-item"
+                            onClick={() => {
+                              setSearch(suggestion);
+                              setShowSuggestions(false);
+                              handleSearch();
+                            }}
+                          >
+                            {suggestion}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {!showSuggestions && search.length > 0 && (
+                    <div className="input-group-append">
+                      <button
+                        className="btn btn-clear"
+                        onClick={handleClearSearch}
+                      >
+                        <i className="fa fa-times-circle"></i>
+                      </button>
+                    </div>
+                  )}
                   <div className="input-group-append">
                     <button
                       className="btn btn-primary search-button"
@@ -125,10 +197,16 @@ const Inventory = () => {
                   <CTableRow>
                     <CTableHeaderCell scope="col">Sr. no</CTableHeaderCell>
                     <CTableHeaderCell scope="col">Product</CTableHeaderCell>
-                    <CTableHeaderCell scope="col">Weight (kg)</CTableHeaderCell>
+                    <CTableHeaderCell scope="col">
+                      Weight (kg)
+                    </CTableHeaderCell>
                     <CTableHeaderCell scope="col">Quantity</CTableHeaderCell>
-                    <CTableHeaderCell scope="col">Category</CTableHeaderCell>
-                    <CTableHeaderCell scope="col">Actions</CTableHeaderCell>
+                    <CTableHeaderCell scope="col">
+                      Category
+                    </CTableHeaderCell>
+                    <CTableHeaderCell scope="col">
+                      Actions
+                    </CTableHeaderCell>
                   </CTableRow>
                 </CTableHead>
                 <CTableBody>
@@ -159,7 +237,6 @@ const Inventory = () => {
                         </CTableRow>
                       ))
                     : data.map((item, index) => (
-                        
                         <CTableRow key={index}>
                           <CTableHeaderCell scope="row">
                             {index + 1}
@@ -209,3 +286,4 @@ const Inventory = () => {
 };
 
 export default Inventory;
+
