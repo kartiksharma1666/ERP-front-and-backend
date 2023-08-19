@@ -105,10 +105,10 @@ const CategoryPopUp = (props) => {
   }
 
   const updatebox ={
-    width: '300px', 
-    marginTop: '-5px',
+    width: '500px', 
+    marginTop: '10px',
     height: '35px',
-    marginLeft: '10px'
+    
   }
   
   const Content = () => {
@@ -122,7 +122,7 @@ const CategoryPopUp = (props) => {
           <CForm onSubmit={handleSubmit}>
           <div>
               <p style={popup}>
-                <label>
+                <label className='modal-input'>
                   Category Name
                   <input style={updatebox}
                     name="name"
@@ -149,7 +149,7 @@ const CategoryPopUp = (props) => {
           <CForm onSubmit={handleAddCategory}>
           <div>
               <p style={popup}>
-                <label>
+                <label className='modal-input'>
                   Category Name
                   <input style={updatebox}
                     name="name"

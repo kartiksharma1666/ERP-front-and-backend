@@ -344,7 +344,7 @@ const [newCustomerData, setNewCustomerData] = useState({
        </div>
        </div>
             
-       <CTable>
+       <CTable className='customer-table mt-4'>
                 <CTableHead>
                   <CTableRow>
                     <CTableHeaderCell scope="col">Sr. no</CTableHeaderCell>

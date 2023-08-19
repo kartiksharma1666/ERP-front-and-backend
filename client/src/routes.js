@@ -107,7 +107,6 @@ const routes = [
   { path: '/notifications/toasts', name: 'Toasts', element: Toasts },
   { path: '/widgets', name: 'Widgets', element: Widgets },
   { path: '/profile', name: 'Profile', element: Profile },
-
   { path: '/billing', name: 'Billing', element: Billing },
   { path: '/customer', name: 'customer', element: customer },
   { path: '/orders', name: 'orders', element: orders },
