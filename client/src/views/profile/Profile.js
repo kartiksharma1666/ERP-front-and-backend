@@ -1,4 +1,4 @@
-import { CRow, CCol, CCard, CCardHeader, CCardBody } from '@coreui/react';
+import { CRow, CCol, CCard, CCardHeader, CCardBody, CTable, CTableBody, CTableHeaderCell, CTableDataCell, CTableRow, CTableHead } from '@coreui/react';
 import React, { useState } from 'react'
 import {FaEnvelope,FaUserClock,FaPhoneAlt,FaGlobe,FaLanguage} from 'react-icons/fa'
 import {BiSolidMessageSquare} from 'react-icons/bi'
@@ -31,14 +31,16 @@ const Profile = () => {
     },
         {
         id: 3,
-        name: 'Gurleen',
+        name: 'Gurleen Kaur Kalsi',
         image: '',
         email: 'omkar@gmail.com',
         phone: '+91 88501 47242',
         age: '21yrs',
         country: 'India',
         store: ['storeX','storeY','storeZ'],
-        username: 'gurleen21'
+        username: 'gurleen21',
+        gender: 'Female',
+        birthdate: '9 April 2003'
     },
         {
         id: 4, 
@@ -76,18 +78,17 @@ const Profile = () => {
     }
     
     const imageStyle = {
-        width: '170px',
-        height: '170px',
+        width: '90px',
+        height: '90px',
         borderRadius: '50%',
         cursor: 'pointer',
-        marginLeft: '-25px'
+        marginLeft: '165px'
     };
 
     const profile = {
         marginLeft:'10px',
         width:'35%',
         height: '20%',
-        border: '1px solid  #B2BEB5',
         borderRadius:'5px', 
         background:'white',
         padding:'3px',
@@ -117,12 +118,66 @@ const Profile = () => {
     return (
         <CRow>
             <CCol xs={20}>
-                
-             
+
                 <div className=' profile-container'>
                     <h1>Profile</h1>
+                    <br />
+                    <div style={{border: '1px solid grey', borderRadius: '8px', padding: '15px', color: 'g'}}>
+                    <h3>Basic Info.</h3>
+                    <div className='profile-name mt-4' style={{display: 'flex'}}>
+                        <p style={{marginTop: '5px', fontWeight: 'bold'}}>Name</p>
+                       <p style={{marginLeft: '250px', fontSize: '20px'}}>{selectedProfile.name}</p>
+                    </div>
                     <hr />
-                    <div className='imgage-upload'  style={profileStyle}>
+                    <div className='profile-name mt-4' style={{display: 'flex'}}>
+                        <p style={{marginTop: '5px', fontWeight: 'bold'}}>Profile Picture</p>
+                       <label htmlFor='image-upload' className='add-img ms-4' title='Add a profile photo'>
+                                {selectedImage ? (
+                                    <img className="_aadp" style={imageStyle} src={selectedImage} alt='Uploaded' />
+                                ) : (
+                                    <img className="_aadp" style={imageStyle} src="https://static-00.iconduck.com/assets.00/profile-circle-icon-512x512-zxne30hp.png" alt='Default' />
+                                )}
+                            </label>
+                            <input
+                                id='image-upload'
+                                type='file'
+                                accept='image/*'
+                                onChange={handleImageChange}
+                                style={{ display: 'none' }}
+                            />
+                    </div>
+                    <hr />
+                    <div className='profile-name mt-4' style={{display: 'flex'}}>
+                        <p style={{marginTop: '5px', fontWeight: 'bold'}}>Gender</p>
+                       <p style={{marginLeft: '240px', fontSize: '20px'}}>{selectedProfile.gender}</p>
+                    </div>
+                    <hr />
+                    <div className='profile-name mt-4' style={{display: 'flex'}}>
+                        <p style={{marginTop: '5px', fontWeight: 'bold'}}>Birthday</p>
+                       <p style={{marginLeft: '230px', fontSize: '20px'}}>{selectedProfile.birthdate}</p>
+                    </div>
+                    <hr />
+                    <div className='profile-name mt-4' style={{display: 'flex'}}>
+                        <p style={{marginTop: '5px', fontWeight: 'bold'}}>Country</p>
+                       <p style={{marginLeft: '235px', fontSize: '20px'}}>{selectedProfile.country}</p>
+                    </div>
+                </div>
+                <br />
+                <div style={{border: '1px solid grey', borderRadius: '8px', padding: '15px'}}>
+                    <h3>Contact Info.</h3>
+                    <div className='profile-name mt-4' style={{display: 'flex'}}>
+                        <p style={{marginTop: '5px', fontWeight: 'bold'}}>Email ID</p>
+                       <p style={{marginLeft: '230px', fontSize: '20px'}}>{selectedProfile.email}</p>
+                    </div>
+                    <hr />
+                    <div className='profile-name mt-4' style={{display: 'flex'}}>
+                        <p style={{marginTop: '5px', fontWeight: 'bold'}}>Phone No.</p>
+                       <p style={{marginLeft: '210px', fontSize: '20px'}}>{selectedProfile.phone}</p>
+                    </div>
+                    
+                </div>
+
+                    {/* <div className='imgage-upload'  style={profileStyle}>
                         <div className='admin-img'>
                             <label htmlFor='image-upload' className='add-img ms-4' title='Add a profile photo'>
                                 {selectedImage ? (
@@ -145,7 +200,8 @@ const Profile = () => {
                             <p style={{marginTop: '-10px'}}>{selectedProfile.age}</p>
                             <p style={{marginTop: '-10px'}}>{selectedProfile.store[2]}</p>
                         </div>
-                    </div>
+                    </div> */}
+                    {/* </div>
                     <section className='profile-content align-item center' >
                      <h2 style={{marginTop: '50px'}}>Account</h2>
                      <hr />
@@ -190,9 +246,8 @@ const Profile = () => {
 
                         </div>
                      )}
-                    </section>
+                    </section> */}
                 </div>
-               
             </CCol>
         </CRow>
     )
