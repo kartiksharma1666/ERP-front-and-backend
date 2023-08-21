@@ -187,7 +187,7 @@ const Inventory = () => {
                 <button
                   className="btn btn-primary"
                   onClick={handleAddInventory}
-                  style={product_button_style}
+                  style={inventory_button_style}
                 >
                   Add Inventory
                 </button>
