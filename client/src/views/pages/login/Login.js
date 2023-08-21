@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import jwt_decode from 'jwt-decode'
+
 import Cookies from 'universal-cookie'
 import {
   CButton,
@@ -21,6 +22,7 @@ import { cilLockLocked, cilUser } from '@coreui/icons'
 const Login = () => {
   const cookies = new Cookies()
   const navigate = useNavigate()
+  
 
   const [formData, setFormData] = useState({
     username: '',
@@ -113,12 +115,14 @@ const Login = () => {
         const accessToken = data.accessToken
 
         const user = jwt_decode(accessToken)
-        console.log('User info:', user)
+        console.log('User info:', formData)
 
         // Store the JWT in an HttpOnly cookie (secure and inaccessible from JavaScript)
         cookies.set('jwtToken', accessToken, { expires: new Date(user.exp * 1000) })
 
         setJwtToken(accessToken)
+        // navigate('/Profile', { profileData: user } );
+        // console.log("user info",user)
 
         navigate('/Dashboard')
 
