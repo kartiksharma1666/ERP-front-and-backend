@@ -16,6 +16,8 @@ import {
   CTableRow,
 } from "@coreui/react";
 
+import FloatingButton from '../FloatingButton'
+
 const Inventory = () => {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
@@ -185,7 +187,7 @@ const Inventory = () => {
                 <button
                   className="btn btn-primary"
                   onClick={handleAddInventory}
-                  style={inventory_button_style}
+                  style={product_button_style}
                 >
                   Add Inventory
                 </button>
@@ -222,13 +224,13 @@ const Inventory = () => {
                           <CTableDataCell>{item.category}</CTableDataCell>
                           <CTableDataCell>
                             <CButton
-                              color="success"
+                              color="success" shape="rounded-pill"
                               onClick={() => handleUpdateInventory(item)}
                             >
                               Update
                             </CButton>{" "}
                             <CButton
-                              color="danger"
+                              color="danger" shape="rounded-pill"
                               onClick={() => handleDeleteInventory(item)}
                             >
                               Delete
@@ -247,13 +249,13 @@ const Inventory = () => {
                           <CTableDataCell>{item.category}</CTableDataCell>
                           <CTableDataCell>
                             <CButton
-                              color="success"
+                              color="success" shape="rounded-pill" 
                               onClick={() => handleUpdateInventory(item)}
                             >
                               Update
                             </CButton>{" "}
                             <CButton
-                              color="danger"
+                              color="danger" shape="rounded-pill" style={{marginLeft: '50px'}}
                               onClick={() => handleDeleteInventory(item)}
                             >
                               Delete
@@ -267,6 +269,7 @@ const Inventory = () => {
           </CCard>
         </CCol>
       </CRow>
+      <FloatingButton />
       <InventoryPopUp
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
