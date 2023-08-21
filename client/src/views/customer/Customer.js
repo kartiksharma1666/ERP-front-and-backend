@@ -2,6 +2,7 @@ import React from 'react'
 import  { useState,useEffect } from 'react'
 import Modal from 'react-modal';
 import { Container, Row, Col } from 'react-bootstrap';
+import {FloatingButton} from './FloatingButton'
 
 
 
@@ -66,6 +67,7 @@ import avatar6 from 'src/assets/images/avatars/6.jpg'
 import WidgetsBrand from '../widgets/WidgetsBrand'
 import WidgetsDropdown from '../widgets/WidgetsDropdown'
 import { DocsExample } from 'src/components'
+import { FloatingButton } from '../FloatingButton';
 Modal.setAppElement('#root')
 
  const Customer = () => {
