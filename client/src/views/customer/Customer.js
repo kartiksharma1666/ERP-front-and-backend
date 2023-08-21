@@ -64,6 +64,8 @@ import avatar4 from 'src/assets/images/avatars/4.jpg'
 import avatar5 from 'src/assets/images/avatars/5.jpg'
 import avatar6 from 'src/assets/images/avatars/6.jpg'
 
+import FloatingButton from '../FloatingButton'
+
 import WidgetsBrand from '../widgets/WidgetsBrand'
 import WidgetsDropdown from '../widgets/WidgetsDropdown'
 import { DocsExample } from 'src/components'
@@ -555,6 +557,7 @@ const [newCustomerData, setNewCustomerData] = useState({
           </CCard>
         </CCol>
       </CRow> 
+      <FloatingButton />
       
     </>
 );

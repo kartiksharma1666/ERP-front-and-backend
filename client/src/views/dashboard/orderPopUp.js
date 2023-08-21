@@ -170,7 +170,7 @@ const OrderPopUp = (props) => {
                       placeholder="Order Number"
                       onChange={handleChange}
                       value={updatedOrder.orderNumber}
-                      className='order-input-style'
+                      className='input-style'
                     />
                   </label>
                 </p>
@@ -182,7 +182,7 @@ const OrderPopUp = (props) => {
                       placeholder="customer Name"
                       onChange={handleChange}
                       value={updatedOrder.customerName}
-                      className='order-input-style'
+                      className='input-style'
                     />
                   </label>
                 </p>
@@ -194,7 +194,7 @@ const OrderPopUp = (props) => {
                       placeholder="Total Price"
                       onChange={handleChange}
                       value={updatedOrder.totalAmount}
-                      className='order-input-style'
+                      className='input-style'
                     />
                   </label>
                 </p>
@@ -222,6 +222,7 @@ const OrderPopUp = (props) => {
                   placeholder="Order Number"
                   onChange={handleChangeOfAdd}
                   value={addOrder.neworderNumber}
+                  className='input-style'
                 />
               </p>
               <p style={popup}>
@@ -230,6 +231,7 @@ const OrderPopUp = (props) => {
                   placeholder="customerName"
                   onChange={handleChangeOfAdd}
                   value={addOrder.newcustomerName}
+                  className='input-style'
                 />
               </p>
               <p style={popup}>
@@ -238,6 +240,7 @@ const OrderPopUp = (props) => {
                   placeholder="Total Price"
                   onChange={handleChangeOfAdd}
                   value={addOrder.newtotalAmount}
+                  className='input-style'
                 />
               </p>
               {/* Add other order fields as needed */}
