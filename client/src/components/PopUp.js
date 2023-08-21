@@ -144,9 +144,16 @@ const PopUp = (props) => {
   }
 
   const inputbox = {
-    width: '50%', 
+    width: '300px', 
     marginTop: '-5px',
     height: '35px'
+  }
+
+  const updatebox ={
+    width: '300px', 
+    marginTop: '-5px',
+    height: '35px',
+    marginLeft: '10px'
   }
 
   //content to be show in pop up
@@ -169,6 +176,7 @@ const PopUp = (props) => {
                       placeholder="Name"
                       onChange={handleChange}
                       value={updatedData.Name}
+                      className='input-style'
                     />
                   </label>
                 </p>
@@ -180,6 +188,7 @@ const PopUp = (props) => {
                       placeholder="Price"
                       onChange={handleChange}
                       value={updatedData.Price}
+                      className='input-style'
                     />
                   </label>
                 </p>
@@ -191,6 +200,7 @@ const PopUp = (props) => {
                       placeholder="Description"
                       onChange={handleChange}
                       value={updatedData.Description}
+                      className='input-style'
                     />
                   </label>
                 </p>
@@ -220,6 +230,7 @@ const PopUp = (props) => {
                     placeholder="Name"
                     onChange={handleChangeOfAdd}
                     value={addData.Name}
+                    className='input-style'
                   />
                   <p style={popup}></p>
                   <input style={inputbox}
@@ -227,6 +238,7 @@ const PopUp = (props) => {
                     placeholder="Price"
                     onChange={handleChangeOfAdd}
                     value={addData.Price}
+                    className='input-style'
                   />
                   <p style={popup}></p>
                   <input style={inputbox}
@@ -234,6 +246,7 @@ const PopUp = (props) => {
                     placeholder="Description"
                     onChange={handleChangeOfAdd}
                     value={addData.Description}
+                    className='input-style'
                   />
                   <p style={popup}></p>
                   <input style={inputbox}
@@ -241,6 +254,7 @@ const PopUp = (props) => {
                     placeholder="Category"
                     onChange={handleChangeOfAdd}
                     value={addData.Category}
+                    className='input-style'
                   />
                   <p></p>
                   <CButton color="success" shape="rounded-pill" type="submit" style={{marginTop: '15px'}}>
@@ -260,7 +274,7 @@ const PopUp = (props) => {
             Are you sure you want to delete the product:{' '}
             {props.selectedProduct && props.selectedProduct.name}?
           </p>
-          <Button
+          <Button style={{ marginTop: '20px', borderRadius: '20px'}}
             onClick={() => {
               props.setDeletePop(false)
               handleToClose()
@@ -270,7 +284,7 @@ const PopUp = (props) => {
             Cancel
           </Button>
           <Button
-          style={{marginLeft: '20px'}}
+          style={{marginLeft: '20px', marginTop: '20px', borderRadius: '20px'}}
             onClick={() => {
               handleDelete(props.selectedProduct)
               handleToClose()

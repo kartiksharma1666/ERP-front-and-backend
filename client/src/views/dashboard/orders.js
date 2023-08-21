@@ -16,6 +16,8 @@ import {
   CTableRow,
 } from '@coreui/react';
 
+import FloatingButton from '../FloatingButton'
+
 const Orders = () => {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState('');
@@ -27,10 +29,9 @@ const Orders = () => {
   const [addOrder, setAddOrder] = useState(false);
   const [getData, setGetData] = useState(false);
 
-  const order_button_style = {
+  const product_button_style = {
     height: '40px',
     width: '150px',
-    marginRight: '50px'
   };
 
   const getDataFromDB = async () => {
@@ -122,9 +123,9 @@ const Orders = () => {
                 </div>
                 <div>
                 <button
-                  className=" btn btn-primary order-add-btn"
+                  className=" btn btn-primary"
                   onClick={handleAddOrder}
-                  style={order_button_style}
+                  style={product_button_style}
                 >
                   Add Order
                 </button>
@@ -202,6 +203,7 @@ const Orders = () => {
           </CCard>
         </CCol>
       </CRow>
+      <FloatingButton />
       <OrderPopUp
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
