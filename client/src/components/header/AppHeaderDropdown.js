@@ -45,7 +45,7 @@ const AppHeaderDropdown = () => {
             42
           </CBadge>
         </CDropdownItem>
-        <CDropdownItem href="#">
+        <CDropdownItem href="#/message">
           <CIcon icon={cilEnvelopeOpen} className="me-2" />
           Messages
           <CBadge color="success" className="ms-2">
