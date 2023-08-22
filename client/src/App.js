@@ -30,6 +30,7 @@ class App extends Component {
             <Route exact path="/500" name="Page 500" element={<Page500 />} />
             <Route path="*" name="Home" element={<DefaultLayout />} />
             
+            
           </Routes>
         </Suspense>
       </HashRouter>
