@@ -1,9 +1,9 @@
 import React from 'react'
 import {LiaCalendarAltSolid} from 'react-icons/lia'
 
- const Message = () => {
+ const Payment = () => {
     
-    const notification =[{
+    const payment =[{
         id: 1,
         name: 'Dacosta',
         avatar: 'https://cdn.pixabay.com/photo/2018/05/19/22/03/man-3414477_1280.png',
@@ -43,9 +43,9 @@ import {LiaCalendarAltSolid} from 'react-icons/lia'
         details: 'logged into her account'
     }]
 
-    const not1 = notification.find((notification) => notification.id === 3)
-    const not2 = notification.find((notification) => notification.id === 1)
-    const not3 = notification.find((notification) => notification.id === 2)
+    const not1 = payment.find((payment) => payment.id === 3)
+    const not2 = payment.find((payment) => payment.id === 1)
+    const not3 = payment.find((payment) => payment.id === 2)
     
     return (
         <div className='notification-container'>
@@ -53,20 +53,20 @@ import {LiaCalendarAltSolid} from 'react-icons/lia'
             <h4 style={{color: 'blue'}}>Payments</h4>
             
             {/* <div className='panel'>
-           {notification.length > 0 && (
-            <img src={notification[0].avatar} alt='Avatar'></img>
+           {payment.length > 0 && (
+            <img src={payment[0].avatar} alt='Avatar'></img>
             )
            }
             </div> */}
          </div>
          <hr />
            {/* <div className='date-container'>
-            <span style={{marginRight: '-1px'}} className='date'>{notification[0].createdAt}          
+            <span style={{marginRight: '-1px'}} className='date'>{payment[0].createdAt}          
             <LiaCalendarAltSolid /></span>
             <span className='calender-icon'></span>
             <span></span>
            </div> */}
-           <div className='notification-details'>
+           <div className='payment-details'>
             <h5>Today</h5>
                 <div className='main-details'>
                     <div className='d-flex img-p'> 
@@ -80,14 +80,14 @@ import {LiaCalendarAltSolid} from 'react-icons/lia'
 
                 <div className='main-details'>
                     <div className='d-flex img-p'> 
-                    <img style={{marginLeft: '-25px', marginTop: '30px'}} src={not2.avatar} ></img>
+                    <img style={{marginLeft: '-25px'}} src={not2.avatar} ></img>
                 <p style={{fontWeight:'500'}}>{not2.name}  
                 <span style={{fontWeight:'300', color:'#333333', marginLeft: '10px'}} className='p-tag'>{not2.details}</span>
                 </p>
-                <p style={{fontWeight:'500', marginTop: '40px', marginLeft: '-205px'}}>Recipient Name:
+                <p style={{fontWeight:'500'}}>Recipient Name:
                 <span style={{fontWeight:'300', color:'#333333', marginLeft: '10px'}} className='p-tag'>{not2.recipient}</span>
                 </p>
-                <p style={{fontWeight:'500', marginTop: '70px', marginLeft: '-183px'}}>Amount Paid:
+                <p style={{fontWeight:'500'}}>Amount Paid:
                 <span style={{fontWeight:'300', color:'#333333', marginLeft: '10px'}} className='p-tag'>{not2.amount}</span>
                 </p>
                    </div>
@@ -99,14 +99,14 @@ import {LiaCalendarAltSolid} from 'react-icons/lia'
                 <h5>Yesterday</h5>
                 <div className='main-details'>
                     <div className='d-flex img-p'> 
-                    <img style={{marginLeft: '-25px', marginTop: '30px'}} src={not3.avatar} ></img>
+                    <img style={{marginLeft: '-25px'}} src={not3.avatar} ></img>
                 <p style={{fontWeight:'500'}}>{not3.name}  
                 <span style={{fontWeight:'300', color:'#333333', marginLeft: '10px'}} className='p-tag'>{not3.details}</span>
                 </p>
-                <p style={{fontWeight:'500', marginTop: '40px', marginLeft: '-283px'}}>Recipient Name:
+                <p style={{fontWeight:'500'}}>Recipient Name:
                 <span style={{fontWeight:'300', color:'#333333', marginLeft: '10px'}} className='p-tag'>{not3.recipient}</span>
                 </p>
-                <p style={{fontWeight:'500', marginTop: '70px', marginLeft: '-174px'}}>Amount Paid:
+                <p style={{fontWeight:'500'}}>Amount Paid:
                 <span style={{fontWeight:'300', color:'#333333', marginLeft: '10px'}} className='p-tag'>{not3.amount}</span>
                 </p>
                    </div>
@@ -119,5 +119,5 @@ import {LiaCalendarAltSolid} from 'react-icons/lia'
     )
 }
 
-export default Message
+export default Payment
 

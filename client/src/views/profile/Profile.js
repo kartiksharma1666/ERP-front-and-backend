@@ -151,9 +151,9 @@
 
 // export default Profile;
 
-import { CRow, CCol, CCard, CCardHeader, CCardBody, CTable, CTableBody, CTableHeaderCell, CTableDataCell, CTableRow, CTableHead } from '@coreui/react';
+import { CRow, CCol, CCard, CCardHeader, CCardBody, CTable, CTableBody, CTableHeaderCell, CTableDataCell, CTableRow, CTableHead, CButton } from '@coreui/react';
 import React, { useState } from 'react'
-import {FaEnvelope,FaUserClock,FaPhoneAlt,FaGlobe,FaLanguage} from 'react-icons/fa'
+import {FaEnvelope,FaUserClock,FaPhoneAlt,FaGlobe,FaLanguage, FaEdit} from 'react-icons/fa'
 import {BiSolidMessageSquare} from 'react-icons/bi'
 
 
@@ -269,69 +269,21 @@ const Profile = () => {
 
 
     return (
-        <CRow>
+        <><CRow>
             <CCol xs={20}>
 
                 <div className=' profile-container'>
                     <h1>Profile</h1>
                     <br />
-                    <div style={{border: '1px solid grey', borderRadius: '8px', padding: '15px', color: 'g'}}>
-                    <h3>Basic Info.</h3>
-                    <div className='profile-name mt-4' style={{display: 'flex'}}>
-                        <p style={{marginTop: '5px', fontWeight: 'bold'}}>Name</p>
-                       <p style={{marginLeft: '250px', fontSize: '20px'}}>{selectedProfile.name}</p>
-                    </div>
-                    <hr />
-                    <div className='profile-name mt-4' style={{display: 'flex'}}>
-                        <p style={{marginTop: '5px', fontWeight: 'bold'}}>Profile Picture</p>
-                       <label htmlFor='image-upload' className='add-img ms-4' title='Add a profile photo'>
-                                {selectedImage ? (
-                                    <img className="_aadp" style={imageStyle} src={selectedImage} alt='Uploaded' />
-                                ) : (
-                                    <img className="_aadp" style={imageStyle} src="https://static-00.iconduck.com/assets.00/profile-circle-icon-512x512-zxne30hp.png" alt='Default' />
-                                )}
-                            </label>
-                            <input
-                                id='image-upload'
-                                type='file'
-                                accept='image/*'
-                                onChange={handleImageChange}
-                                style={{ display: 'none' }}
-                            />
-                    </div>
-                    <hr />
-                    <div className='profile-name mt-4' style={{display: 'flex'}}>
-                        <p style={{marginTop: '5px', fontWeight: 'bold'}}>Gender</p>
-                       <p style={{marginLeft: '240px', fontSize: '20px'}}>{selectedProfile.gender}</p>
-                    </div>
-                    <hr />
-                    <div className='profile-name mt-4' style={{display: 'flex'}}>
-                        <p style={{marginTop: '5px', fontWeight: 'bold'}}>Birthday</p>
-                       <p style={{marginLeft: '230px', fontSize: '20px'}}>{selectedProfile.birthdate}</p>
-                    </div>
-                    <hr />
-                    <div className='profile-name mt-4' style={{display: 'flex'}}>
-                        <p style={{marginTop: '5px', fontWeight: 'bold'}}>Country</p>
-                       <p style={{marginLeft: '235px', fontSize: '20px'}}>{selectedProfile.country}</p>
-                    </div>
-                </div>
-                <br />
-                <div style={{border: '1px solid grey', borderRadius: '8px', padding: '15px'}}>
-                    <h3>Contact Info.</h3>
-                    <div className='profile-name mt-4' style={{display: 'flex'}}>
-                        <p style={{marginTop: '5px', fontWeight: 'bold'}}>Email ID</p>
-                       <p style={{marginLeft: '230px', fontSize: '20px'}}>{selectedProfile.email}</p>
-                    </div>
-                    <hr />
-                    <div className='profile-name mt-4' style={{display: 'flex'}}>
-                        <p style={{marginTop: '5px', fontWeight: 'bold'}}>Phone No.</p>
-                       <p style={{marginLeft: '210px', fontSize: '20px'}}>{selectedProfile.phone}</p>
-                    </div>
-                    
-                </div>
-
-                    {/* <div className='imgage-upload'  style={profileStyle}>
-                        <div className='admin-img'>
+                    <div style={{ border: '1px solid grey', borderRadius: '8px', padding: '15px', color: 'g' }}>
+                        <h3>Basic Info.</h3>
+                        <div className='profile-name mt-4' style={{ display: 'flex' }}>
+                            <p style={{ marginTop: '5px', fontWeight: 'bold' }}>Name</p>
+                            <p style={{ marginLeft: '250px', fontSize: '20px' }}>{selectedProfile.name}</p>
+                        </div>
+                        <hr />
+                        <div className='profile-name mt-4' style={{ display: 'flex' }}>
+                            <p style={{ marginTop: '5px', fontWeight: 'bold' }}>Profile Picture</p>
                             <label htmlFor='image-upload' className='add-img ms-4' title='Add a profile photo'>
                                 {selectedImage ? (
                                     <img className="_aadp" style={imageStyle} src={selectedImage} alt='Uploaded' />
@@ -344,65 +296,117 @@ const Profile = () => {
                                 type='file'
                                 accept='image/*'
                                 onChange={handleImageChange}
-                                style={{ display: 'none' }}
-                            />
+                                style={{ display: 'none' }} />
                         </div>
-                        <div className='' style={{marginLeft: '50px', marginTop: '20px'}}>
-                            <h3>{selectedProfile.name}</h3>
-                            <p><span style={{color:'blue'}}>{selectedProfile.email}</span> - Administrator</p>
-                            <p style={{marginTop: '-10px'}}>{selectedProfile.age}</p>
-                            <p style={{marginTop: '-10px'}}>{selectedProfile.store[2]}</p>
+                        <hr />
+                        <div className='profile-name mt-4' style={{ display: 'flex' }}>
+                            <p style={{ marginTop: '5px', fontWeight: 'bold' }}>Gender</p>
+                            <p style={{ marginLeft: '240px', fontSize: '20px' }}>{selectedProfile.gender}</p>
                         </div>
-                    </div> */}
+                        <hr />
+                        <div className='profile-name mt-4' style={{ display: 'flex' }}>
+                            <p style={{ marginTop: '5px', fontWeight: 'bold' }}>Birthday</p>
+                            <p style={{ marginLeft: '230px', fontSize: '20px' }}>{selectedProfile.birthdate}</p>
+                        </div>
+                        <hr />
+                        <div className='profile-name mt-4' style={{ display: 'flex' }}>
+                            <p style={{ marginTop: '5px', fontWeight: 'bold' }}>Country</p>
+                            <p style={{ marginLeft: '235px', fontSize: '20px' }}>{selectedProfile.country}</p>
+                        </div>
+                    </div>
+                    <br />
+                    <div style={{ border: '1px solid grey', borderRadius: '8px', padding: '15px' }}>
+                        <h3>Contact Info.</h3>
+                        <div className='profile-name mt-4' style={{ display: 'flex' }}>
+                            <p style={{ marginTop: '5px', fontWeight: 'bold' }}>Email ID</p>
+                            <p style={{ marginLeft: '230px', fontSize: '20px' }}>{selectedProfile.email}</p>
+                        </div>
+                        <hr />
+                        <div className='profile-name mt-4' style={{ display: 'flex' }}>
+                            <p style={{ marginTop: '5px', fontWeight: 'bold' }}>Phone No.</p>
+                            <p style={{ marginLeft: '210px', fontSize: '20px' }}>{selectedProfile.phone}</p>
+                        </div>
+
+                    </div>
+
+                    {/* <div className='imgage-upload'  style={profileStyle}>
+        <div className='admin-img'>
+            <label htmlFor='image-upload' className='add-img ms-4' title='Add a profile photo'>
+                {selectedImage ? (
+                    <img className="_aadp" style={imageStyle} src={selectedImage} alt='Uploaded' />
+                ) : (
+                    <img className="_aadp" style={imageStyle} src="https://static-00.iconduck.com/assets.00/profile-circle-icon-512x512-zxne30hp.png" alt='Default' />
+                )}
+            </label>
+            <input
+                id='image-upload'
+                type='file'
+                accept='image/*'
+                onChange={handleImageChange}
+                style={{ display: 'none' }}
+            />
+        </div>
+        <div className='' style={{marginLeft: '50px', marginTop: '20px'}}>
+            <h3>{selectedProfile.name}</h3>
+            <p><span style={{color:'blue'}}>{selectedProfile.email}</span> - Administrator</p>
+            <p style={{marginTop: '-10px'}}>{selectedProfile.age}</p>
+            <p style={{marginTop: '-10px'}}>{selectedProfile.store[2]}</p>
+        </div>
+    </div> */}
                     {/* </div>
-                    <section className='profile-content align-item center' >
-                     <h2 style={{marginTop: '50px'}}>Account</h2>
-                     <hr />
-                     {selectedProfile && (
-                        <div className='profile-details'>
-                            <div className='profile-name mt-4' style={{display: 'flex'}}>
-                                <h5><FaUserClock/> Name </h5>
-                               <p style={profile}>{selectedProfile.name}</p>
-                            </div>
-                            <div className='profile-email mt-4' style={{display: 'flex'}}>
-                            <h5><FaEnvelope/> Email</h5>
-                            <p style={profile}>{selectedProfile.email}</p>
-                            </div>
-                            <div className='profile-phone mt-4' style={{display: 'flex'}}>
-                            <h5><FaPhoneAlt/> Phone </h5>
-                            <p style={profile}>{selectedProfile.phone}</p>
-                            </div>
-                            <div className='profile-name mt-4' style={{display: 'flex'}}>
-                                <h5><FaUserClock/> Username </h5>
-                               <p style={profile}>{selectedProfile.username}</p>
-                            </div>
-                            
-                            <div className='profile-phone mt-4' style={{display: 'flex'}}>
-                            <h5><FaGlobe/> Country </h5>
-                            <p style={profile}>{selectedProfile.country}</p>
-                            </div>
-                            <div className='language mt-4' style={{ display: 'flex' }}>
-    <h5><FaLanguage/> Language</h5>
-    <select
-        value={selectedLanguage}
-        onChange={(e) => setSelectedLanguage(e.target.value)}
-        style={profile}
-    >
-        <option value=''>Select a language</option>
-        {languages.map((language) => (
-            <option key={language} value={language}>
-                {language}
-            </option>
-        ))}
-    </select>
+    <section className='profile-content align-item center' >
+     <h2 style={{marginTop: '50px'}}>Account</h2>
+     <hr />
+     {selectedProfile && (
+        <div className='profile-details'>
+            <div className='profile-name mt-4' style={{display: 'flex'}}>
+                <h5><FaUserClock/> Name </h5>
+               <p style={profile}>{selectedProfile.name}</p>
+            </div>
+            <div className='profile-email mt-4' style={{display: 'flex'}}>
+            <h5><FaEnvelope/> Email</h5>
+            <p style={profile}>{selectedProfile.email}</p>
+            </div>
+            <div className='profile-phone mt-4' style={{display: 'flex'}}>
+            <h5><FaPhoneAlt/> Phone </h5>
+            <p style={profile}>{selectedProfile.phone}</p>
+            </div>
+            <div className='profile-name mt-4' style={{display: 'flex'}}>
+                <h5><FaUserClock/> Username </h5>
+               <p style={profile}>{selectedProfile.username}</p>
+            </div>
+            
+            <div className='profile-phone mt-4' style={{display: 'flex'}}>
+            <h5><FaGlobe/> Country </h5>
+            <p style={profile}>{selectedProfile.country}</p>
+            </div>
+            <div className='language mt-4' style={{ display: 'flex' }}>
+<h5><FaLanguage/> Language</h5>
+<select
+value={selectedLanguage}
+onChange={(e) => setSelectedLanguage(e.target.value)}
+style={profile}
+>
+<option value=''>Select a language</option>
+{languages.map((language) => (
+<option key={language} value={language}>
+{language}
+</option>
+))}
+</select>
 </div>
 
-                        </div>
-                     )}
-                    </section> */}
+        </div>
+     )}
+    </section> */}
                 </div>
             </CCol>
         </CRow>
+        <br />
+        <div>
+            <CButton style={{float: 'right'}} color="primary" shape="rounded-pill" size="lg"><FaEdit />  Edit Profile</CButton>
+        </div>
+        </>
     )
 }
 
