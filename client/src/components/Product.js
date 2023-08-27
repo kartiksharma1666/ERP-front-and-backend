@@ -266,6 +266,11 @@ const Product = (props) => {
                         spellCheck="false"
                         onChange={handleSearch}
                       ></input>
+                      <div className="input-group-append">
+                          <button className="btn btn-primary search-button" onClick={handleSearch}>
+                            Search
+                          </button>
+                        </div>
                       <div className="input-group-append"></div>
                     </div>
                   </div>

@@ -88,14 +88,14 @@
 //                     <h1>Profile</h1>
 //                     <br />
 //                     <div style={{ border: '1px solid grey', borderRadius: '8px', padding: '15px', color: 'g' }}>
-//                         <h3>Basic Info.</h3>
+//                         <h4>Basic Info.</h4>
 //                         <div className='profile-name mt-4' style={{ display: 'flex' }}>
-//                             <p style={{ marginTop: '5px', fontWeight: 'bold' }}>Name</p>
+//                             <p className='attributes'>Name</p>
 //                             <p style={{ marginLeft: '250px', fontSize: '20px' }}>{selectedProfile.username}</p>
 //                         </div>
 //                         <hr />
 //                         <div className='profile-name mt-4' style={{ display: 'flex' }}>
-//                             <p style={{ marginTop: '5px', fontWeight: 'bold' }}>Gender</p>
+//                             <p className='attributes'>Gender</p>
 //                             <input
 //                                 type='text'
 //                                 name='gender'
@@ -105,7 +105,7 @@
 //                         </div>
 //                         <hr />
 //                         <div className='profile-name mt-4' style={{ display: 'flex' }}>
-//                             <p style={{ marginTop: '5px', fontWeight: 'bold' }}>Birthday</p>
+//                             <p className='attributes'>Birthday</p>
 //                             <input
 //                                 type='text'
 //                                 name='birthdate'
@@ -115,7 +115,7 @@
 //                         </div>
 //                         <hr />
 //                         <div className='profile-name mt-4' style={{ display: 'flex' }}>
-//                             <p style={{ marginTop: '5px', fontWeight: 'bold' }}>Country</p>
+//                             <p className='attributes'>Country</p>
 //                             <input
 //                                 type='text'
 //                                 name='country'
@@ -126,14 +126,14 @@
 //                     </div>
 //                     <br />
 //                     <div style={{ border: '1px solid grey', borderRadius: '8px', padding: '15px' }}>
-//                         <h3>Contact Info.</h3>
+//                         <h4>Contact Info.</h4>
 //                         <div className='profile-name mt-4' style={{ display: 'flex' }}>
-//                             <p style={{ marginTop: '5px', fontWeight: 'bold' }}>Email ID</p>
+//                             <p className='attributes'>Email ID</p>
 //                             <p style={{ marginLeft: '230px', fontSize: '20px' }}>{selectedProfile.email}</p>
 //                         </div>
 //                         <hr />
 //                         <div className='profile-name mt-4' style={{ display: 'flex' }}>
-//                             <p style={{ marginTop: '5px', fontWeight: 'bold' }}>Phone No.</p>
+//                             <p className='attributes'>Phone No.</p>
 //                             <input
 //                                 type='text'
 //                                 name='phone'
@@ -225,18 +225,18 @@ const Profile = () => {
         }
     };
 
-    const profileStyle = {
-        display: 'flex',
-        marginTop: '50px'
-    }
+    // const profileStyle = {
+    //     display: 'flex',
+    //     marginTop: '50px'
+    // }
     
-    const imageStyle = {
-        width: '90px',
-        height: '90px',
-        borderRadius: '50%',
-        cursor: 'pointer',
-        marginLeft: '165px'
-    };
+    // const imageStyle = {
+    //     width: '90px',
+    //     height: '90px',
+    //     borderRadius: '50%',
+    //     cursor: 'pointer',
+    //     marginLeft: '165px'
+    // };
 
     const profile = {
         marginLeft:'10px',
@@ -273,22 +273,22 @@ const Profile = () => {
             <CCol xs={20}>
 
                 <div className=' profile-container'>
-                    <h1>Profile</h1>
+                    <h2 style={{color: 'blue'}}>Profile</h2>
                     <br />
-                    <div style={{ border: '1px solid grey', borderRadius: '8px', padding: '15px', color: 'g' }}>
-                        <h3>Basic Info.</h3>
+                    <div className='profile-heading'>
+                        <h4>Basic Info.</h4>
                         <div className='profile-name mt-4' style={{ display: 'flex' }}>
-                            <p style={{ marginTop: '5px', fontWeight: 'bold' }}>Name</p>
-                            <p style={{ marginLeft: '250px', fontSize: '20px' }}>{selectedProfile.name}</p>
+                            <p className='attributes'>Name</p>
+                            <span className='info' style={{marginLeft: '250px'}}>{selectedProfile.name}</span>
                         </div>
                         <hr />
                         <div className='profile-name mt-4' style={{ display: 'flex' }}>
-                            <p style={{ marginTop: '5px', fontWeight: 'bold' }}>Profile Picture</p>
+                            <p className='attributes'>Profile Picture</p>
                             <label htmlFor='image-upload' className='add-img ms-4' title='Add a profile photo'>
                                 {selectedImage ? (
-                                    <img className="_aadp" style={imageStyle} src={selectedImage} alt='Uploaded' />
+                                    <img className="_aadp" src={selectedImage} alt='Uploaded' />
                                 ) : (
-                                    <img className="_aadp" style={imageStyle} src="https://static-00.iconduck.com/assets.00/profile-circle-icon-512x512-zxne30hp.png" alt='Default' />
+                                    <img className="_aadp" src="https://static-00.iconduck.com/assets.00/profile-circle-icon-512x512-zxne30hp.png" alt='Default' />
                                 )}
                             </label>
                             <input
@@ -300,31 +300,31 @@ const Profile = () => {
                         </div>
                         <hr />
                         <div className='profile-name mt-4' style={{ display: 'flex' }}>
-                            <p style={{ marginTop: '5px', fontWeight: 'bold' }}>Gender</p>
-                            <p style={{ marginLeft: '240px', fontSize: '20px' }}>{selectedProfile.gender}</p>
+                            <p className='attributes'>Gender</p>
+                            <span className='info' style={{marginLeft: '240px'}}>{selectedProfile.gender}</span>
                         </div>
                         <hr />
                         <div className='profile-name mt-4' style={{ display: 'flex' }}>
-                            <p style={{ marginTop: '5px', fontWeight: 'bold' }}>Birthday</p>
-                            <p style={{ marginLeft: '230px', fontSize: '20px' }}>{selectedProfile.birthdate}</p>
+                            <p className='attributes'>Birthday</p>
+                            <span className='info' style={{marginLeft: '230px'}}>{selectedProfile.birthdate}</span>
                         </div>
                         <hr />
                         <div className='profile-name mt-4' style={{ display: 'flex' }}>
-                            <p style={{ marginTop: '5px', fontWeight: 'bold' }}>Country</p>
-                            <p style={{ marginLeft: '235px', fontSize: '20px' }}>{selectedProfile.country}</p>
+                            <p className='attributes'>Country</p>
+                            <span className='info' style={{marginLeft: '230px'}}>{selectedProfile.country}</span>
                         </div>
                     </div>
                     <br />
-                    <div style={{ border: '1px solid grey', borderRadius: '8px', padding: '15px' }}>
-                        <h3>Contact Info.</h3>
+                    <div className='profile-heading'>
+                        <h4>Contact Info.</h4>
                         <div className='profile-name mt-4' style={{ display: 'flex' }}>
-                            <p style={{ marginTop: '5px', fontWeight: 'bold' }}>Email ID</p>
-                            <p style={{ marginLeft: '230px', fontSize: '20px' }}>{selectedProfile.email}</p>
+                            <p className='attributes'>Email ID</p>
+                            <span className='info' style={{marginLeft: '230px'}}>{selectedProfile.email}</span>
                         </div>
                         <hr />
                         <div className='profile-name mt-4' style={{ display: 'flex' }}>
-                            <p style={{ marginTop: '5px', fontWeight: 'bold' }}>Phone No.</p>
-                            <p style={{ marginLeft: '210px', fontSize: '20px' }}>{selectedProfile.phone}</p>
+                            <p className='attributes'>Phone No.</p>
+                            <span className='info' style={{marginLeft: '210px'}}>{selectedProfile.phone}</span>
                         </div>
 
                     </div>
@@ -347,7 +347,7 @@ const Profile = () => {
             />
         </div>
         <div className='' style={{marginLeft: '50px', marginTop: '20px'}}>
-            <h3>{selectedProfile.name}</h3>
+            <h4>{selectedProfile.name}</h4>
             <p><span style={{color:'blue'}}>{selectedProfile.email}</span> - Administrator</p>
             <p style={{marginTop: '-10px'}}>{selectedProfile.age}</p>
             <p style={{marginTop: '-10px'}}>{selectedProfile.store[2]}</p>

@@ -98,7 +98,6 @@ const Orders = () => {
                           placeholder="Search for Customers..."
                           value={search}
                           onChange={(e) => setSearch(e.target.value)}
-                          stye={{width: '81%'}}
                         ></input>
                         <div className="input-group-append">
                           <button className="btn btn-primary search-button" onClick={handleSearch}>

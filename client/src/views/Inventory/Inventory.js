@@ -33,9 +33,8 @@ const Inventory = () => {
   const [showSuggestions, setShowSuggestions] = useState(false);
 
   const inventory_button_style = {
-    marginRight: "75px",
-    height: "50px",
-    width: "158px",
+    height: '40px',
+    width: '150px',
   };
 
   const getDataFromDB = async () => {

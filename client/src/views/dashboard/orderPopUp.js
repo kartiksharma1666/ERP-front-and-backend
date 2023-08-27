@@ -134,22 +134,22 @@ const OrderPopUp = (props) => {
     });
   };
   
-  const popup = {
-    marginTop : '25px'
-  }
+  // const popup = {
+  //   marginTop : '25px'
+  // }
 
-  const inputbox = {
-    width: '50%', 
-    marginTop: '-5px',
-    height: '35px',
-  }
+  // const inputbox = {
+  //   width: '50%', 
+  //   marginTop: '-5px',
+  //   height: '35px',
+  // }
 
-  const updatebox ={
-    width: '300px', 
-    marginTop: '-5px',
-    height: '35px',
-    marginLeft: '10px'
-  }
+  // const updatebox ={
+  //   width: '300px', 
+  //   marginTop: '-5px',
+  //   height: '35px',
+  //   marginLeft: '10px'
+  // }
 
   const Content = () => {
     if (props.edit === true) {
@@ -162,39 +162,39 @@ const OrderPopUp = (props) => {
           <CForm onSubmit={handleSubmit}>
             {props.selectedOrder && (
               <div>
-                <p style={popup}>
+                <p className='popup'>
                   <label>
                     Order Number
-                    <input style={updatebox}
+                    <input className='inputbox'
                       name="orderNumber"
                       placeholder="Order Number"
                       onChange={handleChange}
                       value={updatedOrder.orderNumber}
-                      className='input-style'
+                      
                     />
                   </label>
                 </p>
-                <p style={popup}>
+                <p className='popup'>
                   <label>
-                    customerName
-                    <input style={updatebox}
-                      name="customerName"
+                    Customer Name
+                    <input className='inputbox'
+                      name="Customer Name"
                       placeholder="customer Name"
                       onChange={handleChange}
                       value={updatedOrder.customerName}
-                      className='input-style'
+                      
                     />
                   </label>
                 </p>
-                <p style={popup}>
+                <p className='popup'>
                   <label>
                     Total Price
-                    <input style={updatebox}
+                    <input className='inputbox'
                       name="totalAmount"
                       placeholder="Total Price"
                       onChange={handleChange}
                       value={updatedOrder.totalAmount}
-                      className='input-style'
+                      
                     />
                   </label>
                 </p>
@@ -216,32 +216,38 @@ const OrderPopUp = (props) => {
           <h2 style={{ marginTop: '-15px' }}>Enter Order Details</h2>
           <CForm onSubmit={handleAddOrder}>
             <div>
-              <p style={popup}>
-                <input style={inputbox}
+              <p className='popup'>
+                <label>Order Number
+                <input className='inputbox'
                   name="neworderNumber"
                   placeholder="Order Number"
                   onChange={handleChangeOfAdd}
                   value={addOrder.neworderNumber}
-                  className='input-style'
+                  
                 />
+              </label>
               </p>
-              <p style={popup}>
-                <input style={inputbox}
+              <p className='popup'>
+                <label>Customer Name
+                <input className='inputbox'
                   name="newcustomerName"
-                  placeholder="customerName"
+                  placeholder="Customer Name"
                   onChange={handleChangeOfAdd}
                   value={addOrder.newcustomerName}
-                  className='input-style'
+                  
                 />
+                </label>
               </p>
-              <p style={popup}>
-                <input style={inputbox}
+              <p className='popup'>
+                <label>Total Price
+                <input className='inputbox'
                   name="newtotalAmount"
                   placeholder="Total Price"
                   onChange={handleChangeOfAdd}
                   value={addOrder.newtotalAmount}
-                  className='input-style'
+                  
                 />
+                </label>
               </p>
               {/* Add other order fields as needed */}
               <CButton color="success" shape="rounded-pill" type="submit" style = {{marginTop: '10px'}}>
@@ -259,11 +265,10 @@ const OrderPopUp = (props) => {
             Are you sure you want to delete the Order with Order Number:{' '}
             {props.selectedOrder && props.selectedOrder.orderNumber}?
           </p>
-          <Button onClick={() => handleToClose()} variant="primary">
+          <Button className='cancel-btn' onClick={() => handleToClose()} variant="primary">
             Cancel
           </Button>
-          <Button 
-          style={{marginLeft: '20px'}}
+          <Button className='delete-btn'
           onClick={() => handleDelete(props.selectedOrder)} variant="danger" autoFocus>
             Delete
           </Button>
@@ -277,7 +282,7 @@ const OrderPopUp = (props) => {
           </button>
           <h2 style={{ marginBottom: '30px' }}>Order Details</h2>
           {props.selectedOrder && (
-            <div style={popup}>
+            <div className='popup'>
               <p>Order Number: {props.selectedOrder.orderNumber}</p>
               <p>Total Price: {props.selectedOrder.totalAmount}</p>
               <p>customerName :{props.selectedOrder.customerName}</p>

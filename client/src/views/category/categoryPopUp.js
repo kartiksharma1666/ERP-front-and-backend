@@ -100,24 +100,24 @@ const CategoryPopUp = (props) => {
     props.setGetData(true);
   };
 
-  const popup = {
-    marginTop : '25px'
-  }
+  // const popup = {
+  //   marginTop : '25px'
+  // }
 
-  const inputbox = {
-    width: '300px', 
-    marginLeft: '10px',
-    marginTop: '-5px',
-    height: '35px'
-  }
+  // const inputbox = {
+  //   width: '300px', 
+  //   marginLeft: '10px',
+  //   marginTop: '-5px',
+  //   height: '35px'
+  // }
 
-  const updatebox ={
-    width: '300px', 
-    marginLeft: '10px',
-    marginTop: '-5px',
-    height: '35px',
+  // const inpubox ={
+  //   width: '300px', 
+  //   marginLeft: '10px',
+  //   marginTop: '-5px',
+  //   height: '35px',
     
-  }
+  // }
   
   const Content = () => {
     if (props.edit === true) {
@@ -129,15 +129,14 @@ const CategoryPopUp = (props) => {
           <h2 style={{ marginTop: '-15px' }}>Edit Category</h2>
           <CForm onSubmit={handleSubmit}>
           <div>
-              <p style={popup}>
+              <p className='popup'>
                 <label>
                   Category Name
-                  <input style={updatebox}
+                  <input className='inputbox'
                     name="name"
                     placeholder="Category Name"
                     onChange={handleChange}
                     value={updatedData.name}
-                    className='input-style'
                   />
                 </label>
               </p>
@@ -157,15 +156,14 @@ const CategoryPopUp = (props) => {
           <h2 style={{ marginTop: '-15px' }}>Add Category</h2>
           <CForm onSubmit={handleAddCategory}>
           <div>
-              <p style={popup}>
+              <p className='popup'>
                 <label>
                   Category Name
-                  <input style={inputbox}
+                  <input className='inputbox'
                     name="name"
                     placeholder="Category Name"
                     onChange={handleChange}
                     value={updatedData.name}
-                    className='input-style'
                   />
                 </label>
               </p>
@@ -185,7 +183,7 @@ const CategoryPopUp = (props) => {
             {props.selectedCategory && props.selectedCategory.name}?
           </p>
           <Button
-          style={{marginTop: '20px', borderRadius: '20px'}}
+          className='cancel-btn'
             onClick={() => {
               props.setDeletePop(false);
               handleToClose();
@@ -195,7 +193,7 @@ const CategoryPopUp = (props) => {
             Cancel
           </Button>
           <Button
-          style={{marginLeft: '20px', marginTop: '20px', borderRadius: '20px'}}
+          className='delete-btn'
             onClick={() => {
               handleDelete(props.selectedCategory);
               handleToClose();
