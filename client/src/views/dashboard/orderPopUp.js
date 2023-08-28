@@ -9,14 +9,17 @@ const OrderPopUp = (props) => {
   const [updatedOrder, setUpdatedOrder] = useState({
     orderNumber: "",
     customerName: "",
-    totalAmount: ""
-    
+    totalAmount: "",
+    OrderStatus: "",
+    OrderMedium: ""
   });
 
   const [addOrder, setAddOrder] = useState({
     neworderNumber: "",
     newcustomerName: "",
     newtotalAmount: "",
+    OrderStatus: "",
+    OrderMedium: ""
     // Add other fields for adding an order
   });
 
@@ -25,7 +28,9 @@ const OrderPopUp = (props) => {
       setUpdatedOrder({
         orderNumber: props.selectedOrder?.orderNumber,
         customerName: props.selectedOrder?.customerName,
-        totalAmount: props.selectedOrder?.totalAmount
+        totalAmount: props.selectedOrder?.totalAmount,
+        OrderStatus: props.selectedOrder?.OrderStatus,
+        OrderMedium: props.selectedOrder?.OrderMedium
         // Update other fields as needed
       });
     }
@@ -69,6 +74,7 @@ const OrderPopUp = (props) => {
       });
     props.setDeletePop(false);
     props.setSelectedOrder(null);
+    props.setIsModalOpen(false);
     props.setGetData(true); // Assuming you use a similar state to fetch orders
   };
 
@@ -99,6 +105,16 @@ const OrderPopUp = (props) => {
 
   const handleAddOrder = (e) => {
     e.preventDefault();
+
+    //new order data from the addOrder state
+    const newOrder = {
+      orderNumber: addOrder.neworderNumber,
+      customerName: addOrder.newcustomerName,
+      totalAmount: addOrder.newtotalAmount,
+      OrderStatus: addOrder.OrderStatus,
+      OrderMedium: addOrder.OrderMedium
+    };
+
     console.log("add Order :", addOrder);
   
     fetch('http://localhost:8080/api/order/create', {
@@ -106,16 +122,16 @@ const OrderPopUp = (props) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        orderNumber: addOrder.neworderNumber,
-        customerName: addOrder.newcustomerName,
-        totalAmount: addOrder.newtotalAmount,
-      }),
+      body: JSON.stringify(
+        newOrder
+       ),
     })
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
           console.log('Order created successfully:', data);
+         //Refresh the data by triggering a getData action
+         props.setGetData(true);
         } else {
           console.error('Error creating order:', data.error);
         }
@@ -131,6 +147,8 @@ const OrderPopUp = (props) => {
       neworderNumber: "",
       newcustomerName: "",
       newtotalAmount: "",
+      OrderStatus: "",
+      OrderMedium: ""
     });
   };
   
@@ -198,6 +216,30 @@ const OrderPopUp = (props) => {
                     />
                   </label>
                 </p>
+                <p style={popup}>
+                  <label>
+                    Order Status
+                    <input style={updatebox}
+                      name="OrderStatus"
+                      placeholder="Order Status"
+                      onChange={handleChange}
+                      value={updatedOrder.OrderStatus}
+                      className='input-style'
+                    />
+                  </label>
+                </p>
+                <p style={popup}>
+                  <label>
+                    Order Medium
+                    <input style={updatebox}
+                      name="OrderMedium"
+                      placeholder="Order Medium"
+                      onChange={handleChange}
+                      value={updatedOrder.OrderMedium}
+                      className='input-style'
+                    />
+                  </label>
+                </p>
                 {/* Add other order fields as needed */}
                 <CButton color="success" shape="rounded-pill" type="submit" style = {{marginTop: '10px'}}>
                   Update
@@ -249,6 +291,25 @@ const OrderPopUp = (props) => {
                 />
                 </label>
               </p>
+            
+              <p style={popup}>
+                <input style={inputbox}
+                  name="OrderStatus"
+                  placeholder="Order Status"
+                  onChange={handleChangeOfAdd}
+                  value={addOrder.OrderStatus}
+                  className='input-style'
+                />
+              </p>
+              <p style={popup}>
+                <input style={inputbox}
+                  name="OrderMedium"
+                  placeholder="Order Medium"
+                  onChange={handleChangeOfAdd}
+                  value={addOrder.OrderMedium}
+                  className='input-style'
+                />
+              </p>
               {/* Add other order fields as needed */}
               <CButton color="success" shape="rounded-pill" type="submit" style = {{marginTop: '10px'}}>
                 Add Order
@@ -286,6 +347,8 @@ const OrderPopUp = (props) => {
               <p>Order Number: {props.selectedOrder.orderNumber}</p>
               <p>Total Price: {props.selectedOrder.totalAmount}</p>
               <p>customerName :{props.selectedOrder.customerName}</p>
+              <p>OrderStatus :{props.selectedOrder.OrderStatus}</p>
+              <p>OrderMedium :{props.selectedOrder.OrderMedium}</p>
             </div>
           )}
         </div>

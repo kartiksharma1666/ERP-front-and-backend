@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import OrderPopUp from './orderPopUp'; // Import the appropriate OrderPopUp component
 
 import {
@@ -34,6 +34,8 @@ const Orders = () => {
     width: '150px',
   };
 
+  
+  
   const getDataFromDB = async () => {
     try {
       const res = await fetch('http://localhost:8080/api/order/all');
@@ -55,6 +57,7 @@ const Orders = () => {
     const filteredOrders = data.filter((order) =>
       order.customerName.toLowerCase().includes(search.toLowerCase())
     );
+    console.log(filteredOrders)
     setSearchResults(filteredOrders);
   };
 
@@ -78,8 +81,15 @@ const Orders = () => {
     getDataFromDB();
   }, [getData]);
 
+  useEffect(() => {
+    setSearchResults([]);
+
+  }, [isModalOpen])
+
+  
+
   return (
-    <div>
+    <div className='order-container'>
       <CRow>
         <CCol xs={12}>
           <CCard className="mb-4">
@@ -92,12 +102,13 @@ const Orders = () => {
                   <div className=" row justify-content-center" style={{marginRight: '50px'}}>
                     <div className="col-md-8">
                       <div className="input-group mb-3">
-                        <input style={{borderRadius: '5px'}}
+                        <input 
                           type="text"
                           className="form-control"
                           placeholder="Search for Customers..."
                           value={search}
                           onChange={(e) => setSearch(e.target.value)}
+                          stye={{width: '81%'}}
                         ></input>
                         <div className="input-group-append">
                           <button className="btn btn-primary search-button" onClick={handleSearch}>
@@ -106,18 +117,27 @@ const Orders = () => {
                         </div>
                       </div>
                     </div>
+                    <div>
                     {searchResults.length > 0 && (
                       <div className="row justify-content-center">
                         <div className="col-md-8">
-                          {searchResults.map((order) => (
-                            <div key={order._id} className="card mb-2">
-                              <div className="card-body">{order.orderNumber}</div>
-                              <div className="card-body">{order.customerName}</div>
+                          {searchResults.map((order, index) => (
+                            <div key={order._id} className=" mb-2 search-content" >
+                            <div className='closing-search'>
+                            <div className="">Order Number:   {order.orderNumber}</div>
+                            <span className='closed-button'
+                            onClick={() => {
+                              setSearchResults(prevSearchResults =>
+                                prevSearchResults.filter((_, i) => i !== index ))
+                            }}>X</span>
+                            </div>
+                            <div className="">Customer Name:   {order.customerName}</div>
                             </div>
                           ))}
                         </div>
                       </div>
                     )}
+                    </div>
                   </div>
                 </div>
                 <div>
@@ -131,13 +151,15 @@ const Orders = () => {
                 </div>
               </div>
 
-              <CTable className="mb-0 border mt-4" hover responsive>
+              <CTable className="mb-0 border mt-4 table-content" hover responsive>
                 <CTableHead>
                   <CTableRow>
                     <CTableHeaderCell scope="col">Sr. no</CTableHeaderCell>
                     <CTableHeaderCell scope="col">OrderNumber</CTableHeaderCell>
                     <CTableHeaderCell scope="col">CustomerName</CTableHeaderCell>
                     <CTableHeaderCell scope="col">TotalAmount</CTableHeaderCell>
+                    <CTableHeaderCell scope="col">OrderStatus</CTableHeaderCell>
+                    <CTableHeaderCell scope="col">OrderMedium</CTableHeaderCell>
                     <CTableHeaderCell scope="col"></CTableHeaderCell>
                     <CTableHeaderCell scope="col"></CTableHeaderCell>
                     <CTableHeaderCell scope="col"></CTableHeaderCell>
@@ -155,6 +177,8 @@ const Orders = () => {
                           <CTableDataCell>{item.orderNumber}</CTableDataCell>
                           <CTableDataCell>{item.customerName}</CTableDataCell>
                           <CTableDataCell>{item.totalAmount}</CTableDataCell>
+                          <CTableDataCell>{item.OrderStatus}</CTableDataCell>
+                          <CTableDataCell>{item.OrderMedium}</CTableDataCell>
                           <CTableDataCell>
                             <CButton
                               color="info"
@@ -202,7 +226,7 @@ const Orders = () => {
           </CCard>
         </CCol>
       </CRow>
-      <FloatingButton />
+     <a href='#/customer'> <FloatingButton /> </a>
       <OrderPopUp
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
