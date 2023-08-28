@@ -239,6 +239,21 @@ border-radius: 8px;
    margin-left: 15px
 }
 
+.search-content{
+   display: flex;
+   flex-direction: column;
+   border: 1px solid #c7c6c6;
+   border-radius: 8px;
+   min-height: 20px;
+   padding: 10px;
+}
+
+.closing-search{
+   display: flex;
+   justify-content: space-between;
+   cursor: pointer;
+}
+
 
  
 
