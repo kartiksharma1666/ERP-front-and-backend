@@ -59,12 +59,21 @@ function initial() {
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to erp application." });
 });
+const productRoutes = require("./routes/product.routes"); // Update the path
+
+// ...
+
+// Use the router as middleware
+app.use(productRoutes);
 
 require("./routes/auth.routes")(app);
 require("./routes/user.routes")(app);
 
 const customerRoutes = require("./routes/customer.routes");
 app.use("/api", customerRoutes);
+
+const attributeRoutes = require("./routes/attribute.routes");
+app.use("/api", attributeRoutes);
 
 const orderRoutes = require("./routes/order.routes");
 app.use("/api", orderRoutes);

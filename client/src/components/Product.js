@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import './PopUp'
 
 import {
   CAvatar,
@@ -28,6 +29,7 @@ const Product = (props) => {
   const [selectedCategory, setSelectedCategory] = useState(null)
   const [search, setSearch] = useState('')
   const [searchResults, setSearchResults] = useState([])
+  const [viewProduct, setViewProduct] = useState(null);
 
   const [categories, setCategories] = useState([])
   const fetchCategories = () => {
@@ -36,7 +38,7 @@ const Product = (props) => {
       .then((response) => response.json())
       .then((data) => {
         setCategories(data.categories)
-        console.log(data.categories) // Update the state with fetched categories
+        //console.log(data.categories) // Update the state with fetched categories
       })
       .catch((error) => {
         console.error('Error fetching categories:', error)
@@ -61,7 +63,7 @@ const Product = (props) => {
     })
 
     const resjson = await res.json()
-    console.log(resjson)
+    console.log("this is product",resjson)
     setdata(resjson)
     props.setGetData(false)
   }
@@ -76,6 +78,10 @@ const Product = (props) => {
 
   const handleClickToOpen = (Product, key) => {
     props.setSelectedProduct(Product)
+    if(key=='view'){
+      // props.setViewPop(true);
+      setViewProduct(Product);
+    }
     if (key == 'update') {
       props.setEdit(true)
     }
@@ -118,7 +124,7 @@ const Product = (props) => {
             <CTableRow key={index}>
               <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
               <CTableDataCell>{item.name}</CTableDataCell>
-              <CTableDataCell>{item.price}</CTableDataCell>
+              {/* <CTableDataCell>{item.price}</CTableDataCell> */}
 
               <CTableDataCell>
                 <CButton
@@ -285,7 +291,7 @@ const Product = (props) => {
                 <CTableRow>
                   <CTableHeaderCell scope="col">Sr. no</CTableHeaderCell>
                   <CTableHeaderCell scope="col">Name</CTableHeaderCell>
-                  <CTableHeaderCell scope="col">Price</CTableHeaderCell>
+                  {/* <CTableHeaderCell scope="col">Price</CTableHeaderCell> */}
                   <CTableHeaderCell scope="col"></CTableHeaderCell>
                   <CTableHeaderCell scope="col"></CTableHeaderCell>
                   <CTableHeaderCell scope="col"></CTableHeaderCell>
