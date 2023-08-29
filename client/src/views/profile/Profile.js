@@ -1,66 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { FaEnvelope, FaUserClock, FaPhoneAlt, FaGlobe, FaLanguage } from 'react-icons/fa';
-import { CRow, CCol } from '@coreui/react';
+import { FaEnvelope, FaUserClock, FaPhoneAlt, FaGlobe, FaLanguage,FaEdit } from 'react-icons/fa';
+import { CRow, CCol, CButton } from '@coreui/react';
 import Cookies from 'universal-cookie';
 import jwt_decode from 'jwt-decode';
 
 const Profile = () => {
-    
-   const profileData = [
-        {
-        id:1,
-        name: 'Omkar',
-        image: '',
-        email: 'omkar@gmail.com',
-        phone: '+91 88501 47242',
-        age: '21yrs',
-        country: 'India',
-        store: ['storeX','storeY','storeZ'],
-        username: 'omkar21'
-    },
-        {
-        id: 2,
-        name: 'Kartik',
-        image: '',
-        email: 'kartik@gmail.com',
-        phone: '+91 98685 39396',
-        age: '21yrs',
-        country: 'India',
-        store: ['storeX','storeY','storeZ'],
-        username: 'kartik21'
-    },
-        {
-        id: 3,
-        name: 'Gurleen Kaur Kalsi',
-        image: '',
-        email: 'omkar@gmail.com',
-        phone: '+91 88501 47242',
-        age: '21yrs',
-        country: 'India',
-        store: ['storeX','storeY','storeZ'],
-        username: 'gurleen21',
-        gender: 'Female',
-        birthdate: '9 April 2003'
-    },
-        {
-        id: 4, 
-        name: 'Dacosta',
-        image: '',
-        email: 'omkar@gmail.com',
-        phone: '+91 88501 47242',
-        age: '21yrs',
-        country: 'India',
-        store: ['storeX','storeY','storeZ'],
-        username: 'dacosta21'
-    }
-]
-    
-    const selectedProfile = profileData.find((profile) => profile.id === 3)
-    
+    const [user, setUser] = useState(null);
+    const [userData, setUserData] = useState([]);
+    const [selectedProfile, setSelectedProfile] = useState({});
     const [selectedImage, setSelectedImage] = useState(null);
     const [selectedLanguage, setSelectedLanguage] = useState('');
     const [languages] = useState(['English', 'Spanish', 'French', 'German']);
+    const [showEditPage,setEditPage] = useState(false)
 
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setSelectedProfile((prevProfile) => ({
+            ...prevProfile,
+            [name]: value,
+        }));
+    };
 
     const handleImageChange = (event) => {
         const file = event.target.files[0];
@@ -77,28 +36,31 @@ const Profile = () => {
      setEditPage(true)
     }
 
-    // const profileStyle = {
-    //     display: 'flex',
-    //     marginTop: '50px'
-    // }
-    
-    // const imageStyle = {
-    //     width: '90px',
-    //     height: '90px',
-    //     borderRadius: '50%',
-    //     cursor: 'pointer',
-    //     marginLeft: '165px'
-    // };
-
-    const profile = {
-        marginLeft:'10px',
-        width:'35%',
-        height: '20%',
-        borderRadius:'5px', 
-        background:'white',
-        padding:'3px',
-        marginBottom: '0px'
-    }
+    useEffect(() => {
+        const cookies = new Cookies();
+        if (cookies.get('jwtToken')) {
+            const jwtToken = cookies.get('jwtToken');
+            const user = jwt_decode(jwtToken);
+            setUser(user);
+            fetch('http://localhost:8080/api/test/user', {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${jwtToken}`,
+                    'x-access-token': jwtToken,
+                    'Content-Type': 'application/json',
+                },
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    setUserData(data);
+                })
+                .catch((error) => {
+                    console.error('Error fetching user data:', error.message);
+                });
+        } else {
+            window.location.href = '/login';
+        }
+    }, []);
 
     useEffect(() => {
         if (userData.length > 0 && user) {
@@ -122,10 +84,12 @@ const Profile = () => {
             .catch((error) => {
                 console.error('Error updating profile:', error.message);
             });
+
+            setEditPage(false)
     };
 
     return (
-        <><CRow>
+        <CRow>
             <CCol xs={20}>
                 {!showEditPage ? (<div>
                     <div className='profile-container'>
@@ -206,14 +170,7 @@ const Profile = () => {
                         </div>
                         <hr />
                         <div className='profile-name mt-4' style={{ display: 'flex' }}>
-                            <p className='attributes'>Profile Picture</p>
-                            <label htmlFor='image-upload' className='add-img ms-4' title='Add a profile photo'>
-                                {selectedImage ? (
-                                    <img className="_aadp" src={selectedImage} alt='Uploaded' />
-                                ) : (
-                                    <img className="_aadp" src="https://static-00.iconduck.com/assets.00/profile-circle-icon-512x512-zxne30hp.png" alt='Default' />
-                                )}
-                            </label>
+                            <p style={{ marginTop: '5px', fontWeight: 'bold' }}>Gender</p>
                             <input
                                 type='text'
                                 name='gender'
@@ -264,20 +221,13 @@ const Profile = () => {
                                 className='profile-inputs'
                             />
                         </div>
-
                     </div>
                     <button onClick={handleSubmit} className='profile-button'>Save Changes</button>
                 </div>)
                 )}
             </CCol>
         </CRow>
-        <br />
-        <div>
-            <CButton style={{float: 'right'}} color="primary" shape="rounded-pill" size="lg"><FaEdit />  Edit Profile</CButton>
-        </div>
-        </>
-    )
-}
-
+    );
+};
 
 export default Profile;

@@ -226,7 +226,9 @@ const Inventory = () => {
                               onClick={() => handleUpdateInventory(item)}
                             >
                               Update
-                            </button>{" "}
+                            </button>
+                          </CTableDataCell>
+                          <CTableDataCell>
                             <button className="crud-button4"
                               onClick={() => handleDeleteInventory(item)}
                             >

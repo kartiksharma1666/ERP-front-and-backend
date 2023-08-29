@@ -140,9 +140,9 @@ const CategoryPopUp = (props) => {
                   />
                 </label>
               </p>
-              <button color="primary"  type="submit" style = {{marginTop: '10px'}}>
+              <CButton color="primary" type="submit" style = {{marginTop: '10px'}}>
                 Update Category
-              </button>
+              </CButton>
             </div>
           </CForm>
         </div>

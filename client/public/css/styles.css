@@ -242,6 +242,15 @@ border-radius: 8px;
    margin-top : 25px;
  }
 
+ .inputbox{
+   width: 350px;
+   margin-top: -5px;
+   height: 35px;
+   border-radius: 5px;
+   margin-left: 15px;
+   border: 1px solid #bab9b9;
+ }
+
 .search-content{
    display: flex;
    flex-direction: column;
@@ -378,7 +387,7 @@ transition: 0.5s;
  }
 
  .delete-btn{
-   margin-left: 20px;
+   margin-left: 25px;
    margin-top: 20px;
    border-radius: 20px;
  }

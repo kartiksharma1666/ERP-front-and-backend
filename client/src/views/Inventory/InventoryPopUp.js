@@ -206,9 +206,9 @@ const InventoryPopUp = (props) => {
                     />
                   </label>
                 </p>
-                <button color="primary"  type="submit" style = {{marginTop: '10px'}}>
+                <CButton color="primary"  type="submit" style = {{marginTop: '10px'}}>
                   Update
-                </button>
+                </CButton>
               </div>
             )}
           </CForm>

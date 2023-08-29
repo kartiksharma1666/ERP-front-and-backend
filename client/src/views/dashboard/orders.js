@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import OrderPopUp from './orderPopUp'; // Import the appropriate OrderPopUp component
 
 import {
@@ -14,6 +14,10 @@ import {
   CTableHead,
   CTableHeaderCell,
   CTableRow,
+  CDropdownItem,
+  CDropdown,
+  CDropdownMenu,
+  CDropdownToggle
 } from '@coreui/react';
 
 import FloatingButton from '../FloatingButton'
@@ -34,8 +38,52 @@ const Orders = () => {
     width: '150px',
   };
 
-  
-  
+  const initialState = {
+    items: [],
+    total: 0,
+    notes: 'new of notess',
+    rates: '',
+    vat: 0,
+    currency: '',
+    invoiceNumber: Math.floor(Math.random() * 100000),
+    status: '',
+    type: 'Invoice',
+    creator: '',
+  }
+
+  const orders = [{
+    id: 1,
+    name: 'Dacosta',
+    total: '123',
+    status: 'ok',
+    currency: 'INR',
+    items: ["cake", "drinks"]
+  },
+  {
+    id: 2,
+    name: 'Gurleen',
+    total: '156',
+    status: 'ok',
+    currency: 'USD',
+    items: ["pastry", "book"]
+  },
+  {
+    id: 3,
+    name: 'Omkar',
+    total: '868',
+    status: 'ok',
+    currency: 'pounds',
+    items: ["book", "drinks", "cake"]
+  },
+  {
+    id: 4,
+    name: 'Kartik',
+    total: '5688',
+    status: 'ok',
+    currency: 'Euros',
+    items: ["chocolate"]
+  }]
+
   const getDataFromDB = async () => {
     try {
       const res = await fetch('http://localhost:8080/api/order/all');
@@ -57,7 +105,6 @@ const Orders = () => {
     const filteredOrders = data.filter((order) =>
       order.customerName.toLowerCase().includes(search.toLowerCase())
     );
-    console.log(filteredOrders)
     setSearchResults(filteredOrders);
   };
 
@@ -81,15 +128,8 @@ const Orders = () => {
     getDataFromDB();
   }, [getData]);
 
-  useEffect(() => {
-    setSearchResults([]);
-
-  }, [isModalOpen])
-
-  
-
   return (
-    <div className='order-container'>
+    <div>
       <CRow>
         <CCol xs={12}>
           <CCard className="mb-4">
@@ -102,7 +142,7 @@ const Orders = () => {
                   <div className=" row justify-content-center" style={{marginRight: '50px'}}>
                     <div className="col-md-8">
                       <div className="input-group mb-3">
-                        <input 
+                        <input style={{borderRadius: '5px'}}
                           type="text"
                           className="form-control"
                           placeholder="Search for Customers..."
@@ -117,30 +157,21 @@ const Orders = () => {
                         </div>
                       </div>
                     </div>
-                    <div>
                     {searchResults.length > 0 && (
                       <div className="row justify-content-center">
                         <div className="col-md-8">
-                          {searchResults.map((order, index) => (
-                            <div key={order._id} className=" mb-2 search-content" >
-                            <div className='closing-search'>
-                            <div className="">Order Number:   {order.orderNumber}</div>
-                            <span className='closed-button'
-                            onClick={() => {
-                              setSearchResults(prevSearchResults =>
-                                prevSearchResults.filter((_, i) => i !== index ))
-                            }}>X</span>
-                            </div>
-                            <div className="">Customer Name:   {order.customerName}</div>
+                          {searchResults.map((order) => (
+                            <div key={order._id} className="card mb-2">
+                              <div className="card-body">{order.orderNumber}</div>
+                              <div className="card-body">{order.customerName}</div>
                             </div>
                           ))}
                         </div>
                       </div>
                     )}
-                    </div>
                   </div>
                 </div>
-                <div>
+                {/* <div>
                 <button
                   className=" btn btn-primary"
                   onClick={handleAddOrder}
@@ -148,10 +179,10 @@ const Orders = () => {
                 >
                   Add Order
                 </button>
-                </div>
+                </div> */}
               </div>
 
-              <CTable className="mb-0 border mt-4 table-content" hover responsive>
+              <CTable className="mb-0 border mt-4" hover responsive>
                 <CTableHead>
                   <CTableRow>
                     <CTableHeaderCell scope="col">Sr. no</CTableHeaderCell>
@@ -160,32 +191,61 @@ const Orders = () => {
                     <CTableHeaderCell scope="col">TotalAmount</CTableHeaderCell>
                     <CTableHeaderCell scope="col">OrderStatus</CTableHeaderCell>
                     <CTableHeaderCell scope="col">OrderMedium</CTableHeaderCell>
+                    {/* <CTableHeaderCell>
+                    <CDropdown>
+                      <CDropdownToggle color="primary">Items</CDropdownToggle>
+                        <CDropdownMenu>
+                          <CDropdownItem>
+                            {initialState.items}
+                          </CDropdownItem>
+                        </CDropdownMenu>
+                      </CDropdown>
+                    </CTableHeaderCell> */}
                     <CTableHeaderCell scope="col"></CTableHeaderCell>
                     <CTableHeaderCell scope="col"></CTableHeaderCell>
                     <CTableHeaderCell scope="col"></CTableHeaderCell>
                   </CTableRow>
                 </CTableHead>
                 <CTableBody>
-                  {data &&
-                    data.map(
+                  {orders &&
+                    orders.map(
                       (
                         item,
                         index, // Check if data is available before mapping
                       ) => (
                         <CTableRow key={index}>
                           <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
-                          <CTableDataCell>{item.orderNumber}</CTableDataCell>
-                          <CTableDataCell>{item.customerName}</CTableDataCell>
-                          <CTableDataCell>{item.totalAmount}</CTableDataCell>
-                          <CTableDataCell>{item.OrderStatus}</CTableDataCell>
-                          <CTableDataCell>{item.OrderMedium}</CTableDataCell>
-                          <CTableDataCell>
+                          <CTableDataCell>{item.id}</CTableDataCell>
+                          <CTableDataCell>{item.name}</CTableDataCell>
+                          <CTableDataCell>{item.total}</CTableDataCell>
+                          <CTableDataCell>{item.status}</CTableDataCell>
+                          <CTableDataCell>{item.currency}</CTableDataCell>
+                          {/* <CTableDataCell>{orders.name}</CTableDataCell> */}
+                          {/* <CTableDataCell>
                             <button
                               className='crud-button'
                               
                             >
                               Info
                             </button>
+                          </CTableDataCell> */}
+                          {/* <CTableDataCell>
+                          <CDropdown>
+                            <CDropdownToggle color="primary">Items</CDropdownToggle>
+                            <CDropdownMenu>
+                              
+                            </CDropdownMenu>
+                          </CDropdown>
+                          </CTableDataCell> */}
+                          <CTableDataCell>
+                            <CDropdown>
+                              <CDropdownToggle color="primary">Items</CDropdownToggle>
+                                <CDropdownMenu>
+                                  <CDropdownItem>
+                                    {item.items}
+                                  </CDropdownItem>
+                                </CDropdownMenu>
+                              </CDropdown>
                           </CTableDataCell>
                           <CTableDataCell>
                             <button
@@ -220,7 +280,7 @@ const Orders = () => {
           </CCard>
         </CCol>
       </CRow>
-     <a href='#/customer'> <FloatingButton /> </a>
+      <FloatingButton />
       <OrderPopUp
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}

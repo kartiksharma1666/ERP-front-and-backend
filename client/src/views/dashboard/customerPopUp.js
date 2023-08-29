@@ -208,7 +208,7 @@ const CustomerPopUp = (props) => {
                   </label>
                 </p>
                 <p></p>
-                <CButton color="success" shape="rounded-pill" type="submit" style = {{marginTop: '10px'}}>
+                <CButton color="primary" type="submit" style = {{marginTop: '10px'}}>
                   Update
                 </CButton>
               </div>
@@ -227,7 +227,8 @@ const CustomerPopUp = (props) => {
               <h2 style={{ marginTop: '-15px' }}> Enter Customer Details</h2>
               <CForm onSubmit={handleAddCustomer}>
                 <div>
-                  <p className='popup'></p>
+                  <p className='popup'>
+                    <label>Name
                   <input className='inputbox'
                     name="name"
                     placeholder="Name"
@@ -235,7 +236,10 @@ const CustomerPopUp = (props) => {
                     value={addData.name}
                    
                   />
-                  <p className='popup'></p>
+                  </label>
+                  </p>
+                  <p className='popup'>
+                  <label> Email ID
                   <input className='inputbox'
                     name="email"
                     placeholder="Email"
@@ -243,7 +247,10 @@ const CustomerPopUp = (props) => {
                     value={addData.email}
                     
                   />
-                  <p className='popup'></p>
+                  </label>
+                  </p>
+                  <p className='popup'>
+                    <label>Phone No.
                   <input className='inputbox'
                     name="phone"
                     placeholder="Phone no"
@@ -251,18 +258,24 @@ const CustomerPopUp = (props) => {
                     value={addData.phone}
                     
                   />
-                  <p className='popup'></p>
+                  </label>
+                  </p>
+                  <p className='popup'>
+                    <label>Address
                   <input className='inputbox'
                     name="address"
                     placeholder="Address"
                     onChange={handleChangeOfAdd}
                     value={addData.address}
                     
-                  /> 
-                  <p></p>
-                  <CButton color="success" shape="rounded-pill" type="submit" style = {{marginTop: '10px'}}>
+                  />
+                  </label>
+                  </p> 
+                  <p>
+                  <CButton color="primary" type="submit" style = {{marginTop: '10px'}}>
                     Add Customer
                   </CButton>
+                  </p>
                 </div>
               </CForm>
             </div>
@@ -343,7 +356,7 @@ const CustomerPopUp = (props) => {
             WebkitOverflowScrolling: 'touch',
             borderRadius: '4px',
             outline: 'none',
-            padding: '40px',
+            padding: '30px',
             top: '50%', // Center vertically
             left: '50%', // Center horizontally
             transform: 'translate(-50%, -50%)', // Translate to center

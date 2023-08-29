@@ -202,7 +202,7 @@ const PopUp = (props) => {
                   </label>
                 </p>
                 <p></p>
-                <CButton color="primary"  type="submit">
+                <CButton color="primary"  type="submit" style={{marginTop: '25px'}}>
                   Update
                 </CButton>
               </div>
@@ -261,7 +261,7 @@ const PopUp = (props) => {
                   />
                   </label>
                   <p></p>
-                  <CButton color="primary"  type="submit" style={{marginTop: '15px'}}>
+                  <CButton color="primary"  type="submit" style={{marginTop: '25px'}}>
                     Add Product
                   </CButton>
                 </div>
@@ -342,7 +342,7 @@ const PopUp = (props) => {
             WebkitOverflowScrolling: 'touch',
             borderRadius: '4px',
             outline: 'none',
-            padding: '40px',
+            padding: '30px',
             top: '50%', // Center vertically
             left: '50%', // Center horizontally
             transform: 'translate(-50%, -50%)', // Translate to center
