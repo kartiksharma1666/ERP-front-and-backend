@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { CButton, CForm } from '@coreui/react';
+import './Inventory.css';
 
 Modal.setAppElement('#root');
 
@@ -114,6 +115,7 @@ const InventoryPopUp = (props) => {
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
+          setAddData(data);
           console.log('Inventory created successfully:', data);
         } else {
           console.error('Error creating inventory:', data.error);
@@ -126,7 +128,7 @@ const InventoryPopUp = (props) => {
     props.setAddInventory(false);
     props.setIsModalOpen(false);
     props.setGetData(true);
-    setAddData({});
+    
   };
 
   // const popup = {

@@ -18,7 +18,7 @@ const inventorySchema = new mongoose.Schema({
   category: {
     type: ObjectId,
     ref: 'Product', // Reference to the same Product model
-    required: [true, 'Please add a category'],
+    // required: [true, 'Please add a category'],
   },
 }, { timestamps: true });
 

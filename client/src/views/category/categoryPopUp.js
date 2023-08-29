@@ -6,18 +6,48 @@ import { CButton, CForm } from '@coreui/react';
 Modal.setAppElement('#root');
 
 const CategoryPopUp = (props) => {
+  const [selectedCategoryName, setSelectedCategoryName] = useState('');
   const [updatedData, setUpdatedData] = useState({
-    name: '',
+    name: props.selectedCategory.name,
+    subcategories: [],
   });
+  
 
+  // useEffect(() => {
+  //   if (props.edit) {
+  //     setUpdatedData({
+  //       id: props.selectedCategory?._id,
+  //       name: props.selectedCategory?.name,
+  //     });
+  //   }
+  // }, [props.edit, props.selectedCategory]);
+  // useEffect(() => {
+  //   if (props.edit) {
+  //     setUpdatedData({
+  //       id: props.selectedCategory?._id,
+  //       name: props.selectedCategory?.name,
+  //     });
+  //   }
+  // }, [props.edit, props.selectedCategory]);
   useEffect(() => {
     if (props.edit) {
       setUpdatedData({
         id: props.selectedCategory?._id,
         name: props.selectedCategory?.name,
+        subcategories: [],
+      });
+    } else if (props.addCategory) {
+      setUpdatedData({
+        name: '',
+        subcategories: [],
+      });
+    } else if (props.addSubCategory) {
+      setUpdatedData({
+        name: selectedCategoryName, // Set the name to selectedCategoryName
+        subcategories: [],
       });
     }
-  }, [props.edit, props.selectedCategory]);
+  }, [props.edit, props.addCategory, props.addSubCategory, selectedCategoryName, props.selectedCategory]);
 
   const handleToClose = () => {
     props.setIsModalOpen(false);
@@ -30,6 +60,74 @@ const CategoryPopUp = (props) => {
     setUpdatedData((prev) => ({
       ...prev,
       [name]: value,
+    }));
+  };
+  const handleAddSubcategory = () => {
+    const newSubcategory = {
+      name: '', // Initialize with an empty name
+    };
+    setUpdatedData((prevData) => ({
+      ...prevData,
+      subcategories: [...prevData.subcategories, newSubcategory],
+    }));
+  };
+
+  const handleSubcategoryChange = (index, e) => {
+    const { name, value } = e.target;
+    const updatedSubcategories = [...updatedData.subcategories];
+    updatedSubcategories[index] = {
+      ...updatedSubcategories[index],
+      name: value, // Update the name property
+    };
+  
+    setUpdatedData((prevData) => ({
+      ...prevData,
+      subcategories: updatedSubcategories,
+    }));
+  };
+  
+  
+  
+
+  const renderSubcategoryInputs = () => {
+    return updatedData.subcategories.map((subcategory, index) => (
+      <div key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+        <input
+          type="text"
+          name={`subcategories[${index}].name`}
+          value={subcategory.name}
+          onChange={(e) => handleSubcategoryChange(index, e)}
+          placeholder={`Subcategory ${index + 1} Name`}
+          style={{ marginTop: '10px', width: '100%' }}
+        />
+        <CButton
+          type="button"
+          onClick={() => handleRemoveSubcategory(index)}
+          color="danger"
+          variant="outline"
+          style={{ marginLeft: '10px', border: 'none', padding: '5px 10px', borderRadius: '5px' }}
+        >
+          Remove
+        </CButton>
+      </div>
+    ));
+  };
+  
+  const handleAddMore = () => {
+    const newSubcategory = {
+      name: '',
+    };
+    setUpdatedData((prevData) => ({
+      ...prevData,
+      subcategories: [...prevData.subcategories, newSubcategory],
+    }));
+  };
+  const handleRemoveSubcategory = (index) => {
+    const updatedSubcategories = [...updatedData.subcategories];
+    updatedSubcategories.splice(index, 1);
+    setUpdatedData((prevData) => ({
+      ...prevData,
+      subcategories: updatedSubcategories,
     }));
   };
 
@@ -55,17 +153,23 @@ const CategoryPopUp = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    updatedData.name = props.selectedCategory.name
+    const updatedDataWithId = {
+      ...updatedData,
+      id: props.selectedCategory?._id,
+    };
+  
+    console.log("updated data",updatedDataWithId)
     fetch('http://localhost:8080/api/category/update', {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(updatedData),
+      body: JSON.stringify(updatedDataWithId),
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('Category updated successfully:', data);
+        console.log('Category updated successfully:', updatedDataWithId);
       })
       .catch((error) => {
         console.error('Error updating category:', error);
@@ -173,6 +277,61 @@ const CategoryPopUp = (props) => {
             </div>
           </CForm>
         </div>
+      );
+    } else if (props.addSubCategory) {
+      return (
+        <div >
+          <button className="btn btn-primary close-button" onClick={handleToClose}>
+            Close
+          </button>
+          <h2 style={{ marginTop: '-15px' }}>Add SubCategory</h2>
+          <CForm onSubmit={handleSubmit}>
+          <div >
+            {updatedData.subcategories.map((subcategory, index) => (
+              <div key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+                <label style={{ flex: '1' }}>
+                  {/* SubCategory Name */}
+                  {/* <input
+                    style={inputbox}
+                    name={`subcategories[${index}].name`}
+                    placeholder={`SubCategory ${index + 1} Name`}
+                    onChange={(e) => handleSubcategoryChange(index, e)}
+                    value={subcategory.name}
+                    className="input-style"
+                  /> */}
+                </label>
+                {/* <CButton
+                  type="button"
+                  onClick={() => handleRemoveSubcategory(index)}
+                  color="danger" variant="outline"
+                  style={{ marginLeft: '10px',   border: 'none', padding: '5px 10px', borderRadius: '5px' }}
+                >
+                  Remove
+                </CButton> */}
+              </div>
+            ))}
+            <div>
+            {renderSubcategoryInputs()}
+            <CButton
+              color="info"
+              variant="ghost"
+              style={{ marginTop: '10px' }}
+              onClick={handleAddSubcategory}
+            >
+              Add More
+            </CButton>
+            <CButton
+              color="success"
+              variant="outline"
+              type="submit"
+              style={{ marginTop: '10px' }}
+            >
+              Add SubCategory
+            </CButton>
+            </div>
+          </div>
+        </CForm>
+      </div>
       );
     } else if (props.deletePop) {
       return (

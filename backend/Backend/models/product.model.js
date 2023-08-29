@@ -25,6 +25,14 @@ const productSchema = new mongoose.Schema({
     ref: 'Category',
     // required: [true, 'Product must belong to a category'],
   },
+  
+  
 }, { timestamps: true });
+productSchema.add({
+  attributes: {
+    type: Array,
+    
+  }
+});
 
 module.exports = mongoose.model('Product', productSchema);
