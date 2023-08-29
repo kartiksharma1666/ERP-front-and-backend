@@ -12,12 +12,15 @@ const OrderPopUp = (props) => {
     totalAmount: "",
     OrderStatus: "",
     OrderMedium: ""
+    
   });
 
   const [addOrder, setAddOrder] = useState({
     neworderNumber: "",
     newcustomerName: "",
     newtotalAmount: "",
+    OrderStatus: "",
+    OrderMedium: "",
     OrderStatus: "",
     OrderMedium: ""
     // Add other fields for adding an order
@@ -125,6 +128,9 @@ const OrderPopUp = (props) => {
       body: JSON.stringify(
         newOrder
        ),
+      body: JSON.stringify(
+        newOrder
+       ),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -188,31 +194,6 @@ const OrderPopUp = (props) => {
                       placeholder="Order Number"
                       onChange={handleChange}
                       value={updatedOrder.orderNumber}
-                      
-                    />
-                  </label>
-                </p>
-                <p className='popup'>
-                  <label>
-                    Customer Name
-                    <input className='inputbox'
-                      name="Customer Name"
-                      placeholder="customer Name"
-                      onChange={handleChange}
-                      value={updatedOrder.customerName}
-                      
-                    />
-                  </label>
-                </p>
-                <p className='popup'>
-                  <label>
-                    Total Price
-                    <input className='inputbox'
-                      name="totalAmount"
-                      placeholder="Total Price"
-                      onChange={handleChange}
-                      value={updatedOrder.totalAmount}
-                      
                     />
                   </label>
                 </p>
@@ -241,7 +222,7 @@ const OrderPopUp = (props) => {
                   </label>
                 </p>
                 {/* Add other order fields as needed */}
-                <CButton color="success" shape="rounded-pill" type="submit" style = {{marginTop: '10px'}}>
+                <CButton color="primary"  type="submit" style = {{marginTop: '10px'}}>
                   Update
                 </CButton>
               </div>
@@ -265,29 +246,6 @@ const OrderPopUp = (props) => {
                   placeholder="Order Number"
                   onChange={handleChangeOfAdd}
                   value={addOrder.neworderNumber}
-                  
-                />
-              </label>
-              </p>
-              <p className='popup'>
-                <label>Customer Name
-                <input className='inputbox'
-                  name="newcustomerName"
-                  placeholder="Customer Name"
-                  onChange={handleChangeOfAdd}
-                  value={addOrder.newcustomerName}
-                  
-                />
-                </label>
-              </p>
-              <p className='popup'>
-                <label>Total Price
-                <input className='inputbox'
-                  name="newtotalAmount"
-                  placeholder="Total Price"
-                  onChange={handleChangeOfAdd}
-                  value={addOrder.newtotalAmount}
-                  
                 />
                 </label>
               </p>
@@ -301,6 +259,17 @@ const OrderPopUp = (props) => {
                   className='input-style'
                 />
               </p>
+              <p className='popup'>
+                <label>Customer Name
+                <input className='inputbox'
+                  name="newcustomerName"
+                  placeholder="customerName"
+                  onChange={handleChangeOfAdd}
+                  value={addOrder.newcustomerName}
+                />
+                </label>
+              </p>
+              
               <p style={popup}>
                 <input style={inputbox}
                   name="OrderMedium"
@@ -311,7 +280,7 @@ const OrderPopUp = (props) => {
                 />
               </p>
               {/* Add other order fields as needed */}
-              <CButton color="success" shape="rounded-pill" type="submit" style = {{marginTop: '10px'}}>
+              <CButton color="primary"  type="submit" style = {{marginTop: '10px'}}>
                 Add Order
               </CButton>
             </div>

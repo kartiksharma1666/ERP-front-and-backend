@@ -202,7 +202,7 @@ const PopUp = (props) => {
                   </label>
                 </p>
                 <p></p>
-                <CButton color="success" shape="rounded-pill" type="submit">
+                <CButton color="primary"  type="submit">
                   Update
                 </CButton>
               </div>
@@ -261,7 +261,7 @@ const PopUp = (props) => {
                   />
                   </label>
                   <p></p>
-                  <CButton color="success" shape="rounded-pill" type="submit" style={{marginTop: '15px'}}>
+                  <CButton color="primary"  type="submit" style={{marginTop: '15px'}}>
                     Add Product
                   </CButton>
                 </div>
