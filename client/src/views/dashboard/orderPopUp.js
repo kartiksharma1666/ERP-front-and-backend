@@ -9,7 +9,9 @@ const OrderPopUp = (props) => {
   const [updatedOrder, setUpdatedOrder] = useState({
     orderNumber: "",
     customerName: "",
-    totalAmount: ""
+    totalAmount: "",
+    OrderStatus: "",
+    OrderMedium: ""
     
   });
 
@@ -17,15 +19,19 @@ const OrderPopUp = (props) => {
     neworderNumber: "",
     newcustomerName: "",
     newtotalAmount: "",
+    OrderStatus: "",
+    OrderMedium: ""
     // Add other fields for adding an order
   });
 
   useEffect(() => {
     if (props.edit) {
       setUpdatedOrder({
-        orderNumber: props.selectedOrder?.orderNumber,
-        customerName: props.selectedOrder?.customerName,
-        totalAmount: props.selectedOrder?.totalAmount
+        orderNumber: props.selectedOrder?.id,
+        customerName: props.selectedOrder?.name,
+        totalAmount: props.selectedOrder?.total,
+        OrderStatus: props.selectedOrder?.status,
+        OrderMedium: props.selectedOrder?.currency
         // Update other fields as needed
       });
     }
@@ -69,6 +75,7 @@ const OrderPopUp = (props) => {
       });
     props.setDeletePop(false);
     props.setSelectedOrder(null);
+    props.setIsModalOpen(false);
     props.setGetData(true); // Assuming you use a similar state to fetch orders
   };
 
@@ -99,6 +106,16 @@ const OrderPopUp = (props) => {
 
   const handleAddOrder = (e) => {
     e.preventDefault();
+
+    //new order data from the addOrder state
+    const newOrder = {
+      orderNumber: addOrder.neworderNumber,
+      customerName: addOrder.newcustomerName,
+      totalAmount: addOrder.newtotalAmount,
+      OrderStatus: addOrder.OrderStatus,
+      OrderMedium: addOrder.OrderMedium
+    };
+
     console.log("add Order :", addOrder);
   
     fetch('http://localhost:8080/api/order/create', {
@@ -106,16 +123,16 @@ const OrderPopUp = (props) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        orderNumber: addOrder.neworderNumber,
-        customerName: addOrder.newcustomerName,
-        totalAmount: addOrder.newtotalAmount,
-      }),
+      body: JSON.stringify(
+        newOrder
+       ),
     })
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
           console.log('Order created successfully:', data);
+         //Refresh the data by triggering a getData action
+         props.setGetData(true);
         } else {
           console.error('Error creating order:', data.error);
         }
@@ -131,6 +148,8 @@ const OrderPopUp = (props) => {
       neworderNumber: "",
       newcustomerName: "",
       newtotalAmount: "",
+      OrderStatus: "",
+      OrderMedium: ""
     });
   };
   
@@ -162,44 +181,68 @@ const OrderPopUp = (props) => {
           <CForm onSubmit={handleSubmit}>
             {props.selectedOrder && (
               <div>
-                <p style={popup}>
+                <p className='popup'>
                   <label>
                     Order Number
-                    <input style={updatebox}
+                    <input className='inputbox'
                       name="orderNumber"
                       placeholder="Order Number"
                       onChange={handleChange}
                       value={updatedOrder.orderNumber}
-                      className='input-style'
+                      
                     />
                   </label>
                 </p>
-                <p style={popup}>
+                <p className='popup'>
                   <label>
                     customerName
-                    <input style={updatebox}
+                    <input className='inputbox'
                       name="customerName"
                       placeholder="customer Name"
                       onChange={handleChange}
                       value={updatedOrder.customerName}
-                      className='input-style'
+                      
                     />
                   </label>
                 </p>
-                <p style={popup}>
+                <p className='popup'>
                   <label>
                     Total Price
-                    <input style={updatebox}
+                    <input className='inputbox'
                       name="totalAmount"
                       placeholder="Total Price"
                       onChange={handleChange}
                       value={updatedOrder.totalAmount}
-                      className='input-style'
+                      
+                    />
+                  </label>
+                </p>
+                <p className='popup'>
+                  <label>
+                    Order Status
+                    <input className='inputbox'
+                      name="OrderStatus"
+                      placeholder="Order Status"
+                      onChange={handleChange}
+                      value={updatedOrder.OrderStatus}
+                      
+                    />
+                  </label>
+                </p>
+                <p className='popup'>
+                  <label>
+                    Order Medium
+                    <input className='inputbox'
+                      name="OrderMedium"
+                      placeholder="Order Medium"
+                      onChange={handleChange}
+                      value={updatedOrder.OrderMedium}
+                      
                     />
                   </label>
                 </p>
                 {/* Add other order fields as needed */}
-                <CButton color="success" shape="rounded-pill" type="submit" style = {{marginTop: '10px'}}>
+                <CButton color="primary"  type="submit" style = {{marginTop: '10px'}}>
                   Update
                 </CButton>
               </div>
@@ -216,35 +259,55 @@ const OrderPopUp = (props) => {
           <h2 style={{ marginTop: '-15px' }}>Enter Order Details</h2>
           <CForm onSubmit={handleAddOrder}>
             <div>
-              <p style={popup}>
-                <input style={inputbox}
+              <p className='popup'>
+                <input className='inputbox'
                   name="neworderNumber"
                   placeholder="Order Number"
                   onChange={handleChangeOfAdd}
                   value={addOrder.neworderNumber}
-                  className='input-style'
+                  
                 />
               </p>
-              <p style={popup}>
-                <input style={inputbox}
+              <p className='popup'>
+                <input className='inputbox'
                   name="newcustomerName"
                   placeholder="customerName"
                   onChange={handleChangeOfAdd}
                   value={addOrder.newcustomerName}
-                  className='input-style'
+                  
                 />
               </p>
-              <p style={popup}>
-                <input style={inputbox}
+              <p className='popup'>
+                <input className='inputbox'
                   name="newtotalAmount"
                   placeholder="Total Price"
                   onChange={handleChangeOfAdd}
                   value={addOrder.newtotalAmount}
-                  className='input-style'
+                  
+                />
+              </p>
+
+              <p className='popup'>
+                <input className='inputbox'
+                  name="OrderStatus"
+                  placeholder="Order Status"
+                  onChange={handleChangeOfAdd}
+                  value={addOrder.OrderStatus}
+                  
+                />
+              </p>
+              
+              <p className='popup'>
+                <input className='inputbox'
+                  name="OrderMedium"
+                  placeholder="Order Medium"
+                  onChange={handleChangeOfAdd}
+                  value={addOrder.OrderMedium}
+                  
                 />
               </p>
               {/* Add other order fields as needed */}
-              <CButton color="success" shape="rounded-pill" type="submit" style = {{marginTop: '10px'}}>
+              <CButton color="primary"  type="submit" style = {{marginTop: '10px'}}>
                 Add Order
               </CButton>
             </div>
@@ -257,7 +320,7 @@ const OrderPopUp = (props) => {
           <h2>Confirm Delete</h2>
           <p>
             Are you sure you want to delete the Order with Order Number:{' '}
-            {props.selectedOrder && props.selectedOrder.orderNumber}?
+            {props.selectedOrder && props.selectedOrder.id}?
           </p>
           <Button onClick={() => handleToClose()} variant="primary">
             Cancel
@@ -277,10 +340,12 @@ const OrderPopUp = (props) => {
           </button>
           <h2 style={{ marginBottom: '30px' }}>Order Details</h2>
           {props.selectedOrder && (
-            <div style={popup}>
-              <p>Order Number: {props.selectedOrder.orderNumber}</p>
-              <p>Total Price: {props.selectedOrder.totalAmount}</p>
-              <p>customerName :{props.selectedOrder.customerName}</p>
+            <div className='popup'>
+              <p>Order Number: {props.selectedOrder.id}</p>
+              <p>Total Price: {props.selectedOrder.total}</p>
+              <p>customerName :{props.selectedOrder.name}</p>
+              <p>OrderStatus :{props.selectedOrder.status}</p>
+              <p>OrderMedium :{props.selectedOrder.currency}</p>
             </div>
           )}
         </div>

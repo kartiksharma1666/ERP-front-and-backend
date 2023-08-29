@@ -29,6 +29,7 @@ const Category = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [edit, setEdit] = useState(false);
   const [addCategory, setAddCategory] = useState(false);
+  const [addSubCategory, setSubAddCategory] = useState(false);
   const [getData, setGetData] = useState(false);
 
   useEffect(() => {
@@ -39,6 +40,7 @@ const Category = () => {
     try {
       const res = await fetch('http://localhost:8080/api/category/all');
       const resjson = await res.json();
+      console.log(resjson);
       if (resjson.success && Array.isArray(resjson.categories)) {
         setData(resjson.categories);
       } else {
@@ -57,8 +59,15 @@ const Category = () => {
     );
     setSearchResults(filteredCategories);
   };
+  const handleSubCategory = (category)=> {
+    setIsModalOpen(true);
+    setSubAddCategory(true);
+    setSelectedCategory(category)
+
+  }
 
   const handleClickToOpen = (category, key) => {
+    console.log("select cat:", category);
     setSelectedCategory(category);
     if (key === 'update') {
       setEdit(true);
@@ -121,22 +130,20 @@ const Category = () => {
                           <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
                           <CTableDataCell>{category.name}</CTableDataCell>
                           <CTableDataCell>
-                            <CButton
-                              color="success"
-                              shape="rounded-pill"
+                            <button
+                              className='crud-button3'
                               onClick={() => handleClickToOpen(category, 'update')}
                             >
                               Update
-                            </CButton>
+                            </button>
                           </CTableDataCell>
                           <CTableDataCell>
-                            <CButton
-                              color="danger"
-                              shape="rounded-pill"
+                            <button
+                              className='crud-button4'
                               onClick={() => handleClickToOpen(category, 'delete')}
                             >
                               Delete
-                            </CButton>
+                            </button>
                           </CTableDataCell>
                         </CTableRow>
                       ))
@@ -145,22 +152,31 @@ const Category = () => {
                           <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
                           <CTableDataCell>{category.name}</CTableDataCell>
                           <CTableDataCell>
+
                             <CButton
-                              color="success"
-                              shape="rounded-pill"
-                              onClick={() => handleClickToOpen(category, 'update')}
+                              color="primary" variant="outline"
+                              onClick={() => handleSubCategory(category)}
                             >
-                              Update
+                              Add SubCategory
                             </CButton>
                           </CTableDataCell>
                           <CTableDataCell>
                             <CButton
-                              color="danger"
+                              color="success"
                               shape="rounded-pill"
+
+                              onClick={() => handleClickToOpen(category, 'update')}
+                            >
+                              Update
+                            </button>
+                          </CTableDataCell>
+                          <CTableDataCell>
+                            <button
+                              className='crud-button4'
                               onClick={() => handleClickToOpen(category, 'delete')}
                             >
                               Delete
-                            </CButton>
+                            </button>
                           </CTableDataCell>
                         </CTableRow>
                       ))}
@@ -170,6 +186,7 @@ const Category = () => {
             <button style={product_button_style} className="btn btn-primary" onClick={handleAddCategory}>
               Add Category
             </button>
+            
           </div>
         </CCardBody>
       </CCard>
@@ -188,6 +205,8 @@ const Category = () => {
         setAddCategory={setAddCategory}
         deletePop={deletePop}
         setDeletePop={setDeletePop}
+        addSubCategory={addSubCategory} 
+        setSubAddCategory={setSubAddCategory}
       />
     </div>
   );

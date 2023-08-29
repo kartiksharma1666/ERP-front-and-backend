@@ -19,6 +19,8 @@ import {
   cilTask,
   cilCart,
   cilStorage,
+  cilArrowThickToRight,
+  cilLayers,
 } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 
@@ -85,6 +87,12 @@ const _nav = [
     to: '/billing',
     icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
   },
+  // {
+  //   component: CNavItem,
+  //   name: 'Attribute',
+  //   to: '/Attribute',
+  //   icon: <CIcon icon={cilLayers} customClassName="nav-icon" />,
+  // },
   {
     component: CNavTitle,
     name: 'Theme',

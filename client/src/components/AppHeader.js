@@ -50,6 +50,22 @@ const AppHeader = () => {
             </CNavLink>
           </CNavItem>
           <CNavItem>
+            <CNavLink to="/customer" component={NavLink}>
+              Customers
+            </CNavLink>
+          </CNavItem>
+          <CNavItem>
+            <CNavLink to="/orders" component={NavLink}>
+              Orders
+            </CNavLink>
+          </CNavItem>
+          <CNavItem>
+            <CNavLink to="/Billing" component={NavLink}>
+              Billing
+            </CNavLink>
+          </CNavItem>
+
+          {/* <CNavItem>
             <CNavLink href="#">Customers</CNavLink>
           </CNavItem>
           <CNavItem>
@@ -57,7 +73,7 @@ const AppHeader = () => {
           </CNavItem>
           <CNavItem>
             <CNavLink href="#">Settings</CNavLink>
-          </CNavItem>
+          </CNavItem> */}
         </CHeaderNav>
 
         <CHeaderNav>

@@ -4,10 +4,13 @@ const mongoose = require("mongoose");
 
 
 exports.createCategory = async (req, res, next)=>{
+  const data = {
+    name: req.body.name,
+    subcategories:[]  }
 
 
     try {
-        const category = await Category.create(req.body);
+        const category = await Category.create(data);
         res.status(201).json({
             success: true,
             category
@@ -39,33 +42,30 @@ exports.getCategories = async (req, res, next)=>{
    
 }
 exports.updateCategory = async (req, res, next) => {
-    try {
-      const id = new mongoose.Types.ObjectId(req.body.id);
+  try {
+    const id = new mongoose.Types.ObjectId(req.body.id);
 
-    const currentCategory = await Category.findById(id);
-
-    //build the data object
+    // Build the data object
     const data = {
       name: req.body.name,
-      
+      subcategories: req.body.subcategories.map((sub) => ({ name: sub.name })),
     };
 
-    // You can exclude the image-related code since we're not updating the image
-
-    const categoryUpdate = await Category.findOneAndUpdate(id, data, {
+    // Find and update the category using findOneAndUpdate
+    const categoryUpdate = await Category.findOneAndUpdate({ _id: id }, data, {
       new: true,
     });
-      
-  
-      res.status(200).json({
-        success: true,
-        categoryUpdate,
-      });
-    } catch (error) {
-      console.log(error);
-      next(error);
-    }
-  };
+
+    res.status(200).json({
+      success: true,
+      categoryUpdate,
+    });
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
   exports.deleteCategory = async (req, res, next) => {
     try {
       
