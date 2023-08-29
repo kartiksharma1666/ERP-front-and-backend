@@ -394,7 +394,7 @@ const PopUp = (props) => {
                   </label>
                 </p>
                 <p></p>
-                <CButton color="success" shape="rounded-pill" type="submit">
+                <CButton color="primary"  type="submit">
                   Update
                 </CButton>
               </div>
@@ -450,6 +450,7 @@ const PopUp = (props) => {
                     className="input-style"
                   />
                   <p></p>
+
                   <CForm onSubmit={handleAttributeSubmit}>
                     {attributeInputs.map((input, index) => (
                       <div key={index}>
@@ -539,6 +540,7 @@ const PopUp = (props) => {
                     style={{ marginTop: '15px' }}
                     onClick={() => {}}
                   >
+
                     Add Product
                   </CButton>
                 </div>

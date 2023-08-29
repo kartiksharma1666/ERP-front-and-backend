@@ -223,18 +223,16 @@ const Inventory = () => {
                           <CTableDataCell>{item.quantity}</CTableDataCell>
                           <CTableDataCell>{item.category}</CTableDataCell>
                           <CTableDataCell>
-                            <CButton
-                              color="success" shape="rounded-pill"
+                            <button className="crud-button3"
                               onClick={() => handleUpdateInventory(item)}
                             >
                               Update
-                            </CButton>{" "}
-                            <CButton
-                              color="danger" shape="rounded-pill"
+                            </button>{" "}
+                            <button className="crud-button4"
                               onClick={() => handleDeleteInventory(item)}
                             >
                               Delete
-                            </CButton>
+                            </button>
                           </CTableDataCell>
                         </CTableRow>
                       ))
@@ -248,18 +246,18 @@ const Inventory = () => {
                           <CTableDataCell>{item.quantity}</CTableDataCell>
                           <CTableDataCell>{item.category}</CTableDataCell>
                           <CTableDataCell>
-                            <CButton
-                              color="success" shape="rounded-pill" 
+                            <button
+                              className="crud-button3"
                               onClick={() => handleUpdateInventory(item)}
                             >
                               Update
-                            </CButton>{" "}
-                            <CButton
-                              color="danger" shape="rounded-pill" style={{marginLeft: '50px'}}
+                            </button>{" "}
+                            <button
+                            className="crud-button4"
                               onClick={() => handleDeleteInventory(item)}
                             >
                               Delete
-                            </CButton>
+                            </button>
                           </CTableDataCell>
                         </CTableRow>
                       ))}

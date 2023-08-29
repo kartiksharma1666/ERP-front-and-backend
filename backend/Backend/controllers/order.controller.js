@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 
 exports.createOrder = async (req, res) => {
   const { orderNumber, customerName, totalAmount } = req.body;
-
+  console.log(req.body)
   try {
     const newOrder = new Order({
       orderNumber: orderNumber,

@@ -130,22 +130,20 @@ const Category = () => {
                           <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
                           <CTableDataCell>{category.name}</CTableDataCell>
                           <CTableDataCell>
-                            <CButton
-                              color="success"
-                              shape="rounded-pill"
+                            <button
+                              className='crud-button3'
                               onClick={() => handleClickToOpen(category, 'update')}
                             >
                               Update
-                            </CButton>
+                            </button>
                           </CTableDataCell>
                           <CTableDataCell>
-                            <CButton
-                              color="danger"
-                              shape="rounded-pill"
+                            <button
+                              className='crud-button4'
                               onClick={() => handleClickToOpen(category, 'delete')}
                             >
                               Delete
-                            </CButton>
+                            </button>
                           </CTableDataCell>
                         </CTableRow>
                       ))
@@ -154,6 +152,7 @@ const Category = () => {
                           <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
                           <CTableDataCell>{category.name}</CTableDataCell>
                           <CTableDataCell>
+
                             <CButton
                               color="primary" variant="outline"
                               onClick={() => handleSubCategory(category)}
@@ -165,19 +164,19 @@ const Category = () => {
                             <CButton
                               color="success"
                               shape="rounded-pill"
+
                               onClick={() => handleClickToOpen(category, 'update')}
                             >
                               Update
-                            </CButton>
+                            </button>
                           </CTableDataCell>
                           <CTableDataCell>
-                            <CButton
-                              color="danger"
-                              shape="rounded-pill"
+                            <button
+                              className='crud-button4'
                               onClick={() => handleClickToOpen(category, 'delete')}
                             >
                               Delete
-                            </CButton>
+                            </button>
                           </CTableDataCell>
                         </CTableRow>
                       ))}

@@ -245,9 +245,9 @@ const CategoryPopUp = (props) => {
                   />
                 </label>
               </p>
-              <CButton color="success" shape="rounded-pill" type="submit" style = {{marginTop: '10px'}}>
+              <button color="primary"  type="submit" style = {{marginTop: '10px'}}>
                 Update Category
-              </CButton>
+              </button>
             </div>
           </CForm>
         </div>
@@ -273,7 +273,7 @@ const CategoryPopUp = (props) => {
                   />
                 </label>
               </p>
-              <CButton color="success" shape="rounded-pill" type="submit" style = {{marginTop: '10px'}}>
+              <CButton color="primary" type="submit" style = {{marginTop: '10px'}}>
                 Add Category
               </CButton>
             </div>
