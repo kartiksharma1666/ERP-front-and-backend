@@ -198,7 +198,7 @@ const Customer = () => {
                           </CTableDataCell>
                           <CTableDataCell>
                             <button
-                              classID='crud-button4'
+                              className='crud-button4'
                               onClick={() => handleClickToOpen(item, 'delete')}
                             >
                               Delete

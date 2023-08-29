@@ -35,11 +35,10 @@ const Product = (props) => {
     { id: 3, name: 'Pastries', order: 500 },
   ])
 
-  const product_button_style = {
-    marginRight: '75px',
-    height: '42px',
-    width: '158px',
-  }
+  // const product_button_style = {
+  //   height: '40px',
+  //   width: '150px',
+  // }
 
   const sortedCategories = [...categories].sort((a, b) => b.order - a.order)
 
@@ -144,7 +143,6 @@ const Product = (props) => {
               <button
                 className=" btn btn-primary "
                 onClick={handleAddProduct}
-                style={product_button_style}
               >
                 Add product
               </button>

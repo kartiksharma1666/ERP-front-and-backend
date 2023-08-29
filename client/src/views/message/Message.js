@@ -43,27 +43,27 @@ import {LiaCalendarAltSolid} from 'react-icons/lia'
         <div className='notification-container'>
          <div className='notification-upper'>
             <h5>Notifications ({notification.length})</h5>
-            <div className='panel'>
+            {/* <div className='panel'>
            {notification.length > 0 && (
             <img src={notification[0].avatar} alt='Avatar'></img>
             )
            }
-            </div>
+            </div> */}
          </div>
-           <div className='date-container'>
-            <span className='date'>{notification[0].createdAt}          <LiaCalendarAltSolid /></span>
+           {/* <div className='date-container'>
+            <span className='date'>{notification[0].createdAt}<LiaCalendarAltSolid /></span>
             <span className='calender-icon'></span>
             <span></span>
-           </div>
+           </div> */}
            <div className='notification-details'>
             <h5>Today</h5>
             {notification && notification.map((not) =>(
                 <div className='main-details'>
                     <div className='d-flex img-p'> 
-                    <img src={not.avatar} ></img>
-                <p style={{fontWeight:'500'}}>{not.name}  <span style={{fontWeight:'300', color:'#333333'}} className='p-tag'>{not.details}</span></p>
+                    <img className='avatar' src={not.avatar} ></img>
+                <p className='payment-details'>{not.name}  <span className='p-tag'>{not.details}</span></p>
                    </div>
-                <span style={{color: '#333333'}}>{not.time}</span>
+                <span className='p-tag'>{not.time}</span>
                 </div>
                 
             ))}

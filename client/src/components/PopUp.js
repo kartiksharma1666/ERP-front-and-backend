@@ -321,6 +321,7 @@ const PopUp = (props) => {
     setAttributeInputs([...attributeInputs, { name: '', value: '' }])
   }
 
+
   const popup = {
     marginTop: '25px',
   }
@@ -338,6 +339,7 @@ const PopUp = (props) => {
     marginLeft: '10px',
   }
 
+
   //content to be show in pop up
   const Content = () => {
     
@@ -354,47 +356,51 @@ const PopUp = (props) => {
           <CForm onSubmit={handleSubmit}>
             {props.selectedProduct && (
               <div>
-                <p style={popup}>
+                <p className='popup'>
                   <label>
                     Name
-                    <input
-                      style={inputbox}
+
+                    <input className='inputbox'
+
                       name="Name"
                       placeholder="Name"
                       onChange={handleChange}
                       value={updatedData.Name}
-                      className="input-style"
+
                     />
                   </label>
                 </p>
-                <p style={popup}>
+                <p className='popup'>
                   <label>
                     Price
-                    <input
-                      style={inputbox}
+
+                    <input className='inputbox'
+
                       name="Price"
                       placeholder="Price"
                       onChange={handleChange}
                       value={updatedData.Price}
-                      className="input-style"
+
                     />
                   </label>
                 </p>
-                <p style={popup}>
+                <p className='popup'>
                   <label>
                     Description
-                    <input
-                      style={inputbox}
+
+                    <input className='inputbox'
+
+
                       name="Description"
                       placeholder="Description"
                       onChange={handleChange}
                       value={updatedData.Description}
-                      className="input-style"
+
                     />
                   </label>
                 </p>
                 <p></p>
-                <CButton color="primary"  type="submit">
+                <CButton color="primary"  type="submit" style={{marginTop: '25px'}}>
                   Update
                 </CButton>
               </div>
@@ -413,43 +419,58 @@ const PopUp = (props) => {
               <h2 style={{ marginTop: '-15px' }}> Enter Product Details</h2>
               <CForm onSubmit={handleAddProduct}>
                 <div>
-                  <p style={popup}></p>
-                  <input
-                    style={inputbox}
+
+                  <p className='popup'></p>
+                  <label>Name
+                  <input className='inputbox'
+
+
                     name="Name"
                     placeholder="Name"
                     onChange={handleChangeOfAdd}
                     value={addData.Name}
-                    className="input-style"
+
                   />
-                  <p style={popup}></p>
-                  <input
-                    style={inputbox}
+                  </label>
+                  <p className='popup'></p>
+                  <label>Price
+                  <input className='inputbox'
+
                     name="Price"
                     placeholder="Price"
                     onChange={handleChangeOfAdd}
                     value={addData.Price}
-                    className="input-style"
+
+                    
                   />
-                  <p style={popup}></p>
-                  <input
-                    style={inputbox}
+                  </label>
+                  <p className='popup'></p>
+                  <label>Description
+                  <input className='inputbox'
+
                     name="Description"
                     placeholder="Description"
                     onChange={handleChangeOfAdd}
                     value={addData.Description}
-                    className="input-style"
+
+                    
                   />
-                  <p style={popup}></p>
-                  <input
-                    style={inputbox}
+                  </label>
+                  <p className='popup'></p>
+                  <label>Category
+                  <input className='inputbox'
+
                     name="Category"
                     placeholder="Category"
                     onChange={handleChangeOfAdd}
                     value={addData.Category}
-                    className="input-style"
+
                   />
+                  </label>
                   <p></p>
+
+                  <CButton color="primary"  type="submit" style={{marginTop: '25px'}}>
+
 
                   <CForm onSubmit={handleAttributeSubmit}>
                     {attributeInputs.map((input, index) => (
@@ -541,6 +562,7 @@ const PopUp = (props) => {
                     onClick={() => {}}
                   >
 
+
                     Add Product
                   </CButton>
                 </div>
@@ -557,8 +579,9 @@ const PopUp = (props) => {
             Are you sure you want to delete the product:{' '}
             {props.selectedProduct && props.selectedProduct.name}?
           </p>
-          <Button
-            style={{ marginTop: '20px', borderRadius: '20px' }}
+
+          <Button className='cancel-btn'
+
             onClick={() => {
               props.setDeletePop(false)
               handleToClose()
@@ -567,8 +590,9 @@ const PopUp = (props) => {
           >
             Cancel
           </Button>
-          <Button
-            style={{ marginLeft: '20px', marginTop: '20px', borderRadius: '20px' }}
+
+          <Button className='delete-btn'
+
             onClick={() => {
               handleDelete(props.selectedProduct)
               handleToClose()
@@ -589,6 +613,13 @@ const PopUp = (props) => {
           </button>
           <h2 style={{ marginBottom: '30px' }}>Product Details</h2>
           {props.selectedProduct && (
+// gurleen changes here
+//             <div className='popup'>
+//               <p>Name: {props.selectedProduct.name || ""}</p>
+//               <p>Price: {props.selectedProduct.price || ""} </p>
+//               <p>Description:{props.selectedProduct.description || ""}</p>
+
+
             <div style={popup}>
               <p>Name: {props.selectedProduct.name || ''}</p>
               {/* <p>Price: {props.selectedProduct.price || ''} </p> */}
@@ -620,6 +651,7 @@ const PopUp = (props) => {
                   )}
                 </tbody>
               </table>
+
             </div>
           )}
         </div>
@@ -650,7 +682,7 @@ const PopUp = (props) => {
             WebkitOverflowScrolling: 'touch',
             borderRadius: '4px',
             outline: 'none',
-            padding: '40px',
+            padding: '30px',
             top: '50%', // Center vertically
             left: '50%', // Center horizontally
             transform: 'translate(-50%, -50%)', // Translate to center

@@ -27,11 +27,11 @@ const OrderPopUp = (props) => {
   useEffect(() => {
     if (props.edit) {
       setUpdatedOrder({
-        orderNumber: props.selectedOrder?.orderNumber,
-        customerName: props.selectedOrder?.customerName,
-        totalAmount: props.selectedOrder?.totalAmount,
-        OrderStatus: props.selectedOrder?.OrderStatus,
-        OrderMedium: props.selectedOrder?.OrderMedium
+        orderNumber: props.selectedOrder?.id,
+        customerName: props.selectedOrder?.name,
+        totalAmount: props.selectedOrder?.total,
+        OrderStatus: props.selectedOrder?.status,
+        OrderMedium: props.selectedOrder?.currency
         // Update other fields as needed
       });
     }
@@ -181,63 +181,63 @@ const OrderPopUp = (props) => {
           <CForm onSubmit={handleSubmit}>
             {props.selectedOrder && (
               <div>
-                <p style={popup}>
+                <p className='popup'>
                   <label>
                     Order Number
-                    <input style={updatebox}
+                    <input className='inputbox'
                       name="orderNumber"
                       placeholder="Order Number"
                       onChange={handleChange}
                       value={updatedOrder.orderNumber}
-                      className='input-style'
+                      
                     />
                   </label>
                 </p>
-                <p style={popup}>
+                <p className='popup'>
                   <label>
                     customerName
-                    <input style={updatebox}
+                    <input className='inputbox'
                       name="customerName"
                       placeholder="customer Name"
                       onChange={handleChange}
                       value={updatedOrder.customerName}
-                      className='input-style'
+                      
                     />
                   </label>
                 </p>
-                <p style={popup}>
+                <p className='popup'>
                   <label>
                     Total Price
-                    <input style={updatebox}
+                    <input className='inputbox'
                       name="totalAmount"
                       placeholder="Total Price"
                       onChange={handleChange}
                       value={updatedOrder.totalAmount}
-                      className='input-style'
+                      
                     />
                   </label>
                 </p>
-                <p style={popup}>
+                <p className='popup'>
                   <label>
                     Order Status
-                    <input style={updatebox}
+                    <input className='inputbox'
                       name="OrderStatus"
                       placeholder="Order Status"
                       onChange={handleChange}
                       value={updatedOrder.OrderStatus}
-                      className='input-style'
+                      
                     />
                   </label>
                 </p>
-                <p style={popup}>
+                <p className='popup'>
                   <label>
                     Order Medium
-                    <input style={updatebox}
+                    <input className='inputbox'
                       name="OrderMedium"
                       placeholder="Order Medium"
                       onChange={handleChange}
                       value={updatedOrder.OrderMedium}
-                      className='input-style'
+                      
                     />
                   </label>
                 </p>
@@ -259,51 +259,51 @@ const OrderPopUp = (props) => {
           <h2 style={{ marginTop: '-15px' }}>Enter Order Details</h2>
           <CForm onSubmit={handleAddOrder}>
             <div>
-              <p style={popup}>
-                <input style={inputbox}
+              <p className='popup'>
+                <input className='inputbox'
                   name="neworderNumber"
                   placeholder="Order Number"
                   onChange={handleChangeOfAdd}
                   value={addOrder.neworderNumber}
-                  className='input-style'
+                  
                 />
               </p>
-              <p style={popup}>
-                <input style={inputbox}
+              <p className='popup'>
+                <input className='inputbox'
                   name="newcustomerName"
                   placeholder="customerName"
                   onChange={handleChangeOfAdd}
                   value={addOrder.newcustomerName}
-                  className='input-style'
+                  
                 />
               </p>
-              <p style={popup}>
-                <input style={inputbox}
+              <p className='popup'>
+                <input className='inputbox'
                   name="newtotalAmount"
                   placeholder="Total Price"
                   onChange={handleChangeOfAdd}
                   value={addOrder.newtotalAmount}
-                  className='input-style'
+                  
                 />
               </p>
 
-              <p style={popup}>
-                <input style={inputbox}
+              <p className='popup'>
+                <input className='inputbox'
                   name="OrderStatus"
                   placeholder="Order Status"
                   onChange={handleChangeOfAdd}
                   value={addOrder.OrderStatus}
-                  className='input-style'
+                  
                 />
               </p>
               
-              <p style={popup}>
-                <input style={inputbox}
+              <p className='popup'>
+                <input className='inputbox'
                   name="OrderMedium"
                   placeholder="Order Medium"
                   onChange={handleChangeOfAdd}
                   value={addOrder.OrderMedium}
-                  className='input-style'
+                  
                 />
               </p>
               {/* Add other order fields as needed */}
@@ -320,7 +320,7 @@ const OrderPopUp = (props) => {
           <h2>Confirm Delete</h2>
           <p>
             Are you sure you want to delete the Order with Order Number:{' '}
-            {props.selectedOrder && props.selectedOrder.orderNumber}?
+            {props.selectedOrder && props.selectedOrder.id}?
           </p>
           <Button onClick={() => handleToClose()} variant="primary">
             Cancel
@@ -340,12 +340,12 @@ const OrderPopUp = (props) => {
           </button>
           <h2 style={{ marginBottom: '30px' }}>Order Details</h2>
           {props.selectedOrder && (
-            <div style={popup}>
-              <p>Order Number: {props.selectedOrder.orderNumber}</p>
-              <p>Total Price: {props.selectedOrder.totalAmount}</p>
-              <p>customerName :{props.selectedOrder.customerName}</p>
-              <p>OrderStatus :{props.selectedOrder.OrderStatus}</p>
-              <p>OrderMedium :{props.selectedOrder.OrderMedium}</p>
+            <div className='popup'>
+              <p>Order Number: {props.selectedOrder.id}</p>
+              <p>Total Price: {props.selectedOrder.total}</p>
+              <p>customerName :{props.selectedOrder.name}</p>
+              <p>OrderStatus :{props.selectedOrder.status}</p>
+              <p>OrderMedium :{props.selectedOrder.currency}</p>
             </div>
           )}
         </div>
