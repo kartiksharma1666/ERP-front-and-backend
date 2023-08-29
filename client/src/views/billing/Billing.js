@@ -14,23 +14,27 @@ import {
   CDropdownItem,
   CButton,
   CFormInput,
+  CCardBody,
+  CCard,
+  CCardHeader,
 } from '@coreui/react'
 import React, { useEffect, useState } from 'react'
 import { BiSolidUser } from 'react-icons/bi'
 import { BiEnvelope } from 'react-icons/bi'
 import { BsCalendarDate } from 'react-icons/bs'
 import { AiOutlineNumber } from 'react-icons/ai'
-import { PiNotepadThin } from 'react-icons/pi'
-import { SiDialogflow } from 'react-icons/si'
 import { AiFillDelete } from 'react-icons/ai'
 import { DatePicker } from 'rsuite'
 import 'rsuite/dist/rsuite.min.css'
-
 import FloatingButton from '../FloatingButton'
+
+//local components
+import HistoryAndHelp from './HistoryAndHelp'
+import SearchComponent from './SearchComponent'
 
 const Billing = () => {
   const initialState = {
-    items: [{ itemName: '', unitPrice: '', quantity: '', discount: '' }],
+    items: [],
     total: 0,
     notes: 'new of notess',
     rates: '',
@@ -42,9 +46,20 @@ const Billing = () => {
     creator: '',
   }
 
+  const acronym = {
+    Rupees: 'INR',
+    Dollars: 'USD',
+    Euros: 'ENR',
+    Pounds: 'GBP',
+  }
+  const [data, setdata] = useState(null)
+  const [categories, setCategories] = useState([])
+  const [search, setSearch] = useState('')
+  const [searchResults, setSearchResults] = useState([])
+  const [selectedCategory, setSelectedCategory] = useState(null)
+  //
   const [invoiceNumber, setInvoiceNumber] = useState(null)
   const [invoiceData, setInvoiceData] = useState(initialState)
-  //
   const [rates, setRates] = useState(0)
   const [vat, setVat] = useState(0)
   const [currency, setCurrency] = useState('INR')
@@ -52,9 +67,22 @@ const Billing = () => {
   const [total, setTotal] = useState(0)
   const today = new Date()
   const [selectedDate, setSelectedDate] = useState(today.getTime() + 7 * 24 * 60 * 60 * 1000)
+  const [notes, setNotes] = useState('')
   const [client, setClient] = useState('omkar')
   const [type, setType] = useState('Invoice')
   const [status, setStatus] = useState('Unpaid')
+
+  const billing = {
+    id: 1,
+    name: 'Gurleen',
+    item: 'Chocolate Cake',
+    quantity: 2,
+    price: '350',
+    totalAmount: '630',
+    email: 'gurleen21@gmail.com',
+    invoiceNumber: '#42D42-0001',
+    date: '27th October 2023 19:00',
+  }
 
   const getInvoiceNumber = async () => {
     fetch(`http://localhost:8080/api/Billing/count`, {
@@ -74,21 +102,6 @@ const Billing = () => {
       })
   }
 
-  useEffect(() => {
-    getInvoiceNumber()
-  }, [])
-  const billing = {
-    id: 1,
-    name: 'Gurleen',
-    item: 'Chocolate Cake',
-    quantity: 2,
-    price: '350',
-    totalAmount: '630',
-    email: 'gurleen21@gmail.com',
-    invoiceNumber: '#42D42-0001',
-    date: '27th October 2023 19:00',
-  }
-
   const handleChange = (index, e) => {
     console.log(e.target.name)
     const values = [...invoiceData.items]
@@ -103,6 +116,8 @@ const Billing = () => {
     // console.log(values)
   }
 
+  const handleAddProduct = () => {}
+
   const handleAddField = (e) => {
     e.preventDefault()
     setInvoiceData((prevState) => ({
@@ -113,6 +128,114 @@ const Billing = () => {
       ],
     }))
   }
+
+  const handleCurrencyClick = (currencyType) => {
+    setCurrency(acronym[currencyType])
+  }
+
+  //getting all product data from db
+  const getDataFromDB = async () => {
+    const res = await fetch('http://localhost:8080/api/products/all').catch((err) => {
+      console.log(err)
+    })
+
+    const resjson = await res.json()
+    // console.log(resjson)
+
+    const productsWithQuantity = resjson.map((product) => ({
+      ...product,
+
+      quantity: 0,
+      // Add the "quantity" field with an initial value
+    }))
+
+    setdata(productsWithQuantity)
+  }
+
+  //getting all categories from db
+
+  const fetchCategories = () => {
+    // Make an API call to fetch categories from your backend
+    fetch('http://localhost:8080/api/category/all')
+      .then((response) => response.json())
+      .then((data) => {
+        setCategories(data.categories)
+        // console.log(data.categories) // Update the state with fetched categories
+      })
+      .catch((error) => {
+        console.error('Error fetching categories:', error)
+      })
+  }
+
+  // sorting categories with all as first option
+  const sortedCategories = Array.isArray(categories)
+    ? [...categories].sort((a, b) => b.order - a.order)
+    : []
+
+  const handleSearch = (e) => {
+    setSearch(e.target.value)
+    const filterdProd = data.filter((product) =>
+      product.name?.toLowerCase().includes(e.target.value.toLowerCase()),
+    )
+
+    setSearchResults(filterdProd)
+  }
+
+  const handleRates = (e) => {
+    setRates(e.target.value)
+  }
+
+  const calculateSubTotal = (invoicedata) => {
+    let sum = 0
+
+    invoiceData.items.length > 0 &&
+      invoicedata.items.map((item) => {
+        const total = parseInt(item?.quantity) * parseInt(item?.unitPrice)
+        sum = sum + parseInt(total)
+      })
+
+    return sum
+  }
+
+  const calculateTotal = (subTot) => {
+    if (subTot != 0) {
+      const vatCal = parseFloat((subTot * (rates / 100)).toFixed(2))
+      setVat(vatCal)
+
+      const total = subTot + vatCal
+      return total
+    } else {
+      return 0
+    }
+  }
+
+  useEffect(() => {
+    if (searchResults.length > 0) {
+      const filterdProd = data.filter((product) =>
+        product.name?.toLowerCase().includes(search.toLowerCase()),
+      )
+      setSearchResults(filterdProd)
+    }
+  }, [data])
+
+  useEffect(() => {
+    setSubTotal(() => calculateSubTotal(invoiceData))
+    console.log(invoiceData)
+    // total,subtotal
+  }, [invoiceData])
+
+  useEffect(() => {
+    setTotal(() => calculateTotal(subTotal))
+  }, [subTotal, rates])
+
+  useEffect(() => {
+    getInvoiceNumber()
+  }, [])
+
+  useEffect(() => {
+    getDataFromDB()
+    fetchCategories()
+  }, [])
 
   return (
     <CRow>
@@ -189,101 +312,102 @@ const Billing = () => {
             </button>
           </div>
         </div>
-        {/*  <div className="d-flex">
-          <div
-            className="invoice "
-            style={{
-              border: '1px solid #fff',
-              background: '#fff',
-              marginTop: '-18px',
-              width: '60%',
-              padding: '10px',
-              borderRadius: '8px',
-            }}
-          >
-           <h5>History</h5>
-            <div style={{ marginTop: '25px' }}>
-              <div className="d-flex">
-                <BiEnvelope
-                  style={{
-                    background: '#6681e8',
-                    borderRadius: '50%',
-                    fontSize: '40px',
-                    color: '#fff',
-                    padding: '8px',
-                  }}
-                />
-                <p style={{ marginLeft: '20px', fontSize: '18px', fontWeight: '500px' }}>
-                  Invoice was sent to {billing.email} <br />
-                  <span style={{ fontSize: '15px' }}>Jul 2, 2023 2:56 PM</span>
-                </p>
-              </div>
-              <div className="d-flex">
-                <PiNotepadThin
-                  style={{
-                    background: '#6681e8',
-                    borderRadius: '50%',
-                    fontSize: '40px',
-                    color: '#fff',
-                    padding: '8px',
-                  }}
-                />
-                <p style={{ marginLeft: '20px', fontSize: '18px', fontWeight: '500px' }}>
-                  Invoice was finalizes <br />
-                  <span style={{ fontSize: '15px' }}>Jul 2, 2023 2:54 PM</span>
-                </p>
-              </div>
-              <div className="d-flex">
-                <PiNotepadThin
-                  style={{
-                    background: '#6681e8',
-                    borderRadius: '50%',
-                    fontSize: '40px',
-                    color: '#fff',
-                    padding: '8px',
-                  }}
-                />
-                <p style={{ marginLeft: '20px', fontSize: '18px', fontWeight: '500px' }}>
-                  Invoice {billing.invoiceNumber} <br />
-                  <span style={{ fontSize: '15px' }}>Jul 2, 2023 1:32 PM</span>
-                </p>
-              </div>
-            </div>
-          </div>
-          <div
-            className="details ms-4"
-            style={{
-              border: '1px solid #fff',
-              background: '#fff',
-              width: '40%',
-              padding: '10px',
-              borderRadius: '8px',
-              marginTop: '27px',
-            }}
-          >
-            <div>
-              <h5>
-                <SiDialogflow style={{ color: '#6681e8', fontSize: '50px' }} />
-              </h5>
-            </div>
 
-            <div style={{ marginTop: '15px' }}>
-              <h4>Ask us</h4>
-              <p>
-                If you have a question or encounter a problem, <br /> we can help you ant time
-              </p>
-            </div>
-            <button
-              className="btn btn-primary"
-              style={{ alignItems: 'center', width: '100%', marginTop: '10px' }}
-            >
-              Ask a question
-            </button>
-            
-          </div>
-        </div>
-        */}
+        {/* history and help comes here <HistoryAndHelp /> */}
 
+        <CRow className="mt-4">
+          <CCol xs={12}>
+            <CCard className="mb-4">
+              <CCardHeader>
+                <strong>Products</strong>
+              </CCardHeader>
+              <CCardBody>
+                <div className="d-flex">
+                  <CDropdown>
+                    <CDropdownToggle color="primary" style={{ height: '40px' }}>
+                      Category
+                    </CDropdownToggle>
+                    <CDropdownMenu>
+                      <CDropdownItem onClick={() => setSelectedCategory(null)}>All</CDropdownItem>
+                      {sortedCategories &&
+                        sortedCategories.map((category) => (
+                          <CDropdownItem
+                            key={category._id}
+                            onClick={() => setSelectedCategory(category._id)}
+                          >
+                            {category.name}
+                          </CDropdownItem>
+                        ))}
+                    </CDropdownMenu>
+                  </CDropdown>
+                  <div className="container">
+                    <div className=" row justify-content-center">
+                      <div className="col-md-8">
+                        <div className="input-group mb-3">
+                          <input
+                            style={{ borderRadius: '5px' }}
+                            type="text"
+                            className="form-control"
+                            placeholder="Search for Product..."
+                            value={search}
+                            spellCheck="false"
+                            onChange={handleSearch}
+                          ></input>
+                          <div className="input-group-append"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    className=" btn btn-primary "
+                    onClick={handleAddProduct}
+                    style={{
+                      height: '40px',
+                      width: '150px',
+                    }}
+                  >
+                    Add product
+                  </button>
+                </div>
+                {search.length > 0 && (
+                  <CTable className="mb-0 border" hover responsive>
+                    <CTableHead>
+                      <CTableRow>
+                        <CTableHeaderCell scope="col">Sr. no</CTableHeaderCell>
+                        <CTableHeaderCell scope="col">Name</CTableHeaderCell>
+                        <CTableHeaderCell scope="col" style={{ width: '10%' }}>
+                          Weight(Kg)
+                        </CTableHeaderCell>
+                        <CTableHeaderCell scope="col" style={{ width: '15%' }}>
+                          Quantity Available
+                        </CTableHeaderCell>
+                        <CTableHeaderCell scope="col">Price</CTableHeaderCell>
+                        <CTableHeaderCell scope="col"></CTableHeaderCell>
+                        <CTableHeaderCell scope="col"></CTableHeaderCell>
+
+                        <CTableHeaderCell scope="col"></CTableHeaderCell>
+                      </CTableRow>
+                    </CTableHead>
+                    <CTableBody>
+                      {/* search component for doing search and addition of quantity //////////////////////////////// */}
+                      <SearchComponent
+                        data={data}
+                        search={search}
+                        setdata={setdata}
+                        searchResults={searchResults}
+                        setSearchResults={setSearchResults}
+                        // invoice changes
+                        invoiceData={invoiceData}
+                        setInvoiceData={setInvoiceData}
+                        handleRemoveField={(index) => handleRemoveField(index)}
+                      />
+                    </CTableBody>
+                  </CTable>
+                )}
+              </CCardBody>
+            </CCard>
+          </CCol>
+        </CRow>
         <div className="billing-bar d-flex">
           <div
             className="invoice"
@@ -299,6 +423,7 @@ const Billing = () => {
           >
             <h5>Items</h5>
             <div className="d-flex" style={{ fontSize: '15px' }}>
+              {/* items description ////////////////////////////////////////////////////////////////////////// */}
               <CTable>
                 <CTableHead>
                   <CTableRow>
@@ -311,84 +436,90 @@ const Billing = () => {
                   </CTableRow>
                 </CTableHead>
                 <CTableBody>
-                  {invoiceData.items.map((itemField, index) => (
-                    <CTableRow key={index}>
-                      <CTableDataCell scope="row" style={{ width: '40%' }}>
-                        {' '}
-                        <CFormInput
-                          style={{ width: '100%' }}
-                          outline="none"
-                          sx={{ ml: 1, flex: 1 }}
-                          type="text"
-                          name="itemName"
-                          onChange={(e) => handleChange(index, e)}
-                          value={itemField.itemName}
-                          placeholder="Item name or description"
-                        />{' '}
-                      </CTableDataCell>
-                      <CTableDataCell>
-                        {' '}
-                        <CFormInput
-                          sx={{ ml: 1, flex: 1 }}
-                          type="number"
-                          name="quantity"
-                          onChange={(e) => handleChange(index, e)}
-                          value={itemField.quantity}
-                          placeholder="0"
-                        />{' '}
-                      </CTableDataCell>
-                      <CTableDataCell>
-                        {' '}
-                        <CFormInput
-                          sx={{ ml: 1, flex: 1 }}
-                          type="number"
-                          name="unitPrice"
-                          onChange={(e) => handleChange(index, e)}
-                          value={itemField.unitPrice}
-                          placeholder="0"
-                        />{' '}
-                      </CTableDataCell>
-                      <CTableDataCell>
-                        {' '}
-                        <CFormInput
-                          sx={{ ml: 1, flex: 1 }}
-                          type="number"
-                          name="discount"
-                          onChange={(e) => handleChange(index, e)}
-                          value={itemField.discount}
-                          placeholder="0"
-                        />{' '}
-                      </CTableDataCell>
-                      <CTableDataCell>
-                        {' '}
-                        <CFormInput
-                          sx={{ ml: 1, flex: 1 }}
-                          type="number"
-                          name="amount"
-                          onChange={(e) => handleChange(index, e)}
-                          value={
-                            itemField.quantity * itemField.unitPrice -
-                            (itemField.quantity * itemField.unitPrice * itemField.discount) / 100
-                          }
-                          disabled
-                        />{' '}
-                      </CTableDataCell>
-                      <CTableDataCell>
-                        <CButton onClick={() => handleRemoveField(index)}>
-                          <AiFillDelete
-                            style={{
-                              background: '#6681e8',
-                              borderRadius: '50%',
-                              fontSize: '25px',
-                              color: '#fff',
-                              padding: '2px',
-                            }}
-                          />
-                        </CButton>
-                      </CTableDataCell>
-                    </CTableRow>
-                  ))}
+                  {invoiceData.items && invoiceData.items.length > 0 ? (
+                    invoiceData.items.map((itemField, index) => (
+                      <CTableRow key={index}>
+                        <CTableDataCell scope="row" style={{ width: '40%' }}>
+                          {' '}
+                          <CFormInput
+                            style={{ width: '100%' }}
+                            outline="none"
+                            sx={{ ml: 1, flex: 1 }}
+                            type="text"
+                            name="itemName"
+                            onChange={(e) => handleChange(index, e)}
+                            value={itemField?.itemName}
+                            placeholder="Item name or description"
+                          />{' '}
+                        </CTableDataCell>
+                        <CTableDataCell>
+                          {' '}
+                          <CFormInput
+                            sx={{ ml: 1, flex: 1 }}
+                            type="number"
+                            name="quantity"
+                            onChange={(e) => handleChange(index, e)}
+                            value={itemField?.quantity}
+                            placeholder="0"
+                          />{' '}
+                        </CTableDataCell>
+                        <CTableDataCell>
+                          {' '}
+                          <CFormInput
+                            sx={{ ml: 1, flex: 1 }}
+                            type="number"
+                            name="unitPrice"
+                            onChange={(e) => handleChange(index, e)}
+                            value={itemField?.unitPrice}
+                            placeholder="0"
+                          />{' '}
+                        </CTableDataCell>
+                        <CTableDataCell>
+                          {' '}
+                          <CFormInput
+                            sx={{ ml: 1, flex: 1 }}
+                            type="number"
+                            name="discount"
+                            onChange={(e) => handleChange(index, e)}
+                            value={itemField?.discount}
+                            placeholder="0"
+                          />{' '}
+                        </CTableDataCell>
+                        <CTableDataCell>
+                          {' '}
+                          <CFormInput
+                            sx={{ ml: 1, flex: 1 }}
+                            type="number"
+                            name="amount"
+                            onChange={(e) => handleChange(index, e)}
+                            value={
+                              itemField?.quantity * itemField?.unitPrice -
+                              (itemField?.quantity * itemField?.unitPrice * itemField?.discount) /
+                                100
+                            }
+                            disabled
+                          />{' '}
+                        </CTableDataCell>
+                        <CTableDataCell>
+                          <CButton onClick={() => handleRemoveField(index)}>
+                            <AiFillDelete
+                              style={{
+                                background: '#6681e8',
+                                borderRadius: '50%',
+                                fontSize: '25px',
+                                color: '#fff',
+                                padding: '2px',
+                              }}
+                            />
+                          </CButton>
+                        </CTableDataCell>
+                      </CTableRow>
+                    ))
+                  ) : (
+                    <>Search Products to Add </>
+                  )}
                 </CTableBody>
+                {/* addition of field //// */}
                 <div className>
                   <CButton onClick={handleAddField}>+</CButton>
                 </div>
@@ -396,48 +527,86 @@ const Billing = () => {
             </div>
           </div>
         </div>
-
         <div
           className="invoice"
           style={{
-            marginTop: '15px',
-            float: 'right',
-            width: '40%',
-            padding: '10px',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'flex-end',
             borderRadius: '8px',
+            alignItems: 'end',
+            margin: '20px 188px',
           }}
         >
-          <h5>Invoice Summary</h5>
-          <CTable>
-            <CTableBody>
-              <CTableRow>
-                <CTableDataCell>Sub Total: </CTableDataCell>
-              </CTableRow>
-            </CTableBody>
-            <CTableBody>
-              <CTableRow>
-                <CTableDataCell>VAT(%)</CTableDataCell>
-              </CTableRow>
-            </CTableBody>
-            <CTableBody>
-              <CTableRow>
-                <CTableDataCell>Total</CTableDataCell>
-              </CTableRow>
-            </CTableBody>
-          </CTable>
+          <div>
+            <CTable>
+              <CTableBody>
+                <CTableRow>
+                  <CTableDataCell>
+                    <h5>Invoice Summary</h5>
+                  </CTableDataCell>
+                </CTableRow>
+              </CTableBody>
+              <CTableBody>
+                <CTableRow>
+                  <CTableDataCell>Sub Total: {subTotal}</CTableDataCell>
+                </CTableRow>
+              </CTableBody>
+              <CTableBody>
+                <CTableRow>
+                  <CTableDataCell>VAT(%) {vat}</CTableDataCell>
+                </CTableRow>
+              </CTableBody>
+              <CTableBody>
+                <CTableRow>
+                  <CTableDataCell>Total {total}</CTableDataCell>
+                </CTableRow>
+              </CTableBody>
+            </CTable>
+          </div>
         </div>
 
-        <div style={{ marginTop: '190px' }}>
-          <p style={{ marginLeft: '8px' }}>Tax Rates(%)</p>
-          <CTable style={{ width: '20%' }}>
-            <CTableBody>
-              <CTableRow>
-                <CTableDataCell>0</CTableDataCell>
-              </CTableRow>
-            </CTableBody>
-          </CTable>
+        <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+          <div>
+            <p className="billing-button-text">Tax Rates</p>
+            <CFormInput
+              type="number"
+              name="rates"
+              style={{ width: '70%' }}
+              value={rates}
+              onChange={handleRates}
+            />
+          </div>
+          <div>
+            <p className="billing-button-text">Due Date</p>
+            <DatePicker value={selectedDate} onChange={setSelectedDate} oneTap></DatePicker>
+          </div>
+          <div>
+            <p className="billing-button-text">Currency</p>
+            <CDropdown>
+              <CDropdownToggle
+                color=""
+                style={{
+                  fontSize: '15px',
+                  border: '1px solid #fff',
+                  background: '#fff',
+                }}
+              >
+                {currency}
+              </CDropdownToggle>
+              <CDropdownMenu>
+                <CDropdownItem onClick={() => handleCurrencyClick('Rupees')}>Rupees</CDropdownItem>
+                <CDropdownItem onClick={() => handleCurrencyClick('Dollars')}>
+                  Dollars
+                </CDropdownItem>
+                <CDropdownItem onClick={() => handleCurrencyClick('Euros')}>Euros</CDropdownItem>
+                <CDropdownItem onClick={() => handleCurrencyClick('Pounds')}>Pounds</CDropdownItem>
+              </CDropdownMenu>
+            </CDropdown>
+          </div>
+        </div>
 
-          <p style={{ marginLeft: '540px', marginTop: '-75px' }}>Due Date</p>
+        {/* <p style={{ marginLeft: '540px', marginTop: '-75px' }}>Due Date</p>
           <DatePicker style={{ width: '200px', marginLeft: '530px' }}></DatePicker>
 
           <p style={{ marginLeft: '1100px', marginTop: '-120px', padding: '2px' }}>Currency</p>
@@ -460,8 +629,7 @@ const Billing = () => {
               <CDropdownItem>Dollars</CDropdownItem>
               <CDropdownItem>Euros</CDropdownItem>\<CDropdownItem>Pounds</CDropdownItem>
             </CDropdownMenu>
-          </CDropdown>
-        </div>
+          </CDropdown> */}
 
         <div
           className="invoice "
@@ -475,11 +643,14 @@ const Billing = () => {
           }}
         >
           <h5>Note/Payment Info</h5>
-          <CFormTextarea rows={4} style={{ marginTop: '15px', marginBottom: '10px' }}>
-            Provide additional details or terms of service
-          </CFormTextarea>
+          <CFormTextarea
+            placeholder="Provide additional details or terms of service"
+            rows={4}
+            style={{ marginTop: '15px', marginBottom: '10px' }}
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
+          ></CFormTextarea>
         </div>
-
         <div>
           <button
             className="btn btn-primary"

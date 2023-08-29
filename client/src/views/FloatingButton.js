@@ -19,7 +19,11 @@ const FloatingButton = () => {
           <MdAdd />
         </button>
       </div>
-      <div onMouseOver={handleFabClick} className={`box ${isBoxActive ? 'box-active' : ''}`}>
+      <div
+        onMouseOver={handleFabClick}
+        onMouseOut={handleFabClick2}
+        className={`box ${isBoxActive ? 'box-active' : ''}`}
+      >
         <div className="d-flex">
           <span className={`add-customer-span ${isBoxActive ? 'show' : ''}`}>Add Customer</span>
           <button className="floatbtn item4">

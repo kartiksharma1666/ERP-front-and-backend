@@ -99,6 +99,7 @@ const Product = (props) => {
     getDataFromDB()
     fetchCategories()
   }, [props.getData])
+
   useEffect(() => {
     // Log the category.$oid value for each product
     if (data && data._id) {
@@ -167,12 +168,6 @@ const Product = (props) => {
   const SearchComponent = () => {
     return (
       <>
-        {/* {searchResults?.map((product) => (
-              <div key={product._id} className="card mb-2">
-                <div className="card-body">{product.name}</div>
-                <div className="card-body">{product.price}</div>
-              </div>
-            ))} */}
         {searchResults.length > 0 ? (
           searchResults.map((item, index) => (
             <CTableRow key={index}>
