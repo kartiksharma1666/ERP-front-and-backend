@@ -144,7 +144,103 @@ border-radius: 8px;
     border:1px solid #c0bfbf;
  }
 
+ .notification-upper{
+   display: flex;
+   justify-content: space-between;
+ }
+ 
+ .notification-upper h5{
+   color: blue
+ }
+ .notification-container{
+   background: #fff;
+   padding: 20px;
+   border-radius: 10px;
 
+ }
+ 
+ .notification-upper img{
+   width: 40px;
+   height: 40px;
+   border: 1px solid fff;
+   border-radius: 50%;
+   background: #fff;
+   padding: 10px;
+   align-items: center;
+ }
+
+
+ .notification-details{
+ margin-top: 20px;
+ }
+
+ .panel{
+   width: 150px;
+   border: 1px solid #fff;
+   background: #f1f1f1;
+   padding: 5px;
+   border-radius: 15px
+ }
+
+ .date-container{
+   display: flex;
+   align-items: center;
+   justify-content: flex-end;
+   margin-top: 15px;
+   
+
+ }
+
+ .date {
+   margin-right: 40px;
+   border: 1px solid #fff;
+   background: #f1f1f1;
+   border-radius: 10px;
+   padding: 5px
+ }
+
+ .calendar-icon {
+   display: inline-flex;
+   align-items: center;
+   font-size: 25px;
+   color: #333;
+ 
+ }
+
+ .main-details{
+   display: flex;
+   justify-content: space-between;
+   border: 1px solid #fff;
+   box-shadow:  0px 2px 8px  rgba(248, 248, 248, 0.2);
+   border-radius: 10px;
+   background: #f1f1f1;
+   align-items: center;
+   padding: 8px;
+   margin-top: 15px;
+   overflow: auto
+ }
+
+ .main-details img{
+   width: 40px;
+   height: 40px;
+   border: 1px solid fff;
+   border-radius: 50%;
+   background: #fff;
+   padding: 10px;
+   align-items: center;
+ }
+
+.img-p{
+   margin-left: 40px;
+}
+
+.img-p p{
+   margin-top: 10px;
+   margin-left: 15px
+}
+
+
+ 
 
 
 

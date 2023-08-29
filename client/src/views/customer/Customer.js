@@ -2,6 +2,7 @@ import React from 'react'
 import  { useState,useEffect } from 'react'
 import Modal from 'react-modal';
 import { Container, Row, Col } from 'react-bootstrap';
+import {FloatingButton} from './FloatingButton'
 
 
 
@@ -63,9 +64,12 @@ import avatar4 from 'src/assets/images/avatars/4.jpg'
 import avatar5 from 'src/assets/images/avatars/5.jpg'
 import avatar6 from 'src/assets/images/avatars/6.jpg'
 
+import FloatingButton from '../FloatingButton'
+
 import WidgetsBrand from '../widgets/WidgetsBrand'
 import WidgetsDropdown from '../widgets/WidgetsDropdown'
 import { DocsExample } from 'src/components'
+import { FloatingButton } from '../FloatingButton';
 Modal.setAppElement('#root')
 
  const Customer = () => {
@@ -553,6 +557,7 @@ const [newCustomerData, setNewCustomerData] = useState({
           </CCard>
         </CCol>
       </CRow> 
+      <FloatingButton />
       
     </>
 );

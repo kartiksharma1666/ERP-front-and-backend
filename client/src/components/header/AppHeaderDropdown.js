@@ -34,6 +34,10 @@ const AppHeaderDropdown = () => {
       </CDropdownToggle>
       <CDropdownMenu className="pt-0" placement="bottom-end">
         <CDropdownHeader className="bg-light fw-semibold py-2">Account</CDropdownHeader>
+        <CDropdownItem href="#/profile">
+          <CIcon icon={cilUser} className="me-2" />
+          Profile
+        </CDropdownItem>
         <CDropdownItem href="#">
           <CIcon icon={cilBell} className="me-2" />
           Updates
@@ -41,7 +45,7 @@ const AppHeaderDropdown = () => {
             42
           </CBadge>
         </CDropdownItem>
-        <CDropdownItem href="#">
+        <CDropdownItem href="#/message">
           <CIcon icon={cilEnvelopeOpen} className="me-2" />
           Messages
           <CBadge color="success" className="ms-2">
@@ -64,11 +68,10 @@ const AppHeaderDropdown = () => {
         </CDropdownItem>
         <CDropdownHeader className="bg-light fw-semibold py-2">Settings</CDropdownHeader>   
         
-      <Link to={'./profile'}>
+      {/* <Link to={'./profile'}>
       <CIcon icon={cilUser} className="me-2" />
        Profile
-       </Link>
-   
+       </Link> */}
 
         <CDropdownItem href="#">
           <CIcon icon={cilSettings} className="me-2" />

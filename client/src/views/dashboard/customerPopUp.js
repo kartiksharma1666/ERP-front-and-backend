@@ -279,6 +279,7 @@ const CustomerPopUp = (props) => {
             {props.selectedCustomer && props.selectedCustomer.name}?
           </p>
           <Button
+          style={{ marginTop: '20px', borderRadius: '20px'}}
             onClick={() => {
               props.setDeletePop(false)
               handleToClose()
@@ -288,7 +289,7 @@ const CustomerPopUp = (props) => {
             Cancel
           </Button>
           <Button
-          style={{marginLeft: '20px'}}
+          style={{marginLeft: '20px', marginTop: '20px', borderRadius: '20px'}}
             onClick={() => {
               handleDelete(props.selectedCustomer)
               handleToClose()

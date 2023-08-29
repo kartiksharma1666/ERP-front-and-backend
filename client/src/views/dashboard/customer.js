@@ -217,6 +217,7 @@ const Customer = () => {
           </CCard>
         </CCol>
       </CRow>
+      <FloatingButton />
       <CustomerPopUp
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}

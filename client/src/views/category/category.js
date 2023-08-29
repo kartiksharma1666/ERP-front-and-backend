@@ -16,6 +16,7 @@ import {
   CTableRow,
 } from '@coreui/react';
 
+import FloatingButton from '../FloatingButton'
 
 Modal.setAppElement('#root');
 
@@ -172,6 +173,7 @@ const Category = () => {
           </div>
         </CCardBody>
       </CCard>
+      <FloatingButton />
       {/* Rendering CategoryPopUp */}
       <CategoryPopUp
         isModalOpen={isModalOpen}
