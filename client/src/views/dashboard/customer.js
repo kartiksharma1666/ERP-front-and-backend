@@ -94,7 +94,6 @@ const Customer = () => {
 
   return (
     <div>
-      
       <CRow>
         <CCol xs={12}>
           <CCard className="mb-4">
@@ -107,18 +106,18 @@ const Customer = () => {
                   <div className=" row justify-content-center">
                     <div className="col-md-8">
                       <div className="input-group mb-3">
-                        <input style={{borderRadius: '5px', }}
+                        <input
+                          style={{ borderRadius: '5px' }}
                           type="text"
                           className="form-control"
                           placeholder="Search for Customers..."
                           value={search}
-                          onChange={(e) => setSearch(e.target.value)}
+                          onChange={(e) => {
+                            setSearch(e.target.value)
+                            handleSearch(e)
+                          }}
                         ></input>
-                        <div className="input-group-append">
-                          <button className="btn btn-primary search-button" onClick={handleSearch}>
-                            Search
-                          </button>
-                        </div>
+                        <div className="input-group-append"></div>
                       </div>
                     </div>
                     {searchResults.length > 0 && (
@@ -136,13 +135,13 @@ const Customer = () => {
                   </div>
                 </div>
                 <div>
-                <button
-                  className=" btn btn-primary"
-                  onClick={handleAddCustomer}
-                  style={product_button_style}
-                >
-                  Add Customer
-                </button>
+                  <button
+                    className=" btn btn-primary"
+                    onClick={handleAddCustomer}
+                    style={product_button_style}
+                  >
+                    Add Customer
+                  </button>
                 </div>
               </div>
 
@@ -233,7 +232,6 @@ const Customer = () => {
         setDeletePop={setDeletePop}
       />
     </div>
-    
   )
 }
 

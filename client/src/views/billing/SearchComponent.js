@@ -59,7 +59,7 @@ const SearchComponent = (props) => {
       return {
         ...prevItem,
         items: prevItem.items.map((prod) =>
-          prod.itemName == item.name ? { ...prod, quantity: prod.quantity + 1 } : { prod },
+          prod.itemName == item.name ? { ...prod, quantity: prod.quantity + 1 } : { ...prod },
         ),
       }
     })
@@ -84,7 +84,7 @@ const SearchComponent = (props) => {
         })
         const values = prevItem.items
         values.splice(index, 1)
-        console.log(values)
+        console.log({ ...prevItem.items })
         return {
           ...prevItem,
           items: values,
@@ -95,7 +95,7 @@ const SearchComponent = (props) => {
         return {
           ...prevItem,
           items: prevItem.items.map((prod) =>
-            prod.itemName == item.name ? { ...prod, quantity: prod.quantity - 1 } : { prod },
+            prod.itemName == item.name ? { ...prod, quantity: prod.quantity - 1 } : { ...prod },
           ),
         }
       })

@@ -68,7 +68,7 @@ const Product = (props) => {
 
   const handleSearch = (e) => {
     setSearch(e.target.value)
-    const filterdProd = data.filter((product) =>
+    const filterdProd = data?.filter((product) =>
       product.name.toLowerCase().includes(e.target.value.toLowerCase()),
     )
     setSearchResults(filterdProd)
@@ -168,8 +168,8 @@ const Product = (props) => {
   const SearchComponent = () => {
     return (
       <>
-        {searchResults.length > 0 ? (
-          searchResults.map((item, index) => (
+        {searchResults?.length > 0 ? (
+          searchResults?.map((item, index) => (
             <CTableRow key={index}>
               <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
               <CTableDataCell>{item.name}</CTableDataCell>
