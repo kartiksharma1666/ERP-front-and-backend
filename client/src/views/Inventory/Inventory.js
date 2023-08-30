@@ -33,9 +33,8 @@ const Inventory = () => {
   const [showSuggestions, setShowSuggestions] = useState(false);
 
   const inventory_button_style = {
-    marginRight: "75px",
-    height: "50px",
-    width: "158px",
+    height: '40px',
+    width: '150px',
   };
 
   const getDataFromDB = async () => {
@@ -223,18 +222,18 @@ const Inventory = () => {
                           <CTableDataCell>{item.quantity}</CTableDataCell>
                           <CTableDataCell>{item.category}</CTableDataCell>
                           <CTableDataCell>
-                            <CButton
-                              color="success" shape="rounded-pill"
+                            <button className="crud-button3"
                               onClick={() => handleUpdateInventory(item)}
                             >
                               Update
-                            </CButton>{" "}
-                            <CButton
-                              color="danger" shape="rounded-pill"
+                            </button>
+                          </CTableDataCell>
+                          <CTableDataCell>
+                            <button className="crud-button4"
                               onClick={() => handleDeleteInventory(item)}
                             >
                               Delete
-                            </CButton>
+                            </button>
                           </CTableDataCell>
                         </CTableRow>
                       ))
@@ -248,18 +247,18 @@ const Inventory = () => {
                           <CTableDataCell>{item.quantity}</CTableDataCell>
                           <CTableDataCell>{item.category}</CTableDataCell>
                           <CTableDataCell>
-                            <CButton
-                              color="success" shape="rounded-pill" 
+                            <button
+                              className="crud-button3"
                               onClick={() => handleUpdateInventory(item)}
                             >
                               Update
-                            </CButton>{" "}
-                            <CButton
-                              color="danger" shape="rounded-pill" style={{marginLeft: '50px'}}
+                            </button>{" "}
+                            <button
+                            className="crud-button4"
                               onClick={() => handleDeleteInventory(item)}
                             >
                               Delete
-                            </CButton>
+                            </button>
                           </CTableDataCell>
                         </CTableRow>
                       ))}

@@ -236,13 +236,206 @@ border-radius: 8px;
 
 .img-p p{
    margin-top: 10px;
-   margin-left: 15px
+   margin-left: 15px;
+}
+.popup{
+   margin-top : 25px;
+ }
+
+ .inputbox{
+   width: 350px;
+   margin-top: -5px;
+   height: 35px;
+   border-radius: 5px;
+   margin-left: 15px;
+   border: 1px solid #bab9b9;
+ }
+
+.search-content{
+   display: flex;
+   flex-direction: column;
+   border: 1px solid #c7c6c6;
+   border-radius: 8px;
+   min-height: 20px;
+   padding: 10px;
+}
+
+.closing-search{
+   display: flex;
+   justify-content: space-between;
+   cursor: pointer;
+}
+
+._aadp{
+   width: 90px;
+   height: 90px;
+   border-radius: 50%;
+   cursor: pointer;
+   margin-left: 165px;
+}
+.profile-heading{
+   background: #fff;
+   border: 1px solid grey;
+   border-radius: 8px;
+   padding: 15px;
+}
+
+
+.attributes{
+   margin-top: 5px;
+   font-weight: bold;
+   color: #818182;
+}
+
+.profile-inputs{
+   margin-left: 90px;
+   border-radius: 8px;
+   background: #f1f1f1;
+   border: 1px solid #c0bfbf
+}
+
+.profile-inputs:focus{
+   border: none
+}
+
+.profile-button{
+   margin-top: 20px;
+   padding: 5px;
+   border-radius: 8px;
+   background: #5460ff;
+   color: #fff;
+   margin-bottom: 10px;
+   border: none;
+   height: 50px;
+   float: right;
+}
+
+.crud-button{
+   padding: 5px;
+   border-radius: 10px;
+   background: #737cfa;
+   color: #fff;
+   border: none;
+   height: 40px;
+   width: 60px
+}
+
+.crud-button:hover{
+   background: #fff;
+   border: 1px solid #737cfa;
+   color: #333;
+   transition: 0.5s;
+
+}
+
+.crud-button2{
+   padding: 5px;
+   border-radius: 10px;
+   background: #5adbb5;
+   color: #fff;
+   border: none;
+   height: 40px;
+   width: 70px
+}
+
+.crud-button2:hover{
+   background: #fff;
+   border: 1px solid #5adbb5;
+   color: #333;
+   transition: 0.5s;
+}
+
+.crud-button3{
+   padding: 5px;
+   border-radius: 10px;
+   background: blue;
+   color: #fff;
+   border: none;
+   height: 40px;
+   width: 70px
+}
+
+.crud-button3:hover{
+background: #d1eaf0;
+border: 1px solid;
+color: #333;
+transition: 0.5s;
+}
+
+.crud-button4{
+   padding: 5px;
+   border-radius: 10px;
+   background: #d0312d;
+   color: #fff;
+   border: none;
+   height: 40px;
+   width: 70px
+}
+
+.crud-button4:hover{
+   background: pink;
+   border: 1px solid #d0312d;
+   color: #333;
+   transition: 0.5s
 }
 
 
  
+ .cancel-btn{
+   margin-top: 20px;
+   border-radius: 20px;
+ }
 
+ .delete-btn{
+   margin-left: 25px;
+   margin-top: 20px;
+   border-radius: 20px;
+ }
 
+._aadp{
+   width: 90px;
+   height: 90px;
+   border-radius: 50%;
+   cursor: pointer;
+   margin-left: 165px;
+}
 
+/* billing section */
 
+.billing-button-text{
+   margin-bottom: 10px;
+}
+.attributes{
+   margin-top: 5px;
+   font-weight: bold;
+   color: #818182;
+}
 
+.info{
+   font-size: 20px;
+}
+
+.profile-heading{
+   border: 1px solid grey;
+   border-radius: 8px;
+   padding: 15px;
+}
+
+.p-tag{
+   font-weight: 300;
+   color: #333333;
+   margin-left: 10px;
+}
+
+.payment-details{
+   font-weight: 500;
+}
+
+.avatar{
+   margin-left: -25px;
+}
+
+.add-customer-span{
+   width: 115px;
+   padding: 15px;
+}

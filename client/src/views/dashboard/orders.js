@@ -14,6 +14,10 @@ import {
   CTableHead,
   CTableHeaderCell,
   CTableRow,
+  CDropdownItem,
+  CDropdown,
+  CDropdownMenu,
+  CDropdownToggle
 } from '@coreui/react';
 
 import FloatingButton from '../FloatingButton'
@@ -33,6 +37,52 @@ const Orders = () => {
     height: '40px',
     width: '150px',
   };
+
+  const initialState = {
+    items: [],
+    total: 0,
+    notes: 'new of notess',
+    rates: '',
+    vat: 0,
+    currency: '',
+    invoiceNumber: Math.floor(Math.random() * 100000),
+    status: '',
+    type: 'Invoice',
+    creator: '',
+  }
+
+  const orders = [{
+    id: 1,
+    name: 'Dacosta',
+    total: '123',
+    status: 'ok',
+    currency: 'INR',
+    items: ["cake", "drinks"]
+  },
+  {
+    id: 2,
+    name: 'Gurleen',
+    total: '156',
+    status: 'ok',
+    currency: 'USD',
+    items: ["pastry", "book"]
+  },
+  {
+    id: 3,
+    name: 'Omkar',
+    total: '868',
+    status: 'ok',
+    currency: 'pounds',
+    items: ["book", "drinks", "cake"]
+  },
+  {
+    id: 4,
+    name: 'Kartik',
+    total: '5688',
+    status: 'ok',
+    currency: 'Euros',
+    items: ["chocolate"]
+  }]
 
   const getDataFromDB = async () => {
     try {
@@ -121,7 +171,7 @@ const Orders = () => {
                     )}
                   </div>
                 </div>
-                <div>
+                {/* <div>
                 <button
                   className=" btn btn-primary"
                   onClick={handleAddOrder}
@@ -129,7 +179,7 @@ const Orders = () => {
                 >
                   Add Order
                 </button>
-                </div>
+                </div> */}
               </div>
 
               <CTable className="mb-0 border mt-4" hover responsive>
@@ -139,60 +189,87 @@ const Orders = () => {
                     <CTableHeaderCell scope="col">OrderNumber</CTableHeaderCell>
                     <CTableHeaderCell scope="col">CustomerName</CTableHeaderCell>
                     <CTableHeaderCell scope="col">TotalAmount</CTableHeaderCell>
+                    <CTableHeaderCell scope="col">OrderStatus</CTableHeaderCell>
+                    <CTableHeaderCell scope="col">OrderMedium</CTableHeaderCell>
+                    {/* <CTableHeaderCell>
+                    <CDropdown>
+                      <CDropdownToggle color="primary">Items</CDropdownToggle>
+                        <CDropdownMenu>
+                          <CDropdownItem>
+                            {initialState.items}
+                          </CDropdownItem>
+                        </CDropdownMenu>
+                      </CDropdown>
+                    </CTableHeaderCell> */}
                     <CTableHeaderCell scope="col"></CTableHeaderCell>
                     <CTableHeaderCell scope="col"></CTableHeaderCell>
                     <CTableHeaderCell scope="col"></CTableHeaderCell>
                   </CTableRow>
                 </CTableHead>
                 <CTableBody>
-                  {data &&
-                    data.map(
+                  {orders &&
+                    orders.map(
                       (
                         item,
                         index, // Check if data is available before mapping
                       ) => (
                         <CTableRow key={index}>
                           <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
-                          <CTableDataCell>{item.orderNumber}</CTableDataCell>
-                          <CTableDataCell>{item.customerName}</CTableDataCell>
-                          <CTableDataCell>{item.totalAmount}</CTableDataCell>
-                          <CTableDataCell>
-                            <CButton
-                              color="info"
-                              shape="rounded-pill"
-                              onClick={() => {
-                                openInPopup(item)
-                              }}
+                          <CTableDataCell>{item.id}</CTableDataCell>
+                          <CTableDataCell>{item.name}</CTableDataCell>
+                          <CTableDataCell>{item.total}</CTableDataCell>
+                          <CTableDataCell>{item.status}</CTableDataCell>
+                          <CTableDataCell>{item.currency}</CTableDataCell>
+                          {/* <CTableDataCell>{orders.name}</CTableDataCell> */}
+                          {/* <CTableDataCell>
+                            <button
+                              className='crud-button'
+                              
                             >
                               Info
-                            </CButton>
+                            </button>
+                          </CTableDataCell> */}
+                          {/* <CTableDataCell>
+                          <CDropdown>
+                            <CDropdownToggle color="primary">Items</CDropdownToggle>
+                            <CDropdownMenu>
+                              
+                            </CDropdownMenu>
+                          </CDropdown>
+                          </CTableDataCell> */}
+                          <CTableDataCell>
+                            <CDropdown>
+                              <CDropdownToggle color="primary">Items</CDropdownToggle>
+                                <CDropdownMenu>
+                                  <CDropdownItem>
+                                    {item.items}
+                                  </CDropdownItem>
+                                </CDropdownMenu>
+                              </CDropdown>
                           </CTableDataCell>
                           <CTableDataCell>
-                            <CButton
-                              color="success"
-                              shape="rounded-pill"
+                            <button
+                             className="crud-button2"
                               onClick={() => handleClickToOpen(item, 'update')}
                             >
                               Update
-                            </CButton>
+                            </button>
                           </CTableDataCell>
                           <CTableDataCell>
-                            <CButton
-                              color="primary"
-                              shape="rounded-pill"
+                            <button
+                             className='crud-button3'
                               onClick={() => handleClickToOpen(item, 'view')}
                             >
                               View
-                            </CButton>
+                            </button>
                           </CTableDataCell>
                           <CTableDataCell>
-                            <CButton
-                              color="danger"
-                              shape="rounded-pill"
+                            <button
+                              className='crud-button4'
                               onClick={() => handleClickToOpen(item, 'delete')}
                             >
                               Delete
-                            </CButton>
+                            </button>
                           </CTableDataCell>
                         </CTableRow>
                       ),

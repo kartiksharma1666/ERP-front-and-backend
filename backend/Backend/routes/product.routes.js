@@ -14,7 +14,6 @@ router.use(function (req, res, next) {
 // Register GET route to get all products
 router.get("/api/products/all", productController.getProducts);
 
-
 // Register POST route to create a product
 router.post("/api/products/create", productController.createProduct);
 

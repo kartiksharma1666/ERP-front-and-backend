@@ -131,23 +131,23 @@ const InventoryPopUp = (props) => {
     
   };
 
-  const popup = {
-    marginTop : '25px'
-  }
+  // const popup = {
+  //   marginTop : '25px'
+  // }
 
-  const inputbox = {
-    width: '300px', 
-    marginTop: '-5px',
-    height: '35px',
-    marginLeft: '10px'
-  }
+  // const inputbox = {
+  //   width: '300px', 
+  //   marginTop: '-5px',
+  //   height: '35px',
+  //   marginLeft: '10px'
+  // }
 
-  const updatebox ={
-    width: '300px', 
-    marginTop: '-5px',
-    height: '35px',
-    marginLeft: '10px'
-  }
+  // const inputbox ={
+  //   width: '300px', 
+  //   marginTop: '-5px',
+  //   height: '35px',
+  //   marginLeft: '10px'
+  // }
 
   const Content = () => {
     if (props.edit) {
@@ -160,55 +160,55 @@ const InventoryPopUp = (props) => {
           <CForm onSubmit={handleSubmit}>
             {props.selectedInventory && (
               <div>
-                <p style={popup}>
+                <p className='popup'>
                   <label>
                     Product
-                    <input style={updatebox}
+                    <input className='inputbox'
                       name="product"
                       placeholder="Product"
                       onChange={handleChange}
                       value={updatedData.product}
-                      className='input-style'
+                      
                     />
                   </label>
                 </p>
-                <p style={popup}>
+                <p className='popup'>
                   <label>
                     Weight
-                    <input style={updatebox}
+                    <input className='inputbox'
                       name="weight"
                       placeholder="Weight"
                       onChange={handleChange}
                       value={updatedData.weight}
-                      className='input-style'
+                      
                     />
                   </label>
                 </p>
-                <p style={popup}>
+                <p className='popup'>
                   <label>
                     Quantity
-                    <input style={updatebox}
+                    <input className='inputbox'
                       name="quantity"
                       placeholder="Quantity"
                       onChange={handleChange}
                       value={updatedData.quantity}
-                      className='input-style'
+                      
                     />
                   </label>
                 </p>
-                <p style={popup}>
+                <p className='popup'>
                   <label>
                     Category
-                    <input style={updatebox}
+                    <input className='inputbox'
                       name="category"
                       placeholder="Category"
                       onChange={handleChange}
                       value={updatedData.category}
-                      className='input-style'
+                      
                     />
                   </label>
                 </p>
-                <CButton color="success" shape="rounded-pill" type="submit" style = {{marginTop: '10px'}}>
+                <CButton color="primary"  type="submit" style = {{marginTop: '10px'}}>
                   Update
                 </CButton>
               </div>
@@ -224,55 +224,55 @@ const InventoryPopUp = (props) => {
           </button>
           <h2 style={{marginTop: '-15px'}} >Add Inventory</h2>
           <CForm onSubmit={handleAddInventory}>
-            <p style={popup}>
+            <p className='popup'>
               <label>
                 Product
-                <input style={inputbox}
+                <input className='inputbox'
                   name="product"
                   placeholder="Product"
                   onChange={handleChangeOfAdd}
                   value={addData.product}
-                  className='input-style'
+                  
                 />
               </label>
             </p>
-            <p style={popup}>
+            <p className='popup'>
               <label>
                 Weight 
-                <input style={inputbox}
+                <input className='inputbox'
                   name="weight"
                   placeholder="Weight"
                   onChange={handleChangeOfAdd}
                   value={addData.weight}
-                  className='input-style'
+                  
                 />
               </label>
             </p>
-            <p style={popup}>
+            <p className='popup'>
               <label>
                 Quantity
-                <input style={inputbox}
+                <input className='inputbox'
                   name="quantity"
                   placeholder="Quantity"
                   onChange={handleChangeOfAdd}
                   value={addData.quantity}
-                  className='input-style'
+                  
                 />
               </label>
             </p>
-            <p style={popup}>
+            <p className='popup'>
               <label>
                 Category
-                <input style={inputbox}
+                <input className='inputbox'
                   name="category"
                   placeholder="Category"
                   onChange={handleChangeOfAdd}
                   value={addData.category}
-                  className='input-style'
+                  
                 />
               </label>
             </p>
-            <CButton color="success" shape="rounded-pill" type="submit" style = {{marginTop: '10px'}}>
+            <CButton color="primary"  type="submit" style = {{marginTop: '10px'}}>
               Add Inventory
             </CButton>
           </CForm>
@@ -298,10 +298,10 @@ const InventoryPopUp = (props) => {
               </p>
               <p>Are you sure you want to delete this inventory?</p>
               
-              <CButton color="secondary" onClick={handleToClose} style={{ marginTop: '20px', borderRadius: '20px'}}>
+              <CButton color="secondary" onClick={handleToClose} className='cancel-btn'>
                 Cancel
               </CButton>
-              <CButton color="danger" onClick={() => handleDelete(props.selectedInventory)} style={{ marginLeft: '20px', marginTop: '20px', borderRadius: '20px'}}>
+              <CButton color="danger" onClick={() => handleDelete(props.selectedInventory)} className='delete-btn'>
                 Delete
               </CButton>
             </div>

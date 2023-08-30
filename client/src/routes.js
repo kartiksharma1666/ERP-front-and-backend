@@ -58,7 +58,7 @@ const Toasts = React.lazy(() => import('./views/notifications/toasts/Toasts'))
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 const Profile = React.lazy(() => import('./views/profile/Profile') )
 const Message = React.lazy(() => import('./views/message/Message') )
-
+const Payment = React.lazy(() => import('./views/payment/Payment') )
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -114,7 +114,7 @@ const routes = [
   { path: '/customer', name: 'customer', element: customer },
   { path: '/orders', name: 'orders', element: orders },
   { path: '/message', name: 'message', element: Message },
-
+  { path: '/payment', name: 'payment', element: Payment },
 
 ]
 

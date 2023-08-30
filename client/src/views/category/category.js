@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import Modal from 'react-modal';
-import { Button } from 'react-bootstrap';
-import CategoryPopUp from './categoryPopUp';
+import React, { useEffect, useState } from 'react'
+import Modal from 'react-modal'
+import { Button } from 'react-bootstrap'
+import CategoryPopUp from './categoryPopUp'
 import {
   CButton,
   CForm,
@@ -14,74 +14,73 @@ import {
   CTableHead,
   CTableHeaderCell,
   CTableRow,
-} from '@coreui/react';
+} from '@coreui/react'
 
 import FloatingButton from '../FloatingButton'
 
-Modal.setAppElement('#root');
+Modal.setAppElement('#root')
 
 const Category = () => {
-  const [data, setData] = useState([]);
-  const [search, setSearch] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState({});
-  const [deletePop, setDeletePop] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [edit, setEdit] = useState(false);
-  const [addCategory, setAddCategory] = useState(false);
-  const [addSubCategory, setSubAddCategory] = useState(false);
-  const [getData, setGetData] = useState(false);
+  const [data, setData] = useState([])
+  const [search, setSearch] = useState('')
+  const [searchResults, setSearchResults] = useState([])
+  const [selectedCategory, setSelectedCategory] = useState({})
+  const [deletePop, setDeletePop] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [edit, setEdit] = useState(false)
+  const [addCategory, setAddCategory] = useState(false)
+  const [addSubCategory, setSubAddCategory] = useState(false)
+  const [getData, setGetData] = useState(false)
 
   useEffect(() => {
-    getDataFromDB();
-  }, [getData]);
+    getDataFromDB()
+  }, [getData])
 
   const getDataFromDB = async () => {
     try {
-      const res = await fetch('http://localhost:8080/api/category/all');
-      const resjson = await res.json();
-      console.log(resjson);
+      const res = await fetch('http://localhost:8080/api/category/all')
+      const resjson = await res.json()
+      console.log(resjson)
       if (resjson.success && Array.isArray(resjson.categories)) {
-        setData(resjson.categories);
+        setData(resjson.categories)
       } else {
-        console.error('Invalid data format from API:', resjson);
-        setData([]);
+        console.error('Invalid data format from API:', resjson)
+        setData([])
       }
-      setGetData(false);
+      setGetData(false)
     } catch (error) {
-      console.error('Error fetching categories:', error);
+      console.error('Error fetching categories:', error)
     }
-  };
+  }
 
   const handleSearch = () => {
     const filteredCategories = data.filter((category) =>
-      category.name.toLowerCase().includes(search.toLowerCase())
-    );
-    setSearchResults(filteredCategories);
-  };
-  const handleSubCategory = (category)=> {
-    setIsModalOpen(true);
-    setSubAddCategory(true);
+      category.name.toLowerCase().includes(search.toLowerCase()),
+    )
+    setSearchResults(filteredCategories)
+  }
+  const handleSubCategory = (category) => {
+    setIsModalOpen(true)
+    setSubAddCategory(true)
     setSelectedCategory(category)
-
   }
 
   const handleClickToOpen = (category, key) => {
-    console.log("select cat:", category);
-    setSelectedCategory(category);
+    console.log('select cat:', category)
+    setSelectedCategory(category)
     if (key === 'update') {
-      setEdit(true);
+      setEdit(true)
     }
     if (key === 'delete') {
-      setDeletePop(true);
+      setDeletePop(true)
     }
-    setIsModalOpen(true);
-  };
+    setIsModalOpen(true)
+  }
 
   const handleAddCategory = () => {
-    setIsModalOpen(true);
-    setAddCategory(true);
-  };
+    setIsModalOpen(true)
+    setAddCategory(true)
+  }
 
   const product_button_style = {
     height: '40px',
@@ -99,7 +98,8 @@ const Category = () => {
             <div className="container">
               {/* Search bar */}
               <div className="input-group mb-3">
-                <input style={{borderRadius: '5px'}}
+                <input
+                  style={{ borderRadius: '5px' }}
                   type="text"
                   className="form-control"
                   placeholder="Search for Categories..."
@@ -130,22 +130,20 @@ const Category = () => {
                           <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
                           <CTableDataCell>{category.name}</CTableDataCell>
                           <CTableDataCell>
-                            <CButton
-                              color="success"
-                              shape="rounded-pill"
+                            <button
+                              className="crud-button3"
                               onClick={() => handleClickToOpen(category, 'update')}
                             >
                               Update
-                            </CButton>
+                            </button>
                           </CTableDataCell>
                           <CTableDataCell>
-                            <CButton
-                              color="danger"
-                              shape="rounded-pill"
+                            <button
+                              className="crud-button4"
                               onClick={() => handleClickToOpen(category, 'delete')}
                             >
                               Delete
-                            </CButton>
+                            </button>
                           </CTableDataCell>
                         </CTableRow>
                       ))
@@ -155,7 +153,8 @@ const Category = () => {
                           <CTableDataCell>{category.name}</CTableDataCell>
                           <CTableDataCell>
                             <CButton
-                              color="primary" variant="outline"
+                              color="primary"
+                              variant="outline"
                               onClick={() => handleSubCategory(category)}
                             >
                               Add SubCategory
@@ -171,23 +170,25 @@ const Category = () => {
                             </CButton>
                           </CTableDataCell>
                           <CTableDataCell>
-                            <CButton
-                              color="danger"
-                              shape="rounded-pill"
+                            <button
+                              className="crud-button4"
                               onClick={() => handleClickToOpen(category, 'delete')}
                             >
                               Delete
-                            </CButton>
+                            </button>
                           </CTableDataCell>
                         </CTableRow>
                       ))}
                 </CTableBody>
               </CTable>
             </div>
-            <button style={product_button_style} className="btn btn-primary" onClick={handleAddCategory}>
+            <button
+              style={product_button_style}
+              className="btn btn-primary"
+              onClick={handleAddCategory}
+            >
               Add Category
             </button>
-            
           </div>
         </CCardBody>
       </CCard>
@@ -206,13 +207,11 @@ const Category = () => {
         setAddCategory={setAddCategory}
         deletePop={deletePop}
         setDeletePop={setDeletePop}
-        addSubCategory={addSubCategory} 
+        addSubCategory={addSubCategory}
         setSubAddCategory={setSubAddCategory}
       />
     </div>
-  );
-};
+  )
+}
 
- 
-
-export default Category;
+export default Category
