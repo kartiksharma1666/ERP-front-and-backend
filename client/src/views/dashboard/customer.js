@@ -170,38 +170,35 @@ const Customer = () => {
                           <CTableDataCell>{item.email}</CTableDataCell>
                           <CTableDataCell>{item.phone}</CTableDataCell>
                           <CTableDataCell>
-                            <button
-                              className='crud-button'
+                            <CButton color='primary' variant='outline'
+                              
                               onClick={() => {
                                 openInPopup(item)
                               }}
                             >
                               Info
-                            </button>
+                            </CButton >
                           </CTableDataCell>
                           <CTableDataCell>
-                            <button
-                              className='crud-button2'
+                            <CButton color='success' variant='outline'
                               onClick={() => handleClickToOpen(item, 'update')}
                             >
                               Update
-                            </button>
+                            </CButton >
                           </CTableDataCell>
                           <CTableDataCell>
-                            <button
-                              className='crud-button3'
+                            <CButton color='warning' variant='outline'
                               onClick={() => handleClickToOpen(item, 'view')}
                             >
                               View
-                            </button>
+                            </CButton >
                           </CTableDataCell>
                           <CTableDataCell>
-                            <button
-                              className='crud-button4'
+                            <CButton color='danger' variant='outline'
                               onClick={() => handleClickToOpen(item, 'delete')}
                             >
                               Delete
-                            </button>
+                            </CButton >
                           </CTableDataCell>
                         </CTableRow>
                       ),

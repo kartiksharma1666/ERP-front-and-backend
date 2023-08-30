@@ -448,98 +448,7 @@ const PopUp = (props) => {
                     />
                   </label>
                   <p></p>
-
-                  {/* <CButton color="primary"  type="submit" style={{marginTop: '25px'}}> */}
-
-                  <CForm onSubmit={handleAttributeSubmit}>
-                    {attributeInputs.map((input, index) => (
-                      <div key={index}>
-                        <CFormInput
-                          size="sm"
-                          type="text"
-                          placeholder="Attribute Name"
-                          value={input.attributeName}
-                          onChange={(e) =>
-                            handleAttributeInputChange(
-                              index,
-                              undefined,
-                              'attributeName',
-                              e.target.value,
-                            )
-                          }
-                        />
-                        {input.values.map((value, valueIndex) => (
-                          <div key={valueIndex}>
-                            <CFormInput
-                              size="sm"
-                              type="text"
-                              placeholder="Value"
-                              value={value.value}
-                              onChange={(e) =>
-                                handleAttributeInputChange(
-                                  index,
-                                  valueIndex,
-                                  'value',
-                                  e.target.value,
-                                )
-                              }
-                            />
-                            <CFormInput
-                              size="sm"
-                              type="text"
-                              placeholder="Price"
-                              value={value.price}
-                              onChange={(e) =>
-                                handleAttributeInputChange(
-                                  index,
-                                  valueIndex,
-                                  'price',
-                                  e.target.value,
-                                )
-                              }
-                            />
-                            <CButton
-                              type="button"
-                              color="secondary"
-                              size="sm"
-                              onClick={() => handleDeleteAttributeValue(index, valueIndex)}
-                            >
-                              Remove Value
-                            </CButton>
-                          </div>
-                        ))}
-                        <CButton
-                          type="button"
-                          color="secondary"
-                          size="sm"
-                          onClick={() => handleAddAttributeValue(index)}
-                        >
-                          Add Value
-                        </CButton>
-                      </div>
-                    ))}
-                    <CButton
-                      onClick={() =>
-                        setAttributeInputs([
-                          ...attributeInputs,
-                          { name: '', values: [{ value: '', price: '' }] }, // Modify the structure
-                        ])
-                      }
-                    >
-                      Add Attribute
-                    </CButton>
-                    {/* <CButton color="success" shape="rounded-pill" type="submit">
-                      Add Attribute
-                    </CButton> */}
-                  </CForm>
-
-                  <CButton
-                    color="success"
-                    shape="rounded-pill"
-                    type="submit"
-                    style={{ marginTop: '15px' }}
-                    onClick={() => {}}
-                  >
+                  <CButton color="primary"  type="submit" style={{marginTop: '20px'}}>
                     Add Product
                   </CButton>
                 </div>
@@ -556,9 +465,7 @@ const PopUp = (props) => {
             Are you sure you want to delete the product:{' '}
             {props.selectedProduct && props.selectedProduct.name}?
           </p>
-
-          <Button
-            className="cancel-btn"
+          <Button style={{ marginTop: '20px', borderRadius: '8px'}}
             onClick={() => {
               props.setDeletePop(false)
               handleToClose()
@@ -569,7 +476,7 @@ const PopUp = (props) => {
           </Button>
 
           <Button
-            className="delete-btn"
+          style={{marginLeft: '20px', marginTop: '20px', borderRadius: '8px'}}
             onClick={() => {
               handleDelete(props.selectedProduct)
               handleToClose()

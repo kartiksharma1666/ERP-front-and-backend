@@ -298,10 +298,10 @@ const InventoryPopUp = (props) => {
               </p>
               <p>Are you sure you want to delete this inventory?</p>
               
-              <CButton color="secondary" onClick={handleToClose} className='cancel-btn'>
+              <CButton color="secondary" onClick={handleToClose} style={{ marginTop: '20px', borderRadius: '8px'}}>
                 Cancel
               </CButton>
-              <CButton color="danger" onClick={() => handleDelete(props.selectedInventory)} className='delete-btn'>
+              <CButton color="danger" onClick={() => handleDelete(props.selectedInventory)} style={{ marginLeft: '8px', marginTop: '20px', borderRadius: '8px'}}>
                 Delete
               </CButton>
             </div>

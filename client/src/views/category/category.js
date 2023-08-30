@@ -130,20 +130,18 @@ const Category = () => {
                           <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
                           <CTableDataCell>{category.name}</CTableDataCell>
                           <CTableDataCell>
-                            <button
-                              className="crud-button3"
+                            <CButton color='primary' variant='outline'
+                    
                               onClick={() => handleClickToOpen(category, 'update')}
                             >
                               Update
-                            </button>
+                            </CButton >
                           </CTableDataCell>
                           <CTableDataCell>
-                            <button
-                              className="crud-button4"
-                              onClick={() => handleClickToOpen(category, 'delete')}
-                            >
-                              Delete
-                            </button>
+                           <CButton color='danger' variant='outline'
+                            onClick={() => handleClickToOpen(category, 'delete')}>
+                            Delete
+                            </CButton>
                           </CTableDataCell>
                         </CTableRow>
                       ))
@@ -152,30 +150,19 @@ const Category = () => {
                           <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
                           <CTableDataCell>{category.name}</CTableDataCell>
                           <CTableDataCell>
-                            <CButton
-                              color="primary"
-                              variant="outline"
-                              onClick={() => handleSubCategory(category)}
-                            >
-                              Add SubCategory
-                            </CButton>
-                          </CTableDataCell>
-                          <CTableDataCell>
-                            <CButton
-                              color="success"
-                              shape="rounded-pill"
+                            <CButton color='primary' variant='outline'
+                           
                               onClick={() => handleClickToOpen(category, 'update')}
                             >
                               Update
-                            </CButton>
+                            </CButton >
                           </CTableDataCell>
                           <CTableDataCell>
-                            <button
-                              className="crud-button4"
+                            <CButton color='danger' variant='outline'
                               onClick={() => handleClickToOpen(category, 'delete')}
                             >
                               Delete
-                            </button>
+                            </CButton >
                           </CTableDataCell>
                         </CTableRow>
                       ))}

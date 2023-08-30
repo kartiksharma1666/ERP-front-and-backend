@@ -108,6 +108,13 @@ border-radius: 8px;
  .box-active{
     height: 60px;
  }
+ 
+ .box-active1{
+    height: 120px;
+ }
+ .box-active2{
+    height: 180px;
+ }
 
  .fab button:active{
     transform: rotate(180deg);
@@ -115,6 +122,15 @@ border-radius: 8px;
  .add-customer-span {
     opacity: 0;
     transition: opacity 0.3s ease-in;
+ }
+ .add-product-span {
+    opacity: 0;
+    transition: opacity 0.3s ease-in;
+ }
+
+ a {
+   text-decoration: none;
+   color: #fff;
  }
 
  .add-customer-span.show {
@@ -125,6 +141,16 @@ border-radius: 8px;
     color:#fff;
     border-radius: 8px;
     margin-right: 10px;
+    margin-top: 5px;
+  }
+ .add-product-span.show {
+    opacity: 1;
+    border: 1px solid #3E424e;
+    background: #3E424e;
+    padding: 4px 3px;
+    color:#fff;
+    border-radius: 8px;
+    margin-right: 30px;
     margin-top: 5px;
   }
 
