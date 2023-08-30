@@ -15,11 +15,15 @@ const FloatingButton = () => {
   return (
     <div>
       <div onMouseOver={handleFabClick} onMouseOut={handleFabClick2} className="fab">
-        <button style={{marginBottom: '-50px'}} className="fabbtn">
+        <button style={{ marginBottom: '-50px' }} className="fabbtn">
           <MdAdd />
         </button>
       </div>
-      <div style={{marginBottom :'-40px'}} onMouseOver={handleFabClick} className={`box ${isBoxActive ? 'box-active' : ''}`}>
+      <div
+        style={{ marginBottom: '-40px' }}
+        onMouseOver={handleFabClick}
+        className={`box ${isBoxActive ? 'box-active' : ''}`}
+      >
         <div className="d-flex">
           <span className={`add-customer-span ${isBoxActive ? 'show' : ''}`}>Add Customer</span>
           <button className="floatbtn item4">

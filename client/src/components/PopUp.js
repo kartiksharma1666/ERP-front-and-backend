@@ -109,18 +109,17 @@ const PopUp = (props) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target
-    
+
     setUpdatedData((prev) => {
       return {
         ...prev,
         [name]: value,
       }
     })
-    
   }
   const handleChangeOfAdd = (e) => {
     const { name, value } = e.target
-    
+
     setAddData((prev) => {
       return {
         ...prev,
@@ -139,7 +138,6 @@ const PopUp = (props) => {
 
       if (Array.isArray(resjson)) {
         setAttributes(resjson)
-        
       } else {
         console.error('Invalid data format from API:', resjson)
         setAttributes([])
@@ -225,7 +223,6 @@ const PopUp = (props) => {
       name: input.attributeName,
       value: input.attributeValue,
     }))
-    
 
     try {
       const response = await fetch('http://localhost:8080/api/attributes/create', {
@@ -283,7 +280,7 @@ const PopUp = (props) => {
         price: value.price,
       })),
     }))
-    
+
     const requestData = {
       ...addData,
       Category: addData.Category, // Add Category here
@@ -291,7 +288,7 @@ const PopUp = (props) => {
     }
 
     const updatedAddData = { ...addData } // Merge the selected attributes
-    
+
     fetch('http://localhost:8080/api/products/create', {
       method: 'POST',
       headers: {
@@ -303,7 +300,7 @@ const PopUp = (props) => {
       .then((data) => {
         console.log('Product created successfully:', requestData)
         // Optionally, you can show a success message or redirect to another page.
-      }) 
+      })
       .catch((error) => {
         console.error('Error creating product:', error)
         // Optionally, you can show an error message or handle the error in other ways.
@@ -320,7 +317,6 @@ const PopUp = (props) => {
   const handleAddAttribute = () => {
     setAttributeInputs([...attributeInputs, { name: '', value: '' }])
   }
-
 
   const popup = {
     marginTop: '25px',
@@ -339,13 +335,8 @@ const PopUp = (props) => {
     marginLeft: '10px',
   }
 
-
   //content to be show in pop up
   const Content = () => {
-    
-    
-      
-    
     if (props.edit == true) {
       return (
         <div>
@@ -356,51 +347,44 @@ const PopUp = (props) => {
           <CForm onSubmit={handleSubmit}>
             {props.selectedProduct && (
               <div>
-                <p className='popup'>
+                <p className="popup">
                   <label>
                     Name
-
-                    <input className='inputbox'
-
+                    <input
+                      className="inputbox"
                       name="Name"
                       placeholder="Name"
                       onChange={handleChange}
                       value={updatedData.Name}
-
                     />
                   </label>
                 </p>
-                <p className='popup'>
+                <p className="popup">
                   <label>
                     Price
-
-                    <input className='inputbox'
-
+                    <input
+                      className="inputbox"
                       name="Price"
                       placeholder="Price"
                       onChange={handleChange}
                       value={updatedData.Price}
-
                     />
                   </label>
                 </p>
-                <p className='popup'>
+                <p className="popup">
                   <label>
                     Description
-
-                    <input className='inputbox'
-
-
+                    <input
+                      className="inputbox"
                       name="Description"
                       placeholder="Description"
                       onChange={handleChange}
                       value={updatedData.Description}
-
                     />
                   </label>
                 </p>
                 <p></p>
-                <CButton color="primary"  type="submit" style={{marginTop: '25px'}}>
+                <CButton color="primary" type="submit" style={{ marginTop: '25px' }}>
                   Update
                 </CButton>
               </div>
@@ -419,58 +403,53 @@ const PopUp = (props) => {
               <h2 style={{ marginTop: '-15px' }}> Enter Product Details</h2>
               <CForm onSubmit={handleAddProduct}>
                 <div>
-
-                  <p className='popup'></p>
-                  <label>Name
-                  <input className='inputbox'
-
-
-                    name="Name"
-                    placeholder="Name"
-                    onChange={handleChangeOfAdd}
-                    value={addData.Name}
-
-                  />
+                  <p className="popup"></p>
+                  <label>
+                    Name
+                    <input
+                      className="inputbox"
+                      name="Name"
+                      placeholder="Name"
+                      onChange={handleChangeOfAdd}
+                      value={addData.Name}
+                    />
                   </label>
-                  <p className='popup'></p>
-                  <label>Price
-                  <input className='inputbox'
-
-                    name="Price"
-                    placeholder="Price"
-                    onChange={handleChangeOfAdd}
-                    value={addData.Price}
-
-                    
-                  />
+                  <p className="popup"></p>
+                  <label>
+                    Price
+                    <input
+                      className="inputbox"
+                      name="Price"
+                      placeholder="Price"
+                      onChange={handleChangeOfAdd}
+                      value={addData.Price}
+                    />
                   </label>
-                  <p className='popup'></p>
-                  <label>Description
-                  <input className='inputbox'
-
-                    name="Description"
-                    placeholder="Description"
-                    onChange={handleChangeOfAdd}
-                    value={addData.Description}
-
-                    
-                  />
+                  <p className="popup"></p>
+                  <label>
+                    Description
+                    <input
+                      className="inputbox"
+                      name="Description"
+                      placeholder="Description"
+                      onChange={handleChangeOfAdd}
+                      value={addData.Description}
+                    />
                   </label>
-                  <p className='popup'></p>
-                  <label>Category
-                  <input className='inputbox'
-
-                    name="Category"
-                    placeholder="Category"
-                    onChange={handleChangeOfAdd}
-                    value={addData.Category}
-
-                  />
+                  <p className="popup"></p>
+                  <label>
+                    Category
+                    <input
+                      className="inputbox"
+                      name="Category"
+                      placeholder="Category"
+                      onChange={handleChangeOfAdd}
+                      value={addData.Category}
+                    />
                   </label>
                   <p></p>
 
-                  <CButton color="primary"  type="submit" style={{marginTop: '25px'}}>
-
+                  {/* <CButton color="primary"  type="submit" style={{marginTop: '25px'}}> */}
 
                   <CForm onSubmit={handleAttributeSubmit}>
                     {attributeInputs.map((input, index) => (
@@ -561,8 +540,6 @@ const PopUp = (props) => {
                     style={{ marginTop: '15px' }}
                     onClick={() => {}}
                   >
-
-
                     Add Product
                   </CButton>
                 </div>
@@ -580,8 +557,8 @@ const PopUp = (props) => {
             {props.selectedProduct && props.selectedProduct.name}?
           </p>
 
-          <Button className='cancel-btn'
-
+          <Button
+            className="cancel-btn"
             onClick={() => {
               props.setDeletePop(false)
               handleToClose()
@@ -591,8 +568,8 @@ const PopUp = (props) => {
             Cancel
           </Button>
 
-          <Button className='delete-btn'
-
+          <Button
+            className="delete-btn"
             onClick={() => {
               handleDelete(props.selectedProduct)
               handleToClose()
@@ -605,7 +582,6 @@ const PopUp = (props) => {
         </>
       )
     } else {
-      
       return (
         <div>
           <button className="btn btn-primary close-button" onClick={handleToClose}>
@@ -613,12 +589,11 @@ const PopUp = (props) => {
           </button>
           <h2 style={{ marginBottom: '30px' }}>Product Details</h2>
           {props.selectedProduct && (
-// gurleen changes here
-//             <div className='popup'>
-//               <p>Name: {props.selectedProduct.name || ""}</p>
-//               <p>Price: {props.selectedProduct.price || ""} </p>
-//               <p>Description:{props.selectedProduct.description || ""}</p>
-
+            // gurleen changes here
+            //             <div className='popup'>
+            //               <p>Name: {props.selectedProduct.name || ""}</p>
+            //               <p>Price: {props.selectedProduct.price || ""} </p>
+            //               <p>Description:{props.selectedProduct.description || ""}</p>
 
             <div style={popup}>
               <p>Name: {props.selectedProduct.name || ''}</p>
@@ -630,28 +605,24 @@ const PopUp = (props) => {
                   <tr>
                     <th>Attribute Name</th>
                     <th>Value-Price</th>
-                    
                   </tr>
                 </thead>
                 <tbody>
-                  {(props.selectedProduct.attributes || []).map(
-                    (attribute) => (
-                      <tr key={attribute.name}>
-                        <td>{attribute.name}</td>
-                        <td>
-                          {(attribute.values || []).map((value) => (
-                            <div key={value.value}>
-                              {value.value} - {value.price}
-                            </div>
-                          ))}
-                        </td>
-                        <td></td> {/* Add price column here if needed */}
-                      </tr>
-                    ),
-                  )}
+                  {(props.selectedProduct.attributes || []).map((attribute) => (
+                    <tr key={attribute.name}>
+                      <td>{attribute.name}</td>
+                      <td>
+                        {(attribute.values || []).map((value) => (
+                          <div key={value.value}>
+                            {value.value} - {value.price}
+                          </div>
+                        ))}
+                      </td>
+                      <td></td> {/* Add price column here if needed */}
+                    </tr>
+                  ))}
                 </tbody>
               </table>
-
             </div>
           )}
         </div>

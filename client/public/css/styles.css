@@ -400,6 +400,11 @@ transition: 0.5s;
    margin-left: 165px;
 }
 
+/* billing section */
+
+.billing-button-text{
+   margin-bottom: 10px;
+}
 .attributes{
    margin-top: 5px;
    font-weight: bold;
