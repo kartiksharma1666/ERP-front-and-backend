@@ -209,7 +209,7 @@ const CustomerPopUp = (props) => {
                   </label>
                 </p>
                 <p></p>
-                <CButton color="success" shape="rounded-pill" type="submit" style = {{marginTop: '10px'}}>
+                <CButton color="primary" type="submit" style = {{marginTop: '10px'}}>
                   Update
                 </CButton>
               </div>
@@ -261,7 +261,7 @@ const CustomerPopUp = (props) => {
                     className='input-style'
                   /> 
                   <p></p>
-                  <CButton color="success" shape="rounded-pill" type="submit" style = {{marginTop: '10px'}}>
+                  <CButton color="primary"  type="submit" style = {{marginTop: '10px'}}>
                     Add Customer
                   </CButton>
                 </div>
@@ -279,7 +279,7 @@ const CustomerPopUp = (props) => {
             {props.selectedCustomer && props.selectedCustomer.name}?
           </p>
           <Button
-          style={{ marginTop: '20px', borderRadius: '20px'}}
+          style={{ marginTop: '20px', borderRadius: '8px'}}
             onClick={() => {
               props.setDeletePop(false)
               handleToClose()
@@ -289,7 +289,7 @@ const CustomerPopUp = (props) => {
             Cancel
           </Button>
           <Button
-          style={{marginLeft: '20px', marginTop: '20px', borderRadius: '20px'}}
+          style={{marginLeft: '20px', marginTop: '20px', borderRadius: '8px'}}
             onClick={() => {
               handleDelete(props.selectedCustomer)
               handleToClose()

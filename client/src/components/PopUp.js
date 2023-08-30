@@ -257,7 +257,7 @@ const PopUp = (props) => {
                     className='input-style'
                   />
                   <p></p>
-                  <CButton color="primary"  type="submit" style={{marginTop: '15px'}}>
+                  <CButton color="primary"  type="submit" style={{marginTop: '20px'}}>
                     Add Product
                   </CButton>
                 </div>
@@ -274,7 +274,7 @@ const PopUp = (props) => {
             Are you sure you want to delete the product:{' '}
             {props.selectedProduct && props.selectedProduct.name}?
           </p>
-          <Button style={{ marginTop: '20px', borderRadius: '20px'}}
+          <Button style={{ marginTop: '20px', borderRadius: '8px'}}
             onClick={() => {
               props.setDeletePop(false)
               handleToClose()
@@ -284,7 +284,7 @@ const PopUp = (props) => {
             Cancel
           </Button>
           <Button
-          style={{marginLeft: '20px', marginTop: '20px', borderRadius: '20px'}}
+          style={{marginLeft: '20px', marginTop: '20px', borderRadius: '8px'}}
             onClick={() => {
               handleDelete(props.selectedProduct)
               handleToClose()

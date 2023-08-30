@@ -141,9 +141,9 @@ const CategoryPopUp = (props) => {
                   />
                 </label>
               </p>
-              <button color="primary"  type="submit" style = {{marginTop: '10px'}}>
+              <CButton color="primary"  type="submit" style = {{marginTop: '10px'}}>
                 Update Category
-              </button>
+              </CButton>
             </div>
           </CForm>
         </div>
@@ -185,7 +185,7 @@ const CategoryPopUp = (props) => {
             {props.selectedCategory && props.selectedCategory.name}?
           </p>
           <Button
-          style={{marginTop: '20px', borderRadius: '20px'}}
+          style={{marginTop: '20px', borderRadius: '8px'}}
             onClick={() => {
               props.setDeletePop(false);
               handleToClose();
@@ -195,7 +195,7 @@ const CategoryPopUp = (props) => {
             Cancel
           </Button>
           <Button
-          style={{marginLeft: '20px', marginTop: '20px', borderRadius: '20px'}}
+          style={{marginLeft: '20px', marginTop: '20px', borderRadius: '8px'}}
             onClick={() => {
               handleDelete(props.selectedCategory);
               handleToClose();

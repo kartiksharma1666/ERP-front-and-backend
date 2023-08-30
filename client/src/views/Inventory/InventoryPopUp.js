@@ -206,9 +206,9 @@ const InventoryPopUp = (props) => {
                     />
                   </label>
                 </p>
-                <button color="primary"  type="submit" style = {{marginTop: '10px'}}>
+                <CButton color="primary"  type="submit" style = {{marginTop: '10px'}}>
                   Update
-                </button>
+                </CButton>
               </div>
             )}
           </CForm>
@@ -296,10 +296,10 @@ const InventoryPopUp = (props) => {
               </p>
               <p>Are you sure you want to delete this inventory?</p>
               
-              <CButton color="secondary" onClick={handleToClose} style={{ marginTop: '20px', borderRadius: '20px'}}>
+              <CButton color="secondary" onClick={handleToClose} style={{ marginTop: '20px', borderRadius: '8px'}}>
                 Cancel
               </CButton>
-              <CButton color="danger" onClick={() => handleDelete(props.selectedInventory)} style={{ marginLeft: '20px', marginTop: '20px', borderRadius: '20px'}}>
+              <CButton color="danger" onClick={() => handleDelete(props.selectedInventory)} style={{ marginLeft: '8px', marginTop: '20px', borderRadius: '8px'}}>
                 Delete
               </CButton>
             </div>

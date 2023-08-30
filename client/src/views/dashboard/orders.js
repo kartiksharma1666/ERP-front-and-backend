@@ -121,7 +121,7 @@ const Orders = () => {
                     )}
                   </div>
                 </div>
-                <div>
+                 <div>
                 <button
                   className=" btn btn-primary"
                   onClick={handleAddOrder}
@@ -129,7 +129,7 @@ const Orders = () => {
                 >
                   Add Order
                 </button>
-                </div>
+                </div> 
               </div>
 
               <CTable className="mb-0 border mt-4" hover responsive>
@@ -139,6 +139,8 @@ const Orders = () => {
                     <CTableHeaderCell scope="col">OrderNumber</CTableHeaderCell>
                     <CTableHeaderCell scope="col">CustomerName</CTableHeaderCell>
                     <CTableHeaderCell scope="col">TotalAmount</CTableHeaderCell>
+                    <CTableHeaderCell scope="col">OrderStatus</CTableHeaderCell>
+                    <CTableHeaderCell scope="col">OrderMedium</CTableHeaderCell>
                     <CTableHeaderCell scope="col"></CTableHeaderCell>
                     <CTableHeaderCell scope="col"></CTableHeaderCell>
                     <CTableHeaderCell scope="col"></CTableHeaderCell>
@@ -158,37 +160,35 @@ const Orders = () => {
                           <CTableDataCell>{item.totalAmount}</CTableDataCell>
                           <CTableDataCell>{item.OrderStatus}</CTableDataCell>
                           <CTableDataCell>{item.OrderMedium}</CTableDataCell>
-                          <CTableDataCell>
+                          {/* <CTableDataCell>
                             <button
                               className='crud-button'
                               
                             >
                               Info
                             </button>
-                          </CTableDataCell>
+                          </CTableDataCell> */}
                           <CTableDataCell>
-                            <button
-                             className="crud-button2"
+                            <CButton color='success' variant='outline'
+                             
                               onClick={() => handleClickToOpen(item, 'update')}
                             >
                               Update
-                            </button>
+                            </CButton >
                           </CTableDataCell>
                           <CTableDataCell>
-                            <button
-                             className='crud-button3'
+                            <CButton color='warning' variant='outline'
                               onClick={() => handleClickToOpen(item, 'view')}
                             >
                               View
-                            </button>
+                            </CButton>
                           </CTableDataCell>
                           <CTableDataCell>
-                            <button
-                              className='crud-button4'
+                            <CButton color='danger' variant='outline'
                               onClick={() => handleClickToOpen(item, 'delete')}
                             >
                               Delete
-                            </button>
+                            </CButton>
                           </CTableDataCell>
                         </CTableRow>
                       ),

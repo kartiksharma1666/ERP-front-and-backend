@@ -373,28 +373,27 @@ const [newCustomerData, setNewCustomerData] = useState({
                           <CTableDataCell>{item.country}</CTableDataCell>
                           <CTableDataCell>{item.Age}</CTableDataCell>
                           <CTableDataCell>
-                            <CButton
-                              color="info"
-                              shape="rounded-pill"
+                            <CButton color='primary' variant='outline'
+                             
                               onClick={() => {
                                 openInPopup(item)
                               }}
                             >
                               Info
-                            </CButton>
+                            </CButton >
                           </CTableDataCell>
                           <CTableDataCell>
-                            <CButton color="success" shape="rounded-pill">
+                            <CButton color='success' variant='outline'>
                               Update
-                            </CButton>
+                            </CButton >
                           </CTableDataCell>
                           <CTableDataCell>
-                            <CButton color="primary" shape="rounded-pill" >
+                            <CButton color='warning' variant='outline' >
                               View
-                            </CButton>
+                            </CButton >
                           </CTableDataCell>
                           <CTableDataCell>
-                            <CButton color="danger" shape="rounded-pill" onClick={() => handleDelete(item.id)} >
+                            <CButton color='danger' variant='outline'  onClick={() => handleDelete(item.id)} >
                               Delete
                             </CButton>
                           </CTableDataCell>

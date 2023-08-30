@@ -121,38 +121,36 @@ const Product = (props) => {
               <CTableDataCell>{item.price}</CTableDataCell>
 
               <CTableDataCell>
-                <button
-                 className='crud-button'
+                <CButton color='primary' variant='outline'
+                 
                   onClick={() => {
                     openInPopup(item)
                   }}
                 >
                   Info
-                </button>
+                </CButton >
               </CTableDataCell>
               <CTableDataCell>
-                <button
-                  className='crud-button2'
+                <CButton color='success' variant='outline'
                   onClick={() => handleClickToOpen(item, 'update')}
                 >
                   Update
-                </button>
+                </CButton >
               </CTableDataCell>
               <CTableDataCell>
-                <button
-                 className='crud-button3'
+                <CButton color='warning' variant='outline'
                   onClick={() => handleClickToOpen(item, 'view')}
                 >
                   View
-                </button>
+                </CButton >
               </CTableDataCell>
               <CTableDataCell>
-                <button
+                <CButton color='danger' variant='outline'
                   className='crud-button4'
                   onClick={() => handleClickToOpen(item, 'delete')}
                 >
                   Delete
-                </button>
+                </CButton >
               </CTableDataCell>
             </CTableRow>
           ))}
@@ -177,38 +175,34 @@ const Product = (props) => {
               <CTableDataCell>{item.price}</CTableDataCell>
 
               <CTableDataCell>
-                <button
-                 className='crud-button'
+                <CButton color='primary' variant='outline'
                   onClick={() => {
                     openInPopup(item)
                   }}
                 >
                   Info
-                </button>
+                </CButton >
               </CTableDataCell>
               <CTableDataCell>
-                <button
-                 className='crud-button2'
+                <CButton color='success' variant='outline'
                   onClick={() => handleClickToOpen(item, 'update')}
                 >
                   Update
-                </button>
+                </CButton >
               </CTableDataCell>
               <CTableDataCell>
-                <button
-                  className='crud-button3'
+                <CButton color='warning' variant='outline'
                   onClick={() => handleClickToOpen(item, 'view')}
                 >
                   View
-                </button>
+                </CButton >
               </CTableDataCell>
               <CTableDataCell>
-                <button
-                 className='crud-button4'
+                <CButton color='danger' variant='outline'
                   onClick={() => handleClickToOpen(item, 'delete')}
                 >
                   Delete
-                </button>
+                </CButton >
               </CTableDataCell>
             </CTableRow>
           ))
