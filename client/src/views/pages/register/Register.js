@@ -191,6 +191,9 @@ const Register = () => {
                     <CButton type="submit" className="mt-4" color="success">
                       Create Account
                     </CButton>
+                    <p >Have a account?
+                    <a role='link' href='#'> LogIn </a>
+                    </p>
                   </div>
                 </CForm>
               </CCardBody>
