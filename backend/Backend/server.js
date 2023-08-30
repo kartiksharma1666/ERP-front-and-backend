@@ -61,14 +61,12 @@ app.get("/", (req, res) => {
 });
 const productRoutes = require("./routes/product.routes"); // Update the path
 
-// ...
-
 // Use the router as middleware
 app.use(productRoutes);
 
 require("./routes/auth.routes")(app);
 require("./routes/user.routes")(app);
-require("./routes/product.routes")(app);
+// require("./routes/product.routes")(app);
 require("./routes/billing.routes")(app);
 
 const customerRoutes = require("./routes/customer.routes");

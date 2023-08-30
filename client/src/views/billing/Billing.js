@@ -202,6 +202,24 @@ const Billing = () => {
     }
   }
   //saving the invoice to order
+  const handleSave = () => {
+    fetch('http://localhost:8080//api/Billing/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(invoiceData), // Use the updatedAddData
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Product created successfully:', requestData)
+        // Optionally, you can show a success message or redirect to another page.
+      })
+      .catch((error) => {
+        console.error('Error creating product:', error)
+        // Optionally, you can show an error message or handle the error in other ways.
+      })
+  }
 
   useEffect(() => {
     if (searchResults.length > 0) {

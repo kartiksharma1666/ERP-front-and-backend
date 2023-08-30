@@ -29,7 +29,7 @@ const Product = (props) => {
   const [selectedCategory, setSelectedCategory] = useState(null)
   const [search, setSearch] = useState('')
   const [searchResults, setSearchResults] = useState([])
-  const [viewProduct, setViewProduct] = useState(null);
+  const [viewProduct, setViewProduct] = useState(null)
 
   const [categories, setCategories] = useState([])
   const fetchCategories = () => {
@@ -63,7 +63,7 @@ const Product = (props) => {
     })
 
     const resjson = await res.json()
-    console.log("this is product",resjson)
+    console.log('this is product', resjson)
     setdata(resjson)
     props.setGetData(false)
   }
@@ -78,9 +78,9 @@ const Product = (props) => {
 
   const handleClickToOpen = (Product, key) => {
     props.setSelectedProduct(Product)
-    if(key=='view'){
+    if (key == 'view') {
       // props.setViewPop(true);
-      setViewProduct(Product);
+      setViewProduct(Product)
     }
     if (key == 'update') {
       props.setEdit(true)
@@ -129,7 +129,7 @@ const Product = (props) => {
 
               <CTableDataCell>
                 <button
-                 className='crud-button'
+                  className="crud-button"
                   onClick={() => {
                     openInPopup(item)
                   }}
@@ -138,26 +138,17 @@ const Product = (props) => {
                 </button>
               </CTableDataCell>
               <CTableDataCell>
-                <button
-                  className='crud-button2'
-                  onClick={() => handleClickToOpen(item, 'update')}
-                >
+                <button className="crud-button2" onClick={() => handleClickToOpen(item, 'update')}>
                   Update
                 </button>
               </CTableDataCell>
               <CTableDataCell>
-                <button
-                 className='crud-button3'
-                  onClick={() => handleClickToOpen(item, 'view')}
-                >
+                <button className="crud-button3" onClick={() => handleClickToOpen(item, 'view')}>
                   View
                 </button>
               </CTableDataCell>
               <CTableDataCell>
-                <button
-                  className='crud-button4'
-                  onClick={() => handleClickToOpen(item, 'delete')}
-                >
+                <button className="crud-button4" onClick={() => handleClickToOpen(item, 'delete')}>
                   Delete
                 </button>
               </CTableDataCell>
@@ -179,7 +170,7 @@ const Product = (props) => {
 
               <CTableDataCell>
                 <button
-                 className='crud-button'
+                  className="crud-button"
                   onClick={() => {
                     openInPopup(item)
                   }}
@@ -188,26 +179,17 @@ const Product = (props) => {
                 </button>
               </CTableDataCell>
               <CTableDataCell>
-                <button
-                 className='crud-button2'
-                  onClick={() => handleClickToOpen(item, 'update')}
-                >
+                <button className="crud-button2" onClick={() => handleClickToOpen(item, 'update')}>
                   Update
                 </button>
               </CTableDataCell>
               <CTableDataCell>
-                <button
-                  className='crud-button3'
-                  onClick={() => handleClickToOpen(item, 'view')}
-                >
+                <button className="crud-button3" onClick={() => handleClickToOpen(item, 'view')}>
                   View
                 </button>
               </CTableDataCell>
               <CTableDataCell>
-                <button
-                 className='crud-button4'
-                  onClick={() => handleClickToOpen(item, 'delete')}
-                >
+                <button className="crud-button4" onClick={() => handleClickToOpen(item, 'delete')}>
                   Delete
                 </button>
               </CTableDataCell>
@@ -259,11 +241,7 @@ const Product = (props) => {
                         spellCheck="false"
                         onChange={handleSearch}
                       ></input>
-                      <div className="input-group-append">
-                          <button className="btn btn-primary search-button" onClick={handleSearch}>
-                            Search
-                          </button>
-                        </div>
+                      <div className="input-group-append"></div>
                       <div className="input-group-append"></div>
                     </div>
                   </div>
