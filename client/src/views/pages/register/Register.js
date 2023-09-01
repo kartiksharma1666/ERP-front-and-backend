@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate,Link } from 'react-router-dom'
 import {
   CButton,
   CCard,
@@ -191,6 +191,9 @@ const Register = () => {
                     <CButton type="submit" className="mt-4" color="success">
                       Create Account
                     </CButton>
+                    <p>
+                      Have an account? <Link to="/login">Log In</Link>
+                    </p>
                   </div>
                 </CForm>
               </CCardBody>

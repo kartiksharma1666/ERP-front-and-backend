@@ -31,6 +31,7 @@ const Category = () => {
   const [addCategory, setAddCategory] = useState(false)
   const [addSubCategory, setSubAddCategory] = useState(false)
   const [getData, setGetData] = useState(false)
+  const [view, setview] = useState(false)
 
   useEffect(() => {
     getDataFromDB()
@@ -74,12 +75,19 @@ const Category = () => {
     if (key === 'delete') {
       setDeletePop(true)
     }
+    if(key === 'view'){
+      setview(true)
+    }
     setIsModalOpen(true)
   }
 
   const handleAddCategory = () => {
     setIsModalOpen(true)
     setAddCategory(true)
+  }
+  const handleView = (category) => {
+    setview(true);
+    setIsModalOpen(true);
   }
 
   const product_button_style = {
@@ -150,8 +158,32 @@ const Category = () => {
                           <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
                           <CTableDataCell>{category.name}</CTableDataCell>
                           <CTableDataCell>
+<<<<<<< HEAD
                             <CButton color='primary' variant='outline'
                            
+=======
+                            <CButton
+                              color="primary"
+                              variant="outline"
+                              onClick={() => handleSubCategory(category)}
+                            >
+                              Add SubCategory
+                            </CButton>
+                          </CTableDataCell>
+                          <CTableDataCell>
+                            <CButton
+                              color="info" variant="outline"
+                              shape="rounded-pill"
+                              onClick={() => handleClickToOpen(category, 'view')}
+                            >
+                              View
+                            </CButton>
+                          </CTableDataCell>
+                          <CTableDataCell>
+                            <CButton
+                              color="success"
+                              shape="rounded-pill"
+>>>>>>> 6fafcbcf1152d659960572e73c8d300552825e97
                               onClick={() => handleClickToOpen(category, 'update')}
                             >
                               Update
@@ -196,6 +228,8 @@ const Category = () => {
         setDeletePop={setDeletePop}
         addSubCategory={addSubCategory}
         setSubAddCategory={setSubAddCategory}
+        setview = {setview}
+        view = {view}
       />
     </div>
   )

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import './PopUp'
+import PopUp from './PopUp'
 
 import {
   CAvatar,
@@ -32,6 +32,7 @@ const Product = (props) => {
   const [viewProduct, setViewProduct] = useState(null)
 
   const [categories, setCategories] = useState([])
+  
   const fetchCategories = () => {
     // Make an API call to fetch categories from your backend
     fetch('http://localhost:8080/api/category/all')
@@ -67,7 +68,7 @@ const Product = (props) => {
     setdata(resjson)
     props.setGetData(false)
   }
-
+  console.log("categories:",categories)
   const handleSearch = (e) => {
     setSearch(e.target.value)
     const filterdProd = data?.filter((product) =>
@@ -212,7 +213,7 @@ const Product = (props) => {
       </>
     )
   }
-
+  console.log("value of category in product", categories)
   return (
     <CRow>
       <CCol xs={12}>
@@ -284,8 +285,11 @@ const Product = (props) => {
           </CCardBody>
         </CCard>
       </CCol>
+      <PopUp categories={categories} setCategories={setCategories} /* other props */ />
     </CRow>
+    
   )
+  
 }
 
 export default Product

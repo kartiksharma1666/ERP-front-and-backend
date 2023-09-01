@@ -22,7 +22,6 @@ import { cilLockLocked, cilUser } from '@coreui/icons'
 const Login = () => {
   const cookies = new Cookies()
   const navigate = useNavigate()
-  
 
   const [formData, setFormData] = useState({
     username: '',
@@ -201,10 +200,13 @@ const Login = () => {
                 <CCardBody className="text-center">
                   <div>
                     <h2>Sign up</h2>
+                    
                     <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                      tempor incididunt ut labore et dolore magna aliqua.
+                      Welcome to our comprehensive ERP solution designed to streamline your business
+                      processes and enhance efficiency. Sign up now to access a world of integrated
+                      tools and features tailored to your organization's needs.
                     </p>
+
                     <Link to="/register">
                       <CButton color="primary" className="mt-3" active tabIndex={-1}>
                         Register Now!

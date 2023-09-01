@@ -33,7 +33,7 @@ const CategoryPopUp = (props) => {
       setUpdatedData({
         id: props.selectedCategory?._id,
         name: props.selectedCategory?.name,
-        subcategories: [],
+        subcategories: props.selectedCategory?.subcategories,
       })
     } else if (props.addCategory) {
       setUpdatedData({
@@ -226,6 +226,7 @@ const CategoryPopUp = (props) => {
   // }
 
   const Content = () => {
+    console.log('selected category', props.selectedCategory)
     if (props.edit === true) {
       return (
         <div>
@@ -247,7 +248,50 @@ const CategoryPopUp = (props) => {
                   />
                 </label>
               </p>
+<<<<<<< HEAD
               <CButton color="primary"  type="submit" style = {{marginTop: '10px'}}>
+=======
+              {updatedData.subcategories.map((subcategory, index) => (
+                <div
+                  key={index}
+                  style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}
+                >
+                  <input
+                    type="text"
+                    name={`subcategories[${index}].name`}
+                    placeholder={`Subcategory ${index + 1} Name`}
+                    onChange={(e) => handleSubcategoryChange(index, e)}
+                    value={subcategory.name}
+                    style={{ marginTop: '10px', width: '100%' }}
+                  />
+                  <CButton
+                    type="button"
+                    onClick={() => handleRemoveSubcategory(index)}
+                    color="danger"
+                    variant="outline"
+                    style={{
+                      marginLeft: '10px',
+                      border: 'none',
+                      padding: '5px 10px',
+                      borderRadius: '5px',
+                    }}
+                  >
+                    Remove
+                  </CButton>
+                </div>
+              ))}
+
+              <CButton
+                color="info"
+                variant="ghost"
+                style={{ marginTop: '10px' }}
+                onClick={handleAddSubcategory}
+              >
+                Add More
+              </CButton>
+
+              <CButton color="primary" type="submit" style={{ marginTop: '10px' }}>
+>>>>>>> 6fafcbcf1152d659960572e73c8d300552825e97
                 Update Category
               </CButton>
             </div>
@@ -295,27 +339,7 @@ const CategoryPopUp = (props) => {
                 <div
                   key={index}
                   style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}
-                >
-                  <label style={{ flex: '1' }}>
-                    {/* SubCategory Name */}
-                    {/* <input
-                    style={inputbox}
-                    name={`subcategories[${index}].name`}
-                    placeholder={`SubCategory ${index + 1} Name`}
-                    onChange={(e) => handleSubcategoryChange(index, e)}
-                    value={subcategory.name}
-                    className="input-style"
-                  /> */}
-                  </label>
-                  {/* <CButton
-                  type="button"
-                  onClick={() => handleRemoveSubcategory(index)}
-                  color="danger" variant="outline"
-                  style={{ marginLeft: '10px',   border: 'none', padding: '5px 10px', borderRadius: '5px' }}
-                >
-                  Remove
-                </CButton> */}
-                </div>
+                ></div>
               ))}
               <div>
                 {renderSubcategoryInputs()}
@@ -371,7 +395,7 @@ const CategoryPopUp = (props) => {
           </Button>
         </div>
       )
-    } else {
+    } else if (props.view) {
       return (
         <div>
           <button className="btn btn-primary close-button" onClick={handleToClose}>
@@ -381,7 +405,14 @@ const CategoryPopUp = (props) => {
           {props.selectedCategory && (
             <div>
               <p>Name: {props.selectedCategory.name}</p>
-              {/* Render other category details */}
+              <p>Sub Categories</p>
+              {props.selectedCategory.subcategories && (
+                <ul>
+                  {props.selectedCategory.subcategories.map((subcategory) => (
+                    <li key={subcategory._id}>{subcategory.name}</li>
+                  ))}
+                </ul>
+              )}
             </div>
           )}
         </div>
