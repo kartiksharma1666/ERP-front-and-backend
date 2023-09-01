@@ -20,7 +20,7 @@ import {
   CDropdownToggle
 } from '@coreui/react';
 
-import FloatingButton from '../FloatingButton'
+import FloatingButton from '../floatingbutton/FloatingButton'
 
 const Orders = () => {
   const [data, setData] = useState([]);

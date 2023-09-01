@@ -70,6 +70,7 @@ border-radius: 8px;
     flex-direction: column;
     justify-content: space-between;
     align-items:end;
+    overflow: hidden;
  }
 
  .floatbtn{
@@ -106,15 +107,10 @@ border-radius: 8px;
  }
  
  .box-active{
-    height: 60px;
+    height: 160px;
  }
  
- .box-active1{
-    height: 120px;
- }
- .box-active2{
-    height: 180px;
- }
+ 
 
  .fab button:active{
     transform: rotate(180deg);
@@ -145,6 +141,17 @@ border-radius: 8px;
   }
  .add-product-span.show {
     opacity: 1;
+    border: 1px solid #3E424e;
+    background: #3E424e;
+    padding: 4px 3px;
+    color:#fff;
+    border-radius: 8px;
+    margin-right: 30px;
+    margin-top: 5px;
+  }
+
+  .billing-span.show{
+   opacity: 1;
     border: 1px solid #3E424e;
     background: #3E424e;
     padding: 4px 3px;

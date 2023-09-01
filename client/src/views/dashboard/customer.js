@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import CustomerPopUp from './customerPopUp'
-import FloatingButton from '../FloatingButton'
+import FloatingButton from '../floatingbutton/FloatingButton'
 
 import {
   CAvatar,

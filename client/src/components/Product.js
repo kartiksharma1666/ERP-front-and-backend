@@ -153,7 +153,6 @@ const Product = (props) => {
               </CTableDataCell>
               <CTableDataCell>
                 <CButton color='danger' variant='outline'
-                  className='crud-button4'
                   onClick={() => handleClickToOpen(item, 'delete')}
                 >
                   Delete

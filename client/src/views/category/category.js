@@ -16,7 +16,7 @@ import {
   CTableRow,
 } from '@coreui/react'
 
-import FloatingButton from '../FloatingButton'
+import FloatingButton from '../floatingbutton/FloatingButton'
 
 Modal.setAppElement('#root')
 

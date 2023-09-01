@@ -23,7 +23,7 @@ import React, { useEffect, useState } from 'react'
 import { AiFillDelete } from 'react-icons/ai'
 import { DatePicker } from 'rsuite'
 import 'rsuite/dist/rsuite.min.css'
-import FloatingButton from '../FloatingButton'
+import FloatingButton from '../floatingbutton/FloatingButton'
 
 //local components
 import HistoryAndHelp from './HistoryAndHelp'
