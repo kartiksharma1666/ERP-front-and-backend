@@ -1,20 +1,37 @@
 import React, { useEffect, useState } from 'react'
 import Modal from 'react-modal'
 import { Button } from 'react-bootstrap'
+
 import './Product'
 
-import { CButton, CDropdownItem, CForm, CFormGroup, CSelect, CFormInput } from '@coreui/react'
+import {
+  CButton,
+  CInputGroup,
+  CInputGroupText,
+  CDropdownItem,
+  CForm,
+  CFormGroup,
+  CSelect,
+  CFormInput,
+} from '@coreui/react'
 
 Modal.setAppElement('#root')
 const PopUp = (props) => {
   // Function to close the modal
-
+  const [addData, setAddData] = useState({
+    Name: '',
+    Price: '',
+    Description: '',
+    Category: '', // Initialize Category in addData
+    Attributes: [], // Initialize Attributes in addData
+  })
   const [updatedData, setUpdatedData] = useState({})
-  const [addData, setAddData] = useState({})
+  // const [addData, setAddData] = useState({})
   const [attributes, setAttributes] = useState([])
   const [selectedAttributes, setSelectedAttributes] = useState({})
   const updatedAddData = { ...addData, ...selectedAttributes }
   const [viewPop, setViewPop] = useState(false)
+  const [category, setCategory] = useState([])
 
   const [updateAttributeData, setupdateAttributeData] = useState({
     name: '',
@@ -55,6 +72,18 @@ const PopUp = (props) => {
         [name]: value,
       }))
     }
+  }
+  const fetchCategory = () => {
+    // Make an API call to fetch categories from your backend
+    fetch('http://localhost:8080/api/category/all')
+      .then((response) => response.json())
+      .then((data) => {
+        setCategory(data.categories)
+        //console.log(data.categories) // Update the state with fetched categories
+      })
+      .catch((error) => {
+        console.error('Error fetching categories:', error)
+      })
   }
 
   const handleAddAttributeValue = (index) => {
@@ -126,6 +155,7 @@ const PopUp = (props) => {
   }
   useEffect(() => {
     fetchAttributes()
+    fetchCategory()
   }, [])
 
   const fetchAttributes = async () => {
@@ -306,13 +336,23 @@ const PopUp = (props) => {
     props.setAddProduct(false)
     props.setIsModalOpen(false)
     props.setGetData(true)
-    setAddData({})
+
     setSelectedAttributes({}) // Clear selected attributes
     // Clear selected attributes
     setAttributeInputs([])
+    setAddData({
+      Name: '',
+      Price: '',
+      Description: '',
+      Category: '', // Reset Category
+      Attributes: [], // Reset Attributes
+    })
   }
   const handleAddAttribute = () => {
-    setAttributeInputs([...attributeInputs, { name: '', value: '' }])
+    setAttributeInputs((prevInputs) => [
+      ...prevInputs,
+      { attributeName: '', values: [{ value: '', price: '' }] },
+    ])
   }
 
   const popup = {
@@ -334,6 +374,7 @@ const PopUp = (props) => {
 
   //content to be show in pop up
   const Content = () => {
+    console.log('categories in popUP', props.categories)
     if (props.edit == true) {
       return (
         <div>
@@ -505,21 +546,36 @@ const PopUp = (props) => {
                     />
                   </label>
                   <p className="popup"></p>
-                  <label>
-                    Category
-                    <input
-                      className="inputbox"
-                      name="Category"
-                      placeholder="Category"
-                      onChange={handleChangeOfAdd}
-                      value={addData.Category}
-                    />
-                  </label>
+                  <form>
+                    <CInputGroup className="mb-3">
+                      <CInputGroupText htmlFor="inputGroupSelect01">Category</CInputGroupText>
+                      <select
+                        name="Category"
+                        className="form-select"
+                        onChange={handleChangeOfAdd}
+                        value={addData.Category}
+                      >
+                        {category && category.length > 0 ? (
+                          <>
+                            <option value="" disabled>
+                              Select a Category
+                            </option>
+                            {category.map((category) => (
+                              <option key={category._id} value={category.name}>
+                                {category.name}
+                              </option>
+                            ))}
+                          </>
+                        ) : (
+                          <option value="" disabled>
+                            No Category available. Please create one first.
+                          </option>
+                        )}
+                      </select>
+                    </CInputGroup>
+                  </form>
                   <p></p>
-
-                  {/* <CButton color="primary"  type="submit" style={{marginTop: '25px'}}> */}
-
-                  <CForm onSubmit={handleAttributeSubmit}>
+                  <div>
                     {attributeInputs.map((input, index) => (
                       <div key={index}>
                         <CFormInput
@@ -538,7 +594,8 @@ const PopUp = (props) => {
                         />
                         {input.values.map((value, valueIndex) => (
                           <div key={valueIndex}>
-                            <CFormInput style={{ marginTop:'10px'}}
+                            <CFormInput
+                              style={{ marginTop: '10px' }}
                               size="sm"
                               type="text"
                               placeholder="Value"
@@ -552,7 +609,8 @@ const PopUp = (props) => {
                                 )
                               }
                             />
-                            <CFormInput style={{ marginTop:'10px'}}
+                            <CFormInput
+                              style={{ marginTop: '10px' }}
                               size="sm"
                               type="text"
                               placeholder="Price"
@@ -567,48 +625,36 @@ const PopUp = (props) => {
                               }
                             />
                             <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
-                            <CButton
-                              type="button"
-                              color="secondary"
-                              size="sm"
-                              onClick={() => handleDeleteAttributeValue(index, valueIndex)}
-                            >
-                              Remove Value
-                            </CButton>
-                            <CButton
-                              type="button"
-                              color="secondary"
-                              size="sm"
-                              onClick={() => handleAddAttributeValue(index)}
-                            >
-                              Add Value
-                            </CButton>
+                              <CButton
+                                type="button"
+                                color="secondary"
+                                size="sm"
+                                onClick={() => handleDeleteAttributeValue(index, valueIndex)}
+                              >
+                                Remove Value
+                              </CButton>
+                              <CButton
+                                type="button"
+                                color="secondary"
+                                size="sm"
+                                onClick={() => handleAddAttributeValue(index)}
+                              >
+                                Add Value
+                              </CButton>
                             </div>
                           </div>
                         ))}
                       </div>
                     ))}
-                    <CButton style={{marginTop: '10px'}}
-                      onClick={() =>
-                        setAttributeInputs([
-                          ...attributeInputs,
-                          { name: '', values: [{ value: '', price: '' }] }, // Modify the structure
-                        ])
-                      }
-                    >
+                    <CButton style={{ marginTop: '10px' }} onClick={handleAddAttribute}>
                       Add Attribute
                     </CButton>
-                    {/* <CButton color="success" shape="rounded-pill" type="submit">
-                      Add Attribute
-                    </CButton> */}
-                  </CForm>
-
+                  </div>
                   <CButton
                     color="success"
                     shape="rounded-pill"
                     type="submit"
                     style={{ marginTop: '15px' }}
-                    onClick={() => {}}
                   >
                     Add Product
                   </CButton>
