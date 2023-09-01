@@ -31,6 +31,7 @@ const Category = () => {
   const [addCategory, setAddCategory] = useState(false)
   const [addSubCategory, setSubAddCategory] = useState(false)
   const [getData, setGetData] = useState(false)
+  const [view, setview] = useState(false)
 
   useEffect(() => {
     getDataFromDB()
@@ -74,12 +75,19 @@ const Category = () => {
     if (key === 'delete') {
       setDeletePop(true)
     }
+    if(key === 'view'){
+      setview(true)
+    }
     setIsModalOpen(true)
   }
 
   const handleAddCategory = () => {
     setIsModalOpen(true)
     setAddCategory(true)
+  }
+  const handleView = (category) => {
+    setview(true);
+    setIsModalOpen(true);
   }
 
   const product_button_style = {
@@ -162,6 +170,15 @@ const Category = () => {
                           </CTableDataCell>
                           <CTableDataCell>
                             <CButton
+                              color="info" variant="outline"
+                              shape="rounded-pill"
+                              onClick={() => handleClickToOpen(category, 'view')}
+                            >
+                              View
+                            </CButton>
+                          </CTableDataCell>
+                          <CTableDataCell>
+                            <CButton
                               color="success"
                               shape="rounded-pill"
                               onClick={() => handleClickToOpen(category, 'update')}
@@ -209,6 +226,8 @@ const Category = () => {
         setDeletePop={setDeletePop}
         addSubCategory={addSubCategory}
         setSubAddCategory={setSubAddCategory}
+        setview = {setview}
+        view = {view}
       />
     </div>
   )
