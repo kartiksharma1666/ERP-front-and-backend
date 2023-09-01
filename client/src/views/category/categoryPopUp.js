@@ -248,50 +248,7 @@ const CategoryPopUp = (props) => {
                   />
                 </label>
               </p>
-<<<<<<< HEAD
               <CButton color="primary"  type="submit" style = {{marginTop: '10px'}}>
-=======
-              {updatedData.subcategories.map((subcategory, index) => (
-                <div
-                  key={index}
-                  style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}
-                >
-                  <input
-                    type="text"
-                    name={`subcategories[${index}].name`}
-                    placeholder={`Subcategory ${index + 1} Name`}
-                    onChange={(e) => handleSubcategoryChange(index, e)}
-                    value={subcategory.name}
-                    style={{ marginTop: '10px', width: '100%' }}
-                  />
-                  <CButton
-                    type="button"
-                    onClick={() => handleRemoveSubcategory(index)}
-                    color="danger"
-                    variant="outline"
-                    style={{
-                      marginLeft: '10px',
-                      border: 'none',
-                      padding: '5px 10px',
-                      borderRadius: '5px',
-                    }}
-                  >
-                    Remove
-                  </CButton>
-                </div>
-              ))}
-
-              <CButton
-                color="info"
-                variant="ghost"
-                style={{ marginTop: '10px' }}
-                onClick={handleAddSubcategory}
-              >
-                Add More
-              </CButton>
-
-              <CButton color="primary" type="submit" style={{ marginTop: '10px' }}>
->>>>>>> 6fafcbcf1152d659960572e73c8d300552825e97
                 Update Category
               </CButton>
             </div>
