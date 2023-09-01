@@ -16,7 +16,7 @@ import {
   CTableRow,
 } from '@coreui/react'
 
-import FloatingButton from '../FloatingButton'
+import FloatingButton from '../floatingbutton/FloatingButton'
 
 Modal.setAppElement('#root')
 
@@ -138,20 +138,18 @@ const Category = () => {
                           <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
                           <CTableDataCell>{category.name}</CTableDataCell>
                           <CTableDataCell>
-                            <button
-                              className="crud-button3"
+                            <CButton color='primary' variant='outline'
+                    
                               onClick={() => handleClickToOpen(category, 'update')}
                             >
                               Update
-                            </button>
+                            </CButton >
                           </CTableDataCell>
                           <CTableDataCell>
-                            <button
-                              className="crud-button4"
-                              onClick={() => handleClickToOpen(category, 'delete')}
-                            >
-                              Delete
-                            </button>
+                           <CButton color='danger' variant='outline'
+                            onClick={() => handleClickToOpen(category, 'delete')}>
+                            Delete
+                            </CButton>
                           </CTableDataCell>
                         </CTableRow>
                       ))
@@ -160,6 +158,10 @@ const Category = () => {
                           <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
                           <CTableDataCell>{category.name}</CTableDataCell>
                           <CTableDataCell>
+<<<<<<< HEAD
+                            <CButton color='primary' variant='outline'
+                           
+=======
                             <CButton
                               color="primary"
                               variant="outline"
@@ -181,18 +183,18 @@ const Category = () => {
                             <CButton
                               color="success"
                               shape="rounded-pill"
+>>>>>>> 6fafcbcf1152d659960572e73c8d300552825e97
                               onClick={() => handleClickToOpen(category, 'update')}
                             >
                               Update
-                            </CButton>
+                            </CButton >
                           </CTableDataCell>
                           <CTableDataCell>
-                            <button
-                              className="crud-button4"
+                            <CButton color='danger' variant='outline'
                               onClick={() => handleClickToOpen(category, 'delete')}
                             >
                               Delete
-                            </button>
+                            </CButton >
                           </CTableDataCell>
                         </CTableRow>
                       ))}

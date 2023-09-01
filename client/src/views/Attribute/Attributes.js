@@ -13,7 +13,7 @@ import {
   CTableRow,
 } from '@coreui/react';
 import AttributePopUp from './AttributePopUp'; // Create a separate component for the attribute popup
-import FloatingButton from '../FloatingButton';
+import FloatingButton from '../floatingbutton/FloatingButton';
 
 Modal.setAppElement('#root');
 

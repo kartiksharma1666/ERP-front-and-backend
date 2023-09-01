@@ -59,12 +59,12 @@ import avatar4 from 'src/assets/images/avatars/4.jpg'
 import avatar5 from 'src/assets/images/avatars/5.jpg'
 import avatar6 from 'src/assets/images/avatars/6.jpg'
 
-import FloatingButton from '../FloatingButton'
+import FloatingButton from '../floatingbutton/FloatingButton'
 
 import WidgetsBrand from '../widgets/WidgetsBrand'
 import WidgetsDropdown from '../widgets/WidgetsDropdown'
 import { DocsExample } from 'src/components'
-import { FloatingButton } from '../FloatingButton'
+import { FloatingButton } from '../floatingbutton/FloatingButton'
 Modal.setAppElement('#root')
 
 const Customer = () => {
@@ -359,32 +359,27 @@ const Customer = () => {
                           <CTableDataCell>{item.country}</CTableDataCell>
                           <CTableDataCell>{item.Age}</CTableDataCell>
                           <CTableDataCell>
-                            <CButton
-                              color="info"
-                              shape="rounded-pill"
+                            <CButton color='primary' variant='outline'
+                             
                               onClick={() => {
                                 openInPopup(item)
                               }}
                             >
                               Info
-                            </CButton>
+                            </CButton >
                           </CTableDataCell>
                           <CTableDataCell>
-                            <CButton color="success" shape="rounded-pill">
+                            <CButton color='success' variant='outline'>
                               Update
-                            </CButton>
+                            </CButton >
                           </CTableDataCell>
                           <CTableDataCell>
-                            <CButton color="primary" shape="rounded-pill">
+                            <CButton color='warning' variant='outline' >
                               View
-                            </CButton>
+                            </CButton >
                           </CTableDataCell>
                           <CTableDataCell>
-                            <CButton
-                              color="danger"
-                              shape="rounded-pill"
-                              onClick={() => handleDelete(item.id)}
-                            >
+                            <CButton color='danger' variant='outline'  onClick={() => handleDelete(item.id)} >
                               Delete
                             </CButton>
                           </CTableDataCell>

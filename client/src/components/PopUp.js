@@ -575,6 +575,9 @@ const PopUp = (props) => {
                     </CInputGroup>
                   </form>
                   <p></p>
+<<<<<<< HEAD
+                  <CButton color="primary"  type="submit" style={{marginTop: '20px'}}>
+=======
                   <div>
                     {attributeInputs.map((input, index) => (
                       <div key={index}>
@@ -656,6 +659,7 @@ const PopUp = (props) => {
                     type="submit"
                     style={{ marginTop: '15px' }}
                   >
+>>>>>>> 6fafcbcf1152d659960572e73c8d300552825e97
                     Add Product
                   </CButton>
                 </div>
@@ -672,9 +676,7 @@ const PopUp = (props) => {
             Are you sure you want to delete the product:{' '}
             {props.selectedProduct && props.selectedProduct.name}?
           </p>
-
-          <Button
-            className="cancel-btn"
+          <Button style={{ marginTop: '20px', borderRadius: '8px'}}
             onClick={() => {
               props.setDeletePop(false)
               handleToClose()
@@ -685,7 +687,7 @@ const PopUp = (props) => {
           </Button>
 
           <Button
-            className="delete-btn"
+          style={{marginLeft: '20px', marginTop: '20px', borderRadius: '8px'}}
             onClick={() => {
               handleDelete(props.selectedProduct)
               handleToClose()

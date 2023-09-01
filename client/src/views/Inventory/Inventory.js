@@ -16,7 +16,7 @@ import {
   CTableRow,
 } from "@coreui/react";
 
-import FloatingButton from '../FloatingButton'
+import FloatingButton from '../floatingbutton/FloatingButton'
 
 const Inventory = () => {
   const [data, setData] = useState([]);
@@ -222,18 +222,16 @@ const Inventory = () => {
                           <CTableDataCell>{item.quantity}</CTableDataCell>
                           <CTableDataCell>{item.category}</CTableDataCell>
                           <CTableDataCell>
-                            <button className="crud-button3"
+                            <CButton color="primary" variant="outline" 
                               onClick={() => handleUpdateInventory(item)}
                             >
                               Update
-                            </button>
-                          </CTableDataCell>
-                          <CTableDataCell>
-                            <button className="crud-button4"
+                            </CButton >{" "}
+                            <CButton color="danger" variant="outline" 
                               onClick={() => handleDeleteInventory(item)}
                             >
                               Delete
-                            </button>
+                            </CButton >
                           </CTableDataCell>
                         </CTableRow>
                       ))
@@ -247,18 +245,18 @@ const Inventory = () => {
                           <CTableDataCell>{item.quantity}</CTableDataCell>
                           <CTableDataCell>{item.category}</CTableDataCell>
                           <CTableDataCell>
-                            <button
-                              className="crud-button3"
+                            <CButton
+                            color ='primary' variant="outline"
                               onClick={() => handleUpdateInventory(item)}
                             >
                               Update
-                            </button>{" "}
-                            <button
-                            className="crud-button4"
+                            </CButton>{" "}
+                            <CButton
+                            color ='danger' variant="outline"
                               onClick={() => handleDeleteInventory(item)}
                             >
                               Delete
-                            </button>
+                            </CButton>
                           </CTableDataCell>
                         </CTableRow>
                       ))}

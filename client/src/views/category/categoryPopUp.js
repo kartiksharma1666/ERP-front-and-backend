@@ -248,6 +248,9 @@ const CategoryPopUp = (props) => {
                   />
                 </label>
               </p>
+<<<<<<< HEAD
+              <CButton color="primary"  type="submit" style = {{marginTop: '10px'}}>
+=======
               {updatedData.subcategories.map((subcategory, index) => (
                 <div
                   key={index}
@@ -288,6 +291,7 @@ const CategoryPopUp = (props) => {
               </CButton>
 
               <CButton color="primary" type="submit" style={{ marginTop: '10px' }}>
+>>>>>>> 6fafcbcf1152d659960572e73c8d300552825e97
                 Update Category
               </CButton>
             </div>
@@ -369,7 +373,7 @@ const CategoryPopUp = (props) => {
             {props.selectedCategory && props.selectedCategory.name}?
           </p>
           <Button
-            className="cancel-btn"
+          style={{marginTop: '20px', borderRadius: '8px'}}
             onClick={() => {
               props.setDeletePop(false)
               handleToClose()
@@ -379,7 +383,7 @@ const CategoryPopUp = (props) => {
             Cancel
           </Button>
           <Button
-            className="delete-btn"
+          style={{marginLeft: '20px', marginTop: '20px', borderRadius: '8px'}}
             onClick={() => {
               handleDelete(props.selectedCategory)
               handleToClose()
