@@ -575,9 +575,6 @@ const PopUp = (props) => {
                     </CInputGroup>
                   </form>
                   <p></p>
-<<<<<<< HEAD
-                  <CButton color="primary"  type="submit" style={{marginTop: '20px'}}>
-=======
                   <div>
                     {attributeInputs.map((input, index) => (
                       <div key={index}>
@@ -659,7 +656,6 @@ const PopUp = (props) => {
                     type="submit"
                     style={{ marginTop: '15px' }}
                   >
->>>>>>> 6fafcbcf1152d659960572e73c8d300552825e97
                     Add Product
                   </CButton>
                 </div>
