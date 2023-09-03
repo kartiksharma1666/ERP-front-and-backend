@@ -123,7 +123,7 @@ const Login = () => {
         // navigate('/Profile', { profileData: user } );
         // console.log("user info",user)
 
-        navigate('/Dashboard')
+        navigate('/companyProfile')
 
         // Decode the JWT to get user information (optional)
 
@@ -137,7 +137,7 @@ const Login = () => {
   }
   useEffect(() => {
     if (cookies.get('jwtToken')) {
-      navigate('/Dashboard')
+      navigate('/companyProfile')
     } else {
       console.log('goes here')
     }

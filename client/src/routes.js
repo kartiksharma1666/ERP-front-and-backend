@@ -3,6 +3,7 @@ import customer from './views/dashboard/customer';
 import orders from './views/dashboard/orders';
 // import Category from './views/category/category';
 
+const CompanyProfile = React.lazy(() => import('./views/companyProfile/CompanyProfile'))
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Customer = React.lazy(() => import('./views/dashboard/customer'))
 const Billing = React.lazy(() => import('./views/billing/Billing'))
@@ -62,6 +63,7 @@ const Payment = React.lazy(() => import('./views/payment/Payment') )
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
+  { path: '/companyProfile', name: 'Company Profile', element: CompanyProfile },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
   { path: '/Category', name: 'Category', element: Category},
   { path: '/billing', name: 'Billing', element: Billing},

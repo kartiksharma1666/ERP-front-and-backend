@@ -62,13 +62,6 @@ const Profile = () => {
         }
     }, []);
 
-    useEffect(() => {
-        if (userData.length > 0 && user) {
-            const matchingUser = userData.find((data) => data._id === user.id);
-            setSelectedProfile(matchingUser);
-        }
-    }, [userData, user]);
-
     const handleSubmit = () => {
         fetch('http://localhost:8080/api/updateProfile', {
             method: 'POST',

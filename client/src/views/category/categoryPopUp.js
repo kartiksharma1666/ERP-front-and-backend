@@ -248,9 +248,6 @@ const CategoryPopUp = (props) => {
                   />
                 </label>
               </p>
-<<<<<<< HEAD
-              <CButton color="primary"  type="submit" style = {{marginTop: '10px'}}>
-=======
               {updatedData.subcategories.map((subcategory, index) => (
                 <div
                   key={index}
@@ -291,7 +288,6 @@ const CategoryPopUp = (props) => {
               </CButton>
 
               <CButton color="primary" type="submit" style={{ marginTop: '10px' }}>
->>>>>>> 6fafcbcf1152d659960572e73c8d300552825e97
                 Update Category
               </CButton>
             </div>
