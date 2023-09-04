@@ -158,6 +158,7 @@ const Category = () => {
                           <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
                           <CTableDataCell>{category.name}</CTableDataCell>
                           <CTableDataCell>
+
                             <CButton
                               color="primary"
                               variant="outline"
@@ -179,6 +180,7 @@ const Category = () => {
                             <CButton
                               color="success"
                               shape="rounded-pill"
+
                               onClick={() => handleClickToOpen(category, 'update')}
                             >
                               Update

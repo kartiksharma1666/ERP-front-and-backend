@@ -200,6 +200,7 @@ export const Dashboard = () => {
   const cookies = new Cookies()
 
   const [getData, setGetData] = useState(false)
+  const [getimagedash, setImagedash] = useState(false)
   const [user, setUser] = useState(null)
   const [userData, setUserData] = useState(null)
 
@@ -271,6 +272,8 @@ export const Dashboard = () => {
         setSelectedProduct={setSelectedProduct}
         setEdit={setEdit}
         getData={getData}
+        getimagedash={getimagedash}
+        setImagedash={setImagedash}
         setGetData={setGetData}
         addProduct={addProduct}
         setAddProduct={setAddProduct}
@@ -302,6 +305,8 @@ export const Dashboard = () => {
         setSelectedProduct={setSelectedProduct}
         getData={getData}
         setGetData={setGetData}
+        getimagedash={getimagedash}
+        setImagedash={setImagedash}
         edit={edit}
         setEdit={setEdit}
         addProduct={addProduct}
