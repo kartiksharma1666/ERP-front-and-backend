@@ -1,18 +1,21 @@
 const Product = require("../models/product.model");
 const Category = require("../models/category.model");
+const Image = require("../models/images.model");
 const ErrorResponse = require("../utils/errorResponse");
 const mongoose = require("mongoose");
 const Attribute = require("../models/attribute.model");
-// Remove the cloudinary import since we're not using it anymore
-
+const cloudinary = require("../utils/cloudinary"); // Import Cloudinary
 
 exports.createProduct = async (req, res) => {
-  const { Name, Description, Price, Category: categoryName, Attributes } = req.body;
-  
+  const { _id, Name, Description, Price, Category: categoryName, Attributes, image } = req.body;
+  console.log("create product:", req.body);
 
   try {
-    const category = await Category.findOne({ name: categoryName });
+    // Create the image record in the Image collection
     
+
+    const category = await Category.findOne({ name: categoryName });
+
     if (!category) {
       return res.status(400).json({ success: false, message: "Category not found" });
     }
@@ -22,39 +25,60 @@ exports.createProduct = async (req, res) => {
       description: Description,
       price: Price,
       category: category._id,
-      attributes:[] // Initialize attributes as an empty object
+      // image: {
+      //   public_id: result.public_id,
+      //   url: result.secure_url,
+      // },
+      attributes: [], // Initialize attributes as an empty object
     });
+
     const a = [];
     for (const attribute of Attributes) {
       const attributeName = attribute.name;
       const attributeValues = attribute.values;
       a.push({
         name: attributeName,
-        values: attributeValues
-      })
-    
-      // Update the product's attributes fiel
+        values: attributeValues,
+      });
     }
-       
-    product.attributes=a;
+
+    product.attributes = a;
     await product.save();
+    const productid= product._id;
+  const createdImage = await Image.create({
+    productId: productid, // Assuming _id is the product ID
+    image: image, // Assuming image contains the image URL
+  });
 
     res.status(201).json({ success: true, message: "Product created", product });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, message: "Internal server error" });
   }
+  
 };
+
+
+
+
 
 
 exports.getProducts = async (req, res, next) => {
   try {
-    const products = await Product.find().populate("category", "name"); // Use populate to get the category name
-    // console.log(products);
-    res.status(200).json(products);
+    const products = await Product.find().populate('category', 'name');
+    let images; // Use populate to get the category name
+    const productsWithImages = await Promise.all(
+      products.map(async (product) => {
+        // Find images related to the current product by matching product ID
+        images = await Image.find();
+        return { ...product._doc, images }; // Add the 'images' field to the product object
+      })
+    );
+    
+    res.status(200).json({ products,images }); // Include both in the response JSON
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({ message: 'Internal server error' });
   }
 };
 

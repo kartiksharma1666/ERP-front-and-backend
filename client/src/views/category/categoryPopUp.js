@@ -2,16 +2,13 @@ import React, { useState, useEffect } from 'react'
 import Modal from 'react-modal'
 import { Button } from 'react-bootstrap'
 import { CButton, CForm } from '@coreui/react'
-
 Modal.setAppElement('#root')
-
 const CategoryPopUp = (props) => {
   const [selectedCategoryName, setSelectedCategoryName] = useState('')
   const [updatedData, setUpdatedData] = useState({
     name: '',
     subcategories: [],
   })
-
   // useEffect(() => {
   //   if (props.edit) {
   //     setUpdatedData({
@@ -53,13 +50,11 @@ const CategoryPopUp = (props) => {
     selectedCategoryName,
     props.selectedCategory,
   ])
-
   const handleToClose = () => {
     props.setIsModalOpen(false)
     props.setEdit(false)
     props.setAddCategory(false)
   }
-
   const handleChange = (e) => {
     const { name, value } = e.target
     setUpdatedData((prev) => ({
@@ -76,7 +71,6 @@ const CategoryPopUp = (props) => {
       subcategories: [...prevData.subcategories, newSubcategory],
     }))
   }
-
   const handleSubcategoryChange = (index, e) => {
     const { name, value } = e.target
     const updatedSubcategories = [...updatedData.subcategories]
@@ -84,13 +78,11 @@ const CategoryPopUp = (props) => {
       ...updatedSubcategories[index],
       name: value, // Update the name property
     }
-
     setUpdatedData((prevData) => ({
       ...prevData,
       subcategories: updatedSubcategories,
     }))
   }
-
   const renderSubcategoryInputs = () => {
     return updatedData.subcategories.map((subcategory, index) => (
       <div key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
@@ -114,7 +106,6 @@ const CategoryPopUp = (props) => {
       </div>
     ))
   }
-
   const handleAddMore = () => {
     const newSubcategory = {
       name: '',
@@ -132,7 +123,6 @@ const CategoryPopUp = (props) => {
       subcategories: updatedSubcategories,
     }))
   }
-
   const handleDelete = (category) => {
     fetch(`http://localhost:8080/api/category/delete/${category?._id}`, {
       method: 'DELETE',
@@ -147,12 +137,10 @@ const CategoryPopUp = (props) => {
       .catch((error) => {
         console.error('Error deleting category:', error)
       })
-
     props.setDeletePop(false)
     props.setSelectedCategory(null)
     props.setGetData(true)
   }
-
   const handleSubmit = (e) => {
     e.preventDefault()
     updatedData.name = props.selectedCategory.name
@@ -160,7 +148,6 @@ const CategoryPopUp = (props) => {
       ...updatedData,
       id: props.selectedCategory?._id,
     }
-
     console.log('updated data', updatedDataWithId)
     fetch('http://localhost:8080/api/category/update', {
       method: 'PATCH',
@@ -176,16 +163,13 @@ const CategoryPopUp = (props) => {
       .catch((error) => {
         console.error('Error updating category:', error)
       })
-
     props.setAddCategory(false)
     props.setGetData(true)
     props.setIsModalOpen(false)
     props.setEdit(false)
   }
-
   const handleAddCategory = (e) => {
     e.preventDefault()
-
     fetch('http://localhost:8080/api/category/create', {
       method: 'POST',
       headers: {
@@ -200,29 +184,24 @@ const CategoryPopUp = (props) => {
       .catch((error) => {
         console.error('Error creating category:', error)
       })
-
     props.setAddCategory(false)
     props.setIsModalOpen(false)
     props.setGetData(true)
   }
-
   // const popup = {
   //   marginTop : '25px'
   // }
-
   // const inputbox = {
   //   width: '300px',
   //   marginLeft: '10px',
   //   marginTop: '-5px',
   //   height: '35px'
   // }
-
   // const inpubox ={
   //   width: '300px',
   //   marginLeft: '10px',
   //   marginTop: '-5px',
   //   height: '35px',
-
   // }
 
   const Content = () => {
@@ -248,9 +227,6 @@ const CategoryPopUp = (props) => {
                   />
                 </label>
               </p>
-<<<<<<< HEAD
-              <CButton color="primary"  type="submit" style = {{marginTop: '10px'}}>
-=======
               {updatedData.subcategories.map((subcategory, index) => (
                 <div
                   key={index}
@@ -291,7 +267,6 @@ const CategoryPopUp = (props) => {
               </CButton>
 
               <CButton color="primary" type="submit" style={{ marginTop: '10px' }}>
->>>>>>> 6fafcbcf1152d659960572e73c8d300552825e97
                 Update Category
               </CButton>
             </div>
@@ -339,7 +314,7 @@ const CategoryPopUp = (props) => {
                 <div
                   key={index}
                   style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}
-                ></div>
+                  ></div>
               ))}
               <div>
                 {renderSubcategoryInputs()}
@@ -373,7 +348,7 @@ const CategoryPopUp = (props) => {
             {props.selectedCategory && props.selectedCategory.name}?
           </p>
           <Button
-          style={{marginTop: '20px', borderRadius: '8px'}}
+            className="cancel-btn"
             onClick={() => {
               props.setDeletePop(false)
               handleToClose()
@@ -383,7 +358,7 @@ const CategoryPopUp = (props) => {
             Cancel
           </Button>
           <Button
-          style={{marginLeft: '20px', marginTop: '20px', borderRadius: '8px'}}
+            className="delete-btn"
             onClick={() => {
               handleDelete(props.selectedCategory)
               handleToClose()
@@ -394,63 +369,62 @@ const CategoryPopUp = (props) => {
             Delete
           </Button>
         </div>
-      )
-    } else if (props.view) {
-      return (
-        <div>
-          <button className="btn btn-primary close-button" onClick={handleToClose}>
-            Close
-          </button>
-          <h2 style={{ marginBottom: '30px' }}>Category Details</h2>
-          {props.selectedCategory && (
-            <div>
-              <p>Name: {props.selectedCategory.name}</p>
-              <p>Sub Categories</p>
-              {props.selectedCategory.subcategories && (
-                <ul>
-                  {props.selectedCategory.subcategories.map((subcategory) => (
-                    <li key={subcategory._id}>{subcategory.name}</li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          )}
-        </div>
-      )
+      )} else  {
+        return (
+          <div>
+            <button className="btn btn-primary close-button" onClick={handleToClose}>
+              Close
+            </button>
+            <h2 style={{ marginBottom: '30px' }}>Category Details</h2>
+            {props.selectedCategory && (
+              <div>
+                <p>Name: {props.selectedCategory.name}</p>
+                {/* Render other category details */}
+                <p>Sub Categories</p>
+                {props.selectedCategory.subcategories && (
+                  <ul>
+                    {props.selectedCategory.subcategories.map((subcategory) => (
+                      <li key={subcategory._id}>{subcategory.name}</li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            )}
+          </div>
+        )
+      }
     }
+    return (
+      <Modal
+        isOpen={props.isModalOpen}
+        onRequestClose={handleToClose}
+        contentLabel="Category Modal"
+        style={{
+          overlay: {
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          },
+          content: {
+            width: '50%', // Adjust the width as needed
+            height: '230px', // Adjust the height as needed
+            maxWidth: '700px',
+            border: '1px solid #ccc',
+            background: '#fff',
+            overflow: 'auto',
+            WebkitOverflowScrolling: 'touch',
+            borderRadius: '4px',
+            outline: 'none',
+            padding: '40px',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+          },
+        }}
+      >
+        {Content()}
+      </Modal>
+    )
   }
-
-  return (
-    <Modal
-      isOpen={props.isModalOpen}
-      onRequestClose={handleToClose}
-      contentLabel="Category Modal"
-      style={{
-        overlay: {
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        },
-        content: {
-          width: '50%', // Adjust the width as needed
-          height: '230px', // Adjust the height as needed
-          maxWidth: '700px',
-          border: '1px solid #ccc',
-          background: '#fff',
-          overflow: 'auto',
-          WebkitOverflowScrolling: 'touch',
-          borderRadius: '4px',
-          outline: 'none',
-          padding: '40px',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-        },
-      }}
-    >
-      {Content()}
-    </Modal>
-  )
-}
-export default CategoryPopUp
+  export default CategoryPopUp

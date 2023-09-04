@@ -23,7 +23,8 @@ const PopUp = (props) => {
     Price: '',
     Description: '',
     Category: '', // Initialize Category in addData
-    Attributes: [], // Initialize Attributes in addData
+    Attributes: [],
+    image: '', // Initialize Attributes in addData
   })
   const [updatedData, setUpdatedData] = useState({})
   // const [addData, setAddData] = useState({})
@@ -32,7 +33,7 @@ const PopUp = (props) => {
   const updatedAddData = { ...addData, ...selectedAttributes }
   const [viewPop, setViewPop] = useState(false)
   const [category, setCategory] = useState([])
-
+  const [image, setImage] = useState([])
   const [updateAttributeData, setupdateAttributeData] = useState({
     name: '',
     values: [],
@@ -40,6 +41,8 @@ const PopUp = (props) => {
   const [attributeInputs, setAttributeInputs] = useState([
     { attributeName: '', values: [{ value: '', price: '' }] }, // Initialize with an empty value and price
   ])
+  const [selectedImages, setSelectedImages] = useState([])
+  const [uploadedImages, setUploadedImages] = useState([])
 
   useEffect(() => {
     if (props.edit) {
@@ -239,6 +242,26 @@ const PopUp = (props) => {
       }))
     }
   }
+  const handleImage = (e) => {
+    const file = e.target.files[0]
+    setFileToBase(file)
+    console.log('inside handleImage')
+    console.log(file)
+  }
+
+  const setFileToBase = (file) => {
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onloadend = () => {
+      setImage(reader.result)
+      console.log('reader result', reader.result)
+    }
+  }
+  const handleImageChange = (e) => {
+    const files = Array.from(e.target.files)
+
+    setSelectedImages(files)
+  }
   const handleRemoveAttributeInput = (index) => {
     const updatedInputs = attributeInputs.filter((_, i) => i !== index)
     setAttributeInputs(updatedInputs)
@@ -285,21 +308,7 @@ const PopUp = (props) => {
   const handleAddProduct = (e) => {
     e.preventDefault()
     setAttributeInputs([])
-    // Transform attributeInputs into the desired format
-    // const attributesToSend = {} // Create an empty object to store the attributes
-
-    // attributeInputs.forEach((input) => {
-    //   const attributeValues = {} // Create an empty object to store attribute values
-    //   input.values.forEach((value) => {
-    //     if (value.value && value.price) {
-    //       attributeValues[value.value] = value.price // Add value-price pair to the attributeValues object
-    //     }
-    //   })
-
-    //   if (Object.keys(attributeValues).length > 0) {
-    //     attributesToSend[input.attributeName] = attributeValues // Add attribute with its values to the attributesToSend object
-    //   }
-    // })
+    const imageUrls = selectedImages.map((image) => URL.createObjectURL(image))
     const attributesToSend = attributeInputs.map((input) => ({
       name: input.attributeName,
       values: input.values.map((value) => ({
@@ -312,10 +321,10 @@ const PopUp = (props) => {
       ...addData,
       Category: addData.Category, // Add Category here
       Attributes: attributesToSend,
+      image: uploadedImages,
     }
-
+    console.log('frontend product data', requestData)
     const updatedAddData = { ...addData } // Merge the selected attributes
-
     fetch('http://localhost:8080/api/products/create', {
       method: 'POST',
       headers: {
@@ -332,11 +341,9 @@ const PopUp = (props) => {
         console.error('Error creating product:', error)
         // Optionally, you can show an error message or handle the error in other ways.
       })
-
     props.setAddProduct(false)
     props.setIsModalOpen(false)
     props.setGetData(true)
-
     setSelectedAttributes({}) // Clear selected attributes
     // Clear selected attributes
     setAttributeInputs([])
@@ -345,9 +352,21 @@ const PopUp = (props) => {
       Price: '',
       Description: '',
       Category: '', // Reset Category
-      Attributes: [], // Reset Attributes
+      Attributes: [],
+      image: [], // Reset Attributes
     })
+    setSelectedImages([])
+    setUploadedImages([])
   }
+  const uploadImage = () => {
+    console.log('inside upload image', uploadedImages)
+    if (image) {
+      // If there's an image, add it to the uploadedImages array
+      setUploadedImages((prevImages) => [...prevImages, image])
+      setImage([]) // Clear the image state
+    }
+  }
+
   const handleAddAttribute = () => {
     setAttributeInputs((prevInputs) => [
       ...prevInputs,
@@ -574,10 +593,24 @@ const PopUp = (props) => {
                       </select>
                     </CInputGroup>
                   </form>
+                  <label>
+                    Images
+                    <input
+                      type="file"
+                      name="image"
+                      // multiple // Allow selecting multiple files
+                      onChange={handleImage}
+                    />
+                  </label>
+                  <image src={image} />
+                  <CButton onClick={uploadImage}>Upload</CButton>
+                  {selectedImages.map((image, index) => (
+                    <div key={index}>
+                      <img src={image} alt="" />
+                    </div>
+                  ))}
+
                   <p></p>
-<<<<<<< HEAD
-                  <CButton color="primary"  type="submit" style={{marginTop: '20px'}}>
-=======
                   <div>
                     {attributeInputs.map((input, index) => (
                       <div key={index}>
@@ -659,7 +692,6 @@ const PopUp = (props) => {
                     type="submit"
                     style={{ marginTop: '15px' }}
                   >
->>>>>>> 6fafcbcf1152d659960572e73c8d300552825e97
                     Add Product
                   </CButton>
                 </div>
@@ -676,7 +708,9 @@ const PopUp = (props) => {
             Are you sure you want to delete the product:{' '}
             {props.selectedProduct && props.selectedProduct.name}?
           </p>
-          <Button style={{ marginTop: '20px', borderRadius: '8px'}}
+
+          <Button
+            className="cancel-btn"
             onClick={() => {
               props.setDeletePop(false)
               handleToClose()
@@ -687,7 +721,7 @@ const PopUp = (props) => {
           </Button>
 
           <Button
-          style={{marginLeft: '20px', marginTop: '20px', borderRadius: '8px'}}
+            className="delete-btn"
             onClick={() => {
               handleDelete(props.selectedProduct)
               handleToClose()
@@ -707,16 +741,9 @@ const PopUp = (props) => {
           </button>
           <h2 style={{ marginBottom: '30px' }}>Product Details</h2>
           {props.selectedProduct && (
-            // gurleen changes here
-            //             <div className='popup'>
-            //               <p>Name: {props.selectedProduct.name || ""}</p>
-            //               <p>Price: {props.selectedProduct.price || ""} </p>
-            //               <p>Description:{props.selectedProduct.description || ""}</p>
-
             <div style={popup}>
               <p>Name: {props.selectedProduct.name || ''}</p>
-              {/* <p>Price: {props.selectedProduct.price || ''} </p> */}
-              <p>Description:{props.selectedProduct.description || ''}</p>
+              <p>Description: {props.selectedProduct.description || ''}</p>
               <p>Attributes:</p>
               <table className="table">
                 <thead>
@@ -741,6 +768,22 @@ const PopUp = (props) => {
                   ))}
                 </tbody>
               </table>
+              <p>Images:</p>
+              <div className="image-gallery">
+                {props.getimagedash
+                  .filter((image) => image.productId === props.selectedProduct._id)
+                  .map((image, index) => (
+                    <div key={index}>
+                      {image.image.map((img, imgIndex) => (
+                        <img
+                          key={imgIndex}
+                          src={img} // Display each image in the 'image' array
+                          alt={`Image ${index}-${imgIndex}`}
+                        />
+                      ))}
+                    </div>
+                  ))}
+              </div>
             </div>
           )}
         </div>
