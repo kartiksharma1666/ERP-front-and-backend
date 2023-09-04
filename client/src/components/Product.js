@@ -30,7 +30,7 @@ const Product = (props) => {
   const [search, setSearch] = useState('')
   const [searchResults, setSearchResults] = useState([])
   const [viewProduct, setViewProduct] = useState(null)
-
+  const [imagearray, setImagearray]= useState([])
   const [categories, setCategories] = useState([])
   
   const fetchCategories = () => {
@@ -65,7 +65,10 @@ const Product = (props) => {
 
     const resjson = await res.json()
     console.log('this is product', resjson)
-    setdata(resjson)
+    setdata(resjson.products)
+    setImagearray(resjson.images)
+    console.log("data from backend",resjson)
+    props.setImagedash(resjson.images);
     props.setGetData(false)
   }
   console.log("categories:",categories)

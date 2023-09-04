@@ -25,6 +25,21 @@ const productSchema = new mongoose.Schema({
     ref: 'Category',
     // required: [true, 'Product must belong to a category'],
   },
+  // image: {
+  //   public_id: {
+  //       type: Array,
+  //       // required: true
+  //   },
+  //   url: {
+  //       type: String,
+  //       // required: true
+  //   }
+  
+  image:{ type: Array,
+  ref: 'Image'},
+  
+
+
   
   
 }, { timestamps: true });

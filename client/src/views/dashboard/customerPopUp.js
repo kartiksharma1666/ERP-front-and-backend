@@ -121,15 +121,15 @@ const CustomerPopUp = (props) => {
     setAddData({})
   }
 
-  // const popup = {
-  //   marginTop : '25px'
-  // }
+  const popup = {
+    marginTop : '25px'
+  }
 
-  // const inputbox = {
-  //   width: '50%',
-  //   marginTop: '-5px',
-  //   height: '35px'
-  // }
+  const inputbox = {
+    width: '50%',
+    marginTop: '-5px',
+    height: '35px'
+  }
 
   // const inputbox ={
   //   width: '300px',
