@@ -393,7 +393,7 @@ const PopUp = (props) => {
 
   //content to be show in pop up
   const Content = () => {
-    console.log('categories in popUP', props.categories)
+    
     if (props.edit == true) {
       return (
         <div>
@@ -532,38 +532,47 @@ const PopUp = (props) => {
               <CForm onSubmit={handleAddProduct}>
                 <div>
                   <p className="popup"></p>
-                  <label>
-                    Name
-                    <input
+                  <CInputGroup className="mb-3">
+                    <CInputGroupText id="inputGroup-sizing-default" style={{ marginTop: '-5px' }}>Name</CInputGroupText>
+                    <CFormInput
+                      aria-label="Name"
+                      aria-describedby="inputGroup-sizing-default"
                       className="inputbox"
                       name="Name"
                       placeholder="Name"
                       onChange={handleChangeOfAdd}
                       value={addData.Name}
                     />
-                  </label>
+                  </CInputGroup>
+
                   <p className="popup"></p>
-                  <label>
-                    Price
-                    <input
+                  <CInputGroup className="mb-3">
+                    <CInputGroupText id="inputGroup-sizing-default" style={{ marginTop: '-5px' }}>Price</CInputGroupText>
+                    <CFormInput
+                      aria-label="Price"
+                      aria-describedby="inputGroup-sizing-default"
                       className="inputbox"
                       name="Price"
                       placeholder="Price"
                       onChange={handleChangeOfAdd}
                       value={addData.Price}
                     />
-                  </label>
+                  </CInputGroup>
+
                   <p className="popup"></p>
-                  <label>
-                    Description
-                    <input
+                  <CInputGroup className="mb-3">
+                    <CInputGroupText id="inputGroup-sizing-default" style={{ marginTop: '-5px' }}>Description</CInputGroupText>
+                    <CFormInput
+                      aria-label="Description"
+                      aria-describedby="inputGroup-sizing-default"
                       className="inputbox"
                       name="Description"
                       placeholder="Description"
                       onChange={handleChangeOfAdd}
                       value={addData.Description}
                     />
-                  </label>
+                  </CInputGroup>
+
                   <p className="popup"></p>
                   <form>
                     <CInputGroup className="mb-3">
@@ -593,20 +602,27 @@ const PopUp = (props) => {
                       </select>
                     </CInputGroup>
                   </form>
-                  <label>
-                    Images
-                    <input
+                  <CInputGroup className="mb-3">
+                    <CFormInput
                       type="file"
-                      name="image"
-                      // multiple // Allow selecting multiple files
+                      id="inputGroupFile04"
+                      aria-describedby="inputGroupFileAddon04"
+                      aria-label="Upload"
                       onChange={handleImage}
                     />
-                  </label>
-                  <image src={image} />
-                  <CButton onClick={uploadImage}>Upload</CButton>
+                    <CButton
+                      type="button"
+                      color="secondary"
+                      variant="outline"
+                      id="inputGroupFileAddon04"
+                      onClick={uploadImage}
+                    >
+                      Upload
+                    </CButton>
+                  </CInputGroup>
                   {selectedImages.map((image, index) => (
                     <div key={index}>
-                      <img src={image} alt="" />
+                      <img src={image} alt={`Image ${index}`} />
                     </div>
                   ))}
 
@@ -686,14 +702,16 @@ const PopUp = (props) => {
                       Add Attribute
                     </CButton>
                   </div>
-                  <CButton
-                    color="success"
-                    shape="rounded-pill"
-                    type="submit"
-                    style={{ marginTop: '15px' }}
-                  >
-                    Add Product
-                  </CButton>
+                  <div className="d-grid gap-2">
+                    <CButton
+                      color="success"
+                      shape="rounded-pill"
+                      type="submit"
+                      style={{ marginTop: '15px' }}
+                    >
+                      Add Product
+                    </CButton>
+                  </div>
                 </div>
               </CForm>
             </div>
@@ -770,19 +788,20 @@ const PopUp = (props) => {
               </table>
               <p>Images:</p>
               <div className="image-gallery">
-                {props.getimagedash
-                  .filter((image) => image.productId === props.selectedProduct._id)
-                  .map((image, index) => (
-                    <div key={index}>
-                      {image.image.map((img, imgIndex) => (
-                        <img
-                          key={imgIndex}
-                          src={img} // Display each image in the 'image' array
-                          alt={`Image ${index}-${imgIndex}`}
-                        />
-                      ))}
-                    </div>
-                  ))}
+                {props.getimagedash &&
+                  props.getimagedash
+                    .filter((image) => image.productId === props.selectedProduct._id)
+                    .map((image, index) => (
+                      <div key={index}>
+                        {image.image.map((img, imgIndex) => (
+                          <img
+                            key={imgIndex}
+                            src={img} // Display each image in the 'image' array
+                            alt={`Image ${index}-${imgIndex}`}
+                          />
+                        ))}
+                      </div>
+                    ))}
               </div>
             </div>
           )}
