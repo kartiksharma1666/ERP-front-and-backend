@@ -265,8 +265,8 @@ export const Dashboard = () => {
 
   return (
     <>
-      this is the user {user?.username}
-      this is data {userData?.content}
+      {/* this is the user {user?.username}
+      this is data {userData?.content} */}
       <Product
         setIsModalOpen={setIsModalOpen}
         setSelectedProduct={setSelectedProduct}
@@ -316,7 +316,7 @@ export const Dashboard = () => {
         source={"dashboard"}
       />
       {/* useless code ?????????????????????????????????????????????????????????????????? */}
-      <WidgetsDropdown />
+      {/* <WidgetsDropdown />
       <CCard className="mb-4">
         <CCardBody>
           <CRow>
@@ -587,7 +587,7 @@ export const Dashboard = () => {
             </CCardBody>
           </CCard>
         </CCol>
-      </CRow>
+      </CRow> */}
       <FloatingButton />
     </>
   )

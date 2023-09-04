@@ -1,16 +1,22 @@
 const Category = require("../models/category.model");
 const ErrorResponse = require('../utils/errorResponse');
 const mongoose = require("mongoose");
+const CategoryImages = require("../models/categoryImage.model");
 
 
 exports.createCategory = async (req, res, next)=>{
   const data = {
     name: req.body.name,
-    subcategories:[]  }
-
+    subcategories:[],
+      }
+    console.log(req.body)
 
     try {
         const category = await Category.create(data);
+        const createdImages = await CategoryImages.create({
+          categoryId: category._id, // Assuming _id is the product ID
+          image: req.body.categoryimage, // Assuming image contains the image URL
+        });
         res.status(201).json({
             success: true,
             category
@@ -29,9 +35,10 @@ exports.getCategories = async (req, res, next)=>{
 
     try {
         const categories = await Category.find();
+        const images= await CategoryImages.find();
         res.status(201).json({
             success: true,
-            categories
+            categories,images
         })
         
     } catch (error) {
