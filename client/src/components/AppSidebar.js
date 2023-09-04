@@ -22,7 +22,7 @@ const AppSidebar = () => {
 
   return (
     <CSidebar
-      position="fixed"
+     position="fixed"
       unfoldable={unfoldable}
       visible={sidebarShow}
       onVisibleChange={(visible) => {
@@ -33,7 +33,7 @@ const AppSidebar = () => {
         <CIcon className="sidebar-brand-full" icon={logoNegative} height={35} />
         <CIcon className="sidebar-brand-narrow" icon={sygnet} height={35} />
       </CSidebarBrand>
-      <CSidebarNav>
+      <CSidebarNav style={{overflow: "hidden" }}>
         <SimpleBar>
           <AppSidebarNav items={navigation} />
         </SimpleBar>
