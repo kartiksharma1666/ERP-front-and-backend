@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import OrderPopUp from './orderPopUp'; // Import the appropriate OrderPopUp component
+import React, { useEffect, useState } from 'react'
+import OrderPopUp from './orderPopUp' // Import the appropriate OrderPopUp component
 
 import {
   CCard,
@@ -17,116 +17,64 @@ import {
   CDropdownItem,
   CDropdown,
   CDropdownMenu,
-  CDropdownToggle
-} from '@coreui/react';
+  CDropdownToggle,
+} from '@coreui/react'
 
 import FloatingButton from '../floatingbutton/FloatingButton'
 
 const Orders = () => {
-  const [data, setData] = useState([]);
-  const [search, setSearch] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
-  const [selectedOrder, setSelectedOrder] = useState({});
-  const [deletePop, setDeletePop] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [edit, setEdit] = useState(false);
-  const [addOrder, setAddOrder] = useState(false);
-  const [getData, setGetData] = useState(false);
+  const [search, setSearch] = useState('')
+  const [searchResults, setSearchResults] = useState([])
+  const [selectedOrder, setSelectedOrder] = useState({})
+  const [deletePop, setDeletePop] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [edit, setEdit] = useState(false)
+  const [addOrder, setAddOrder] = useState(false)
+  const [getData, setGetData] = useState(false)
+  const [orders, setOrders] = useState('')
 
   const product_button_style = {
     height: '40px',
     width: '150px',
-  };
-
-  const initialState = {
-    items: [],
-    total: 0,
-    notes: 'new of notess',
-    rates: '',
-    vat: 0,
-    currency: '',
-    invoiceNumber: Math.floor(Math.random() * 100000),
-    status: '',
-    type: 'Invoice',
-    creator: '',
   }
-
-  const orders = [{
-    id: 1,
-    name: 'Dacosta',
-    total: '123',
-    status: 'ok',
-    currency: 'INR',
-    items: ["cake", "drinks"]
-  },
-  {
-    id: 2,
-    name: 'Gurleen',
-    total: '156',
-    status: 'ok',
-    currency: 'USD',
-    items: ["pastry", "book"]
-  },
-  {
-    id: 3,
-    name: 'Omkar',
-    total: '868',
-    status: 'ok',
-    currency: 'pounds',
-    items: ["book", "drinks", "cake"]
-  },
-  {
-    id: 4,
-    name: 'Kartik',
-    total: '5688',
-    status: 'ok',
-    currency: 'Euros',
-    items: ["chocolate"]
-  }]
 
   const getDataFromDB = async () => {
     try {
-      const res = await fetch('http://localhost:8080/api/order/all');
-      const resjson = await res.json();
-      if (resjson.success && Array.isArray(resjson.orders)) {
-        setData(resjson.orders);
-        console.log("inside orders")
-      } else {
-        console.error('Invalid data format from API:', resjson);
-        setData([]); // Set an empty array to prevent map errors
-      }
-      setGetData(false);
+      const res = await fetch('http://localhost:8080/api/Billing/getInvoices/all')
+      const resjson = await res.json()
+      console.log(resjson)
+      setOrders(resjson)
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   const handleSearch = () => {
     const filteredOrders = data.filter((order) =>
-      order.customerName.toLowerCase().includes(search.toLowerCase())
-    );
-    setSearchResults(filteredOrders);
-  };
+      order.customerName.toLowerCase().includes(search.toLowerCase()),
+    )
+    setSearchResults(filteredOrders)
+  }
 
   const handleClickToOpen = (order, key) => {
-    setSelectedOrder(order);
+    setSelectedOrder(order)
     if (key === 'update') {
-      setEdit(true);
+      setEdit(true)
     }
     if (key === 'delete') {
-      setDeletePop(true);
+      setDeletePop(true)
     }
-    setIsModalOpen(true);
-  };
+    setIsModalOpen(true)
+  }
 
   const handleAddOrder = () => {
-    setIsModalOpen(true);
-    setAddOrder(true);
-  };
+    setIsModalOpen(true)
+    setAddOrder(true)
+  }
 
   useEffect(() => {
-    getDataFromDB();
-  }, [getData]);
+    getDataFromDB()
+  }, [getData])
 
   return (
     <div>
@@ -137,18 +85,19 @@ const Orders = () => {
               <strong>Orders</strong>
             </CCardHeader>
             <CCardBody>
-            <div className="d-flex mt-2">
+              <div className="d-flex mt-2">
                 <div className="container ">
-                  <div className=" row justify-content-center" style={{marginRight: '50px'}}>
+                  <div className=" row justify-content-center" style={{ marginRight: '50px' }}>
                     <div className="col-md-8">
                       <div className="input-group mb-3">
-                        <input style={{borderRadius: '5px'}}
+                        <input
+                          style={{ borderRadius: '5px' }}
                           type="text"
                           className="form-control"
                           placeholder="Search for Customers..."
                           value={search}
                           onChange={(e) => setSearch(e.target.value)}
-                          stye={{width: '81%'}}
+                          stye={{ width: '81%' }}
                         ></input>
                         <div className="input-group-append">
                           <button className="btn btn-primary search-button" onClick={handleSearch}>
@@ -171,15 +120,15 @@ const Orders = () => {
                     )}
                   </div>
                 </div>
-                 <div>
-                <button
-                  className=" btn btn-primary"
-                  onClick={handleAddOrder}
-                  style={product_button_style}
-                >
-                  Add Order
-                </button>
-                </div> 
+                <div>
+                  <button
+                    className=" btn btn-primary"
+                    onClick={handleAddOrder}
+                    style={product_button_style}
+                  >
+                    Add Order
+                  </button>
+                </div>
               </div>
 
               <CTable className="mb-0 border mt-4" hover responsive>
@@ -198,19 +147,22 @@ const Orders = () => {
                 </CTableHead>
                 <CTableBody>
                   {orders &&
-                    orders.map(
-                      (
-                        item,
-                        index, // Check if data is available before mapping
-                      ) => (
-                        <CTableRow key={index}>
-                          <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
-                          <CTableDataCell>{item.orderNumber}</CTableDataCell>
-                          <CTableDataCell>{item.customerName}</CTableDataCell>
-                          <CTableDataCell>{item.totalAmount}</CTableDataCell>
-                          <CTableDataCell>{item.OrderStatus}</CTableDataCell>
-                          <CTableDataCell>{item.OrderMedium}</CTableDataCell>
-                          {/* <CTableDataCell>
+                    orders
+                      .slice(0)
+                      .reverse()
+                      .map(
+                        (
+                          item,
+                          index, // Check if data is available before mapping
+                        ) => (
+                          <CTableRow key={index}>
+                            <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
+                            <CTableDataCell>{item.invoiceNumber}</CTableDataCell>
+                            <CTableDataCell>{item.client?.name}</CTableDataCell>
+                            <CTableDataCell>{item.total}</CTableDataCell>
+                            <CTableDataCell>{item.status}</CTableDataCell>
+                            <CTableDataCell> order medium</CTableDataCell>
+                            {/* <CTableDataCell>
                             <button
                               className='crud-button'
                               
@@ -218,31 +170,36 @@ const Orders = () => {
                               Info
                             </button>
                           </CTableDataCell> */}
-                          <CTableDataCell>
-                            <CButton color='success' variant='outline'
-                             
-                              onClick={() => handleClickToOpen(item, 'update')}
-                            >
-                              Update
-                            </CButton >
-                          </CTableDataCell>
-                          <CTableDataCell>
-                            <CButton color='warning' variant='outline'
-                              onClick={() => handleClickToOpen(item, 'view')}
-                            >
-                              View
-                            </CButton>
-                          </CTableDataCell>
-                          <CTableDataCell>
-                            <CButton color='danger' variant='outline'
-                              onClick={() => handleClickToOpen(item, 'delete')}
-                            >
-                              Delete
-                            </CButton>
-                          </CTableDataCell>
-                        </CTableRow>
-                      ),
-                    )}
+                            <CTableDataCell>
+                              <CButton
+                                color="success"
+                                variant="outline"
+                                onClick={() => handleClickToOpen(item, 'update')}
+                              >
+                                Update
+                              </CButton>
+                            </CTableDataCell>
+                            <CTableDataCell>
+                              <CButton
+                                color="warning"
+                                variant="outline"
+                                onClick={() => handleClickToOpen(item, 'view')}
+                              >
+                                View
+                              </CButton>
+                            </CTableDataCell>
+                            <CTableDataCell>
+                              <CButton
+                                color="danger"
+                                variant="outline"
+                                onClick={() => handleClickToOpen(item, 'delete')}
+                              >
+                                Delete
+                              </CButton>
+                            </CTableDataCell>
+                          </CTableRow>
+                        ),
+                      )}
                 </CTableBody>
               </CTable>
             </CCardBody>
@@ -265,7 +222,7 @@ const Orders = () => {
         setDeletePop={setDeletePop}
       />
     </div>
-  );
-};
+  )
+}
 
-export default Orders;
+export default Orders

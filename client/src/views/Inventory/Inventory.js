@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import InventoryPopUp from "./InventoryPopUp"; // Import the appropriate InventoryPopUp component
-import "./Inventory.css";
+import React, { useEffect, useState } from 'react'
+import InventoryPopUp from './InventoryPopUp' // Import the appropriate InventoryPopUp component
+import './Inventory.css'
 import {
   CButton,
   CCard,
@@ -14,114 +14,111 @@ import {
   CTableHead,
   CTableHeaderCell,
   CTableRow,
-} from "@coreui/react";
+} from '@coreui/react'
 
 import FloatingButton from '../floatingbutton/FloatingButton'
 
 const Inventory = () => {
-  const [data, setData] = useState([]);
-  const [search, setSearch] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
-  const [selectedInventory, setSelectedInventory] = useState({});
-  const [deletePop, setDeletePop] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [edit, setEdit] = useState(false);
-  const [addInventory, setAddInventory] = useState(false);
-  const [getData, setGetData] = useState(false);
+  const [data, setData] = useState([])
+  const [search, setSearch] = useState('')
+  const [searchResults, setSearchResults] = useState([])
+  const [selectedInventory, setSelectedInventory] = useState({})
+  const [deletePop, setDeletePop] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [edit, setEdit] = useState(false)
+  const [addInventory, setAddInventory] = useState(false)
+  const [getData, setGetData] = useState(false)
 
-  const [suggestions, setSuggestions] = useState([]);
-  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [suggestions, setSuggestions] = useState([])
+  const [showSuggestions, setShowSuggestions] = useState(false)
 
   const inventory_button_style = {
     height: '40px',
     width: '150px',
-  };
+  }
 
   const getDataFromDB = async () => {
     try {
-      const res = await fetch("http://localhost:8080/api/inventory/all");
-      const resjson = await res.json();
-      console.log("data receive from backend",resjson);
+      const res = await fetch('http://localhost:8080/api/inventory/all')
+      const resjson = await res.json()
+      console.log('data receive from backend', resjson)
       if (resjson.success && Array.isArray(resjson.inventory)) {
         // Map over the inventory items and extract nested properties
-        const formattedInventory = resjson.inventory.map(item => ({
+        const formattedInventory = resjson.inventory.map((item) => ({
           ...item,
           product: item.product,
-          category: item.category ? item.category.name : null
-        }));
-        setData(formattedInventory);
-        console.log("this is frontend of inventory all: ",formattedInventory);
+          category: item.category ? item.category.name : null,
+        }))
+        setData(formattedInventory)
+        console.log('this is frontend of inventory all: ', formattedInventory)
       } else {
-        console.error("Invalid data format from API:", resjson);
-        setData([]); // Set an empty array to prevent map errors
+        console.error('Invalid data format from API:', resjson)
+        setData([]) // Set an empty array to prevent map errors
       }
-      setGetData(false);
+      setGetData(false)
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
   const fetchSuggestions = async (query) => {
     try {
-      const res = await fetch("http://localhost:8080/api/inventory/all");
-      const resjson = await res.json();
+      const res = await fetch('http://localhost:8080/api/inventory/all')
+      const resjson = await res.json()
       if (resjson.success && Array.isArray(resjson.inventory)) {
         const formattedInventory = resjson.inventory.filter((item) =>
-          item.product.toLowerCase().includes(query.toLowerCase())
-        );
-        setSuggestions(
-          formattedInventory.map((item) => item.product)
-        );
+          item.product.toLowerCase().includes(query.toLowerCase()),
+        )
+        setSuggestions(formattedInventory.map((item) => item.product))
       } else {
-        console.error("Invalid data format from API:", resjson);
-        setSuggestions([]);
+        console.error('Invalid data format from API:', resjson)
+        setSuggestions([])
       }
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
-  
+  }
 
   const handleSearch = async () => {
     const filteredInventory = data.filter((item) =>
-      item.product.toLowerCase().includes(search.toLowerCase())
-    );
-    setSearchResults(filteredInventory);
-  };
+      item.product.toLowerCase().includes(search.toLowerCase()),
+    )
+    setSearchResults(filteredInventory)
+  }
 
   const handleAddInventory = () => {
-    setIsModalOpen(true);
-    setAddInventory(true);
-  };
+    setIsModalOpen(true)
+    setAddInventory(true)
+  }
 
   const handleUpdateInventory = (inventory) => {
-    setIsModalOpen(true);
-    setSelectedInventory(inventory);
-    setEdit(true);
-  };
+    setIsModalOpen(true)
+    setSelectedInventory(inventory)
+    setEdit(true)
+  }
 
   const handleDeleteInventory = (inventory) => {
-    setIsModalOpen(true);
-    setSelectedInventory(inventory);
-    setDeletePop(true);
-  };
+    setIsModalOpen(true)
+    setSelectedInventory(inventory)
+    setDeletePop(true)
+  }
   const handleClearSearch = () => {
-    setSearch("");
-    setSearchResults([]);
-    setShowSuggestions(false);
-  };
+    setSearch('')
+    setSearchResults([])
+    setShowSuggestions(false)
+  }
 
   useEffect(() => {
-    getDataFromDB();
-  }, [getData]);
+    getDataFromDB()
+  }, [getData])
 
   useEffect(() => {
     if (search.length > 0) {
-      fetchSuggestions(search);
-      setShowSuggestions(true);
+      fetchSuggestions(search)
+      setShowSuggestions(true)
     } else {
-      setShowSuggestions(false);
+      setShowSuggestions(false)
     }
-  }, [search]);
+  }, [search])
 
   return (
     <div>
@@ -153,9 +150,9 @@ const Inventory = () => {
                             key={index}
                             className="suggestion-item"
                             onClick={() => {
-                              setSearch(suggestion);
-                              setShowSuggestions(false);
-                              handleSearch();
+                              setSearch(suggestion)
+                              setShowSuggestions(false)
+                              handleSearch()
                             }}
                           >
                             {suggestion}
@@ -166,19 +163,13 @@ const Inventory = () => {
                   )}
                   {!showSuggestions && search.length > 0 && (
                     <div className="input-group-append">
-                      <button
-                        className="btn btn-clear"
-                        onClick={handleClearSearch}
-                      >
+                      <button className="btn btn-clear" onClick={handleClearSearch}>
                         <i className="fa fa-times-circle"></i>
                       </button>
                     </div>
                   )}
                   <div className="input-group-append">
-                    <button
-                      className="btn btn-primary search-button"
-                      onClick={handleSearch}
-                    >
+                    <button className="btn btn-primary search-button" onClick={handleSearch}>
                       Search
                     </button>
                   </div>
@@ -198,61 +189,60 @@ const Inventory = () => {
                   <CTableRow>
                     <CTableHeaderCell scope="col">Sr. no</CTableHeaderCell>
                     <CTableHeaderCell scope="col">Product</CTableHeaderCell>
-                    <CTableHeaderCell scope="col">
-                      Weight (kg)
-                    </CTableHeaderCell>
+                    <CTableHeaderCell scope="col">Weight (kg)</CTableHeaderCell>
                     <CTableHeaderCell scope="col">Quantity</CTableHeaderCell>
-                    <CTableHeaderCell scope="col">
-                      Category
-                    </CTableHeaderCell>
-                    <CTableHeaderCell scope="col">
-                      Actions
-                    </CTableHeaderCell>
+                    <CTableHeaderCell scope="col">Price</CTableHeaderCell>
+                    <CTableHeaderCell scope="col">Category</CTableHeaderCell>
+                    <CTableHeaderCell scope="col">Actions</CTableHeaderCell>
                   </CTableRow>
                 </CTableHead>
                 <CTableBody>
                   {searchResults.length > 0
                     ? searchResults.map((item, index) => (
                         <CTableRow key={index}>
-                          <CTableHeaderCell scope="row">
-                            {index + 1}
-                          </CTableHeaderCell>
+                          <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
                           <CTableDataCell>{item.product}</CTableDataCell>
                           <CTableDataCell>{item.weight}</CTableDataCell>
                           <CTableDataCell>{item.quantity}</CTableDataCell>
+                          <CTableDataCell>{item.price}</CTableDataCell>
                           <CTableDataCell>{item.category}</CTableDataCell>
                           <CTableDataCell>
-                            <CButton color="primary" variant="outline" 
+                            <CButton
+                              color="primary"
+                              variant="outline"
                               onClick={() => handleUpdateInventory(item)}
                             >
                               Update
-                            </CButton >{" "}
-                            <CButton color="danger" variant="outline" 
+                            </CButton>{' '}
+                            <CButton
+                              color="danger"
+                              variant="outline"
                               onClick={() => handleDeleteInventory(item)}
                             >
                               Delete
-                            </CButton >
+                            </CButton>
                           </CTableDataCell>
                         </CTableRow>
                       ))
                     : data.map((item, index) => (
                         <CTableRow key={index}>
-                          <CTableHeaderCell scope="row">
-                            {index + 1}
-                          </CTableHeaderCell>
+                          <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
                           <CTableDataCell>{item.product}</CTableDataCell>
                           <CTableDataCell>{item.weight}</CTableDataCell>
                           <CTableDataCell>{item.quantity}</CTableDataCell>
+                          <CTableDataCell>{item.price}</CTableDataCell>
                           <CTableDataCell>{item.category}</CTableDataCell>
                           <CTableDataCell>
                             <CButton
-                            color ='primary' variant="outline"
+                              color="primary"
+                              variant="outline"
                               onClick={() => handleUpdateInventory(item)}
                             >
                               Update
-                            </CButton>{" "}
+                            </CButton>{' '}
                             <CButton
-                            color ='danger' variant="outline"
+                              color="danger"
+                              variant="outline"
                               onClick={() => handleDeleteInventory(item)}
                             >
                               Delete
@@ -282,8 +272,7 @@ const Inventory = () => {
         setDeletePop={setDeletePop}
       />
     </div>
-  );
-};
+  )
+}
 
-export default Inventory;
-
+export default Inventory
