@@ -16,7 +16,7 @@ const SearchAndAddCustomers = (props) => {
     setSearch(e.target.value)
 
     const filterdProd = customers?.filter((product) =>
-      product.name.toLowerCase().includes(e.target.value.toLowerCase()),
+      product.phone.toLowerCase().includes(e.target.value.toLowerCase()),
     )
 
     setSearchResults(filterdProd)
@@ -98,7 +98,7 @@ const SearchAndAddCustomers = (props) => {
                 <>
                   <CDropdownItem onClick={() => handleClick(customer)}>
                     <h6>
-                      {customer.name} {'(' + customer.email + ')'}
+                      {customer.name} {'(' + customer.phone + ')'}
                     </h6>
                   </CDropdownItem>
                 </>
