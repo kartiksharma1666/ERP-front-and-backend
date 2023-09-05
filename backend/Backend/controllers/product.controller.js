@@ -7,17 +7,26 @@ const Attribute = require("../models/attribute.model");
 const cloudinary = require("../utils/cloudinary"); // Import Cloudinary
 
 exports.createProduct = async (req, res) => {
-  const { _id, Name, Description, Price, Category: categoryName, Attributes, image } = req.body;
+  const {
+    _id,
+    Name,
+    Description,
+    Price,
+    Category: categoryName,
+    Attributes,
+    image,
+  } = req.body;
   console.log("create product:", req.body);
 
   try {
     // Create the image record in the Image collection
-    
 
     const category = await Category.findOne({ name: categoryName });
 
     if (!category) {
-      return res.status(400).json({ success: false, message: "Category not found" });
+      return res
+        .status(400)
+        .json({ success: false, message: "Category not found" });
     }
 
     const product = new Product({
@@ -44,28 +53,24 @@ exports.createProduct = async (req, res) => {
 
     product.attributes = a;
     await product.save();
-    const productid= product._id;
-  const createdImage = await Image.create({
-    productId: productid, // Assuming _id is the product ID
-    image: image, // Assuming image contains the image URL
-  });
+    const productid = product._id;
+    const createdImage = await Image.create({
+      productId: productid, // Assuming _id is the product ID
+      image: image, // Assuming image contains the image URL
+    });
 
-    res.status(201).json({ success: true, message: "Product created", product });
+    res
+      .status(201)
+      .json({ success: true, message: "Product created", product });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, message: "Internal server error" });
   }
-  
 };
-
-
-
-
-
 
 exports.getProducts = async (req, res, next) => {
   try {
-    const products = await Product.find().populate('category', 'name');
+    const products = await Product.find().populate("category", "name");
     let images; // Use populate to get the category name
     const productsWithImages = await Promise.all(
       products.map(async (product) => {
@@ -74,11 +79,12 @@ exports.getProducts = async (req, res, next) => {
         return { ...product._doc, images }; // Add the 'images' field to the product object
       })
     );
-    
-    res.status(200).json({ products,images }); // Include both in the response JSON
+
+    console.log(products);
+    res.status(200).json({ products, images }); // Include both in the response JSON
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -119,21 +125,29 @@ exports.deleteProduct = async (req, res, next) => {
     const product = await Product.findById(req.params.id);
     if (!product) {
       // If the product with the given ID is not found, return an error response
-      return res.status(404).json({ success: false, message: 'Product not found' });
+      return res
+        .status(404)
+        .json({ success: false, message: "Product not found" });
     }
 
     // If the product is found, proceed with deleting it
     const deletedProduct = await Product.findByIdAndDelete(req.params.id);
     if (!deletedProduct) {
       // If the deletion process fails, return an error response
-      return res.status(500).json({ success: false, message: 'Failed to delete product' });
+      return res
+        .status(500)
+        .json({ success: false, message: "Failed to delete product" });
     }
 
     // If the product is successfully deleted, return a success response
-    res.status(200).json({ success: true, message: 'Product deleted', deletedProduct });
+    res
+      .status(200)
+      .json({ success: true, message: "Product deleted", deletedProduct });
   } catch (error) {
     // If an error occurs during the deletion process, handle and return the error response
     console.error(error);
-    res.status(500).json({ success: false, message: 'Error deleting product', error });
+    res
+      .status(500)
+      .json({ success: false, message: "Error deleting product", error });
   }
 };

@@ -15,29 +15,16 @@ const SearchComponent = (props) => {
   const handleButton = (item, index) => {
     props.setdata((prevProducts) =>
       prevProducts.map((product) =>
-        product === item ? { ...product, quantity: product.quantity + 1, show: true } : product,
+        product === item && product.quantity > 0
+          ? { ...product, Addquantity: product.Addquantity + 1, show: true }
+          : product,
       ),
     )
-
-    // const Item = {
-    //   items: [
-    //     { itemName: item.name, unitPrice: item.price, quantity: item.quantity + 1, discount: '' },
-    //   ],
-    //   total: 0,
-    //   notes: 'new of notess',
-    //   rates: 0,
-    //   vat: 0,
-    //   currency: 'INR',
-    //   invoiceNumber: Math.floor(Math.random() * 100000),
-    //   status: 'Paid',
-    //   type: 'Invoice',
-    //   creator: 'Omkar',
-    // }
 
     const Item = {
       itemName: item.name,
       unitPrice: item.price,
-      quantity: item.quantity + 1,
+      Addquantity: item.Addquantity + 1,
       discount: '',
     }
 
@@ -49,32 +36,39 @@ const SearchComponent = (props) => {
 
   const handleIncrement = (item) => {
     props.setdata((prevData) =>
-      prevData.map((product) =>
-        product.quantity >= 0 && product === item
-          ? { ...product, quantity: item.quantity + 1 }
-          : { ...product },
-      ),
+      prevData.map((product) => {
+        if (product.quantity == item.Addquantity) {
+          alert('dont have enough quantity')
+          return { ...product }
+        } else if (item.Addquantity >= 0 && product === item) {
+          props.setInvoiceData((prevItem) => {
+            return {
+              ...prevItem,
+              items: prevItem.items.map((prod) =>
+                prod.itemName == item.name
+                  ? { ...prod, Addquantity: prod.Addquantity + 1 }
+                  : { ...prod },
+              ),
+            }
+          })
+          return { ...product, Addquantity: item.Addquantity + 1 }
+        } else {
+          return { ...product }
+        }
+      }),
     )
-    props.setInvoiceData((prevItem) => {
-      return {
-        ...prevItem,
-        items: prevItem.items.map((prod) =>
-          prod.itemName == item.name ? { ...prod, quantity: prod.quantity + 1 } : { ...prod },
-        ),
-      }
-    })
   }
 
   const handleDecrement = (item) => {
     props.setdata((prevData) =>
       prevData.map((product) =>
-        product.quantity >= 0 && product === item
-          ? { ...product, quantity: item.quantity - 1 }
+        product.Addquantity >= 0 && product === item
+          ? { ...product, Addquantity: item.Addquantity - 1 }
           : { ...product },
       ),
     )
 
-    if (item.quantity == 1) {
+    if (item.Addquantity == 1) {
       props.setInvoiceData((prevItem) => {
         let index = 0
         prevItem.items.map((prod, indexVal) => {
@@ -95,7 +89,9 @@ const SearchComponent = (props) => {
         return {
           ...prevItem,
           items: prevItem.items.map((prod) =>
-            prod.itemName == item.name ? { ...prod, quantity: prod.quantity - 1 } : { ...prod },
+            prod.itemName == item.name
+              ? { ...prod, Addquantity: prod.Addquantity - 1 }
+              : { ...prod },
           ),
         }
       })
@@ -137,10 +133,11 @@ const SearchComponent = (props) => {
       {props.searchResults.length > 0 ? (
         props.searchResults.map((item, index) => (
           <CTableRow key={index}>
+            {console.log(item)}
             <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
             <CTableDataCell>{item.name}</CTableDataCell>
-            <CTableDataCell>2.5 kg</CTableDataCell>
-            <CTableDataCell>5</CTableDataCell>
+            <CTableDataCell>{item.weight ? item.weight : <>not Available</>}</CTableDataCell>
+            <CTableDataCell>{item.quantity ? item.quantity : <>not Available</>}</CTableDataCell>
             <CTableDataCell>{item.price}</CTableDataCell>
 
             <CTableDataCell>
@@ -166,7 +163,7 @@ const SearchComponent = (props) => {
             </CTableDataCell>
 
             <CTableDataCell>
-              {item.quantity == 0 ? (
+              {item.Addquantity == 0 ? (
                 <CButton
                   color="primary"
                   shape="rounded-pill"
@@ -186,7 +183,7 @@ const SearchComponent = (props) => {
                     -
                   </CButton>
 
-                  {item.quantity}
+                  {item.Addquantity}
                   <CButton
                     color="primary"
                     shape="rounded-pill"

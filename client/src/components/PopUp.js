@@ -770,19 +770,20 @@ const PopUp = (props) => {
               </table>
               <p>Images:</p>
               <div className="image-gallery">
-                {props.getimagedash
-                  .filter((image) => image.productId === props.selectedProduct._id)
-                  .map((image, index) => (
-                    <div key={index}>
-                      {image.image.map((img, imgIndex) => (
-                        <img
-                          key={imgIndex}
-                          src={img} // Display each image in the 'image' array
-                          alt={`Image ${index}-${imgIndex}`}
-                        />
-                      ))}
-                    </div>
-                  ))}
+                {props.getimagedash &&
+                  props.getimagedash
+                    .filter((image) => image.productId === props.selectedProduct._id)
+                    .map((image, index) => (
+                      <div key={index}>
+                        {image.image.map((img, imgIndex) => (
+                          <img
+                            key={imgIndex}
+                            src={img} // Display each image in the 'image' array
+                            alt={`Image ${index}-${imgIndex}`}
+                          />
+                        ))}
+                      </div>
+                    ))}
               </div>
             </div>
           )}
