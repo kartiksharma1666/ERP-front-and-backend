@@ -14,7 +14,7 @@ const InvoiceSchema = mongoose.Schema({
   status: String,
   invoiceNumber: String,
   type: String,
-  creator: [String],
+  creator: String,
   totalAmountReceived: Number,
   client: { name: String, email: String, phone: String, address: String },
   paymentRecords: [

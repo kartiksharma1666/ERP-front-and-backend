@@ -1,25 +1,32 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const { ObjectId } = mongoose.Schema;
 
-const inventorySchema = new mongoose.Schema({
-  product: {
-    type: ObjectId,
-    ref: 'Product',
-    required: [true, 'Please add a product'],
+const inventorySchema = new mongoose.Schema(
+  {
+    product: {
+      type: ObjectId,
+      ref: "Product",
+      required: [true, "Please add a product"],
+    },
+    weight: {
+      type: Number,
+      required: [true, "Please add a weight"],
+    },
+    quantity: {
+      type: Number,
+      required: [true, "Please add a quantity"],
+    },
+    price: {
+      type: Number,
+      required: [true, "Please add a Price"],
+    },
+    category: {
+      type: ObjectId,
+      ref: "Product", // Reference to the same Product model
+      // required: [true, 'Please add a category'],
+    },
   },
-  weight: {
-    type: Number,
-    required: [true, 'Please add a weight'],
-  },
-  quantity: {
-    type: Number,
-    required: [true, 'Please add a quantity'],
-  },
-  category: {
-    type: ObjectId,
-    ref: 'Product', // Reference to the same Product model
-    // required: [true, 'Please add a category'],
-  },
-}, { timestamps: true });
+  { timestamps: true }
+);
 
-module.exports = mongoose.model('Inventory', inventorySchema);
+module.exports = mongoose.model("Inventory", inventorySchema);
