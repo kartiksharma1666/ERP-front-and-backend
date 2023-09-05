@@ -170,7 +170,6 @@ const Category = () => {
                           <CTableDataCell>
                             <CButton
                               color="info" variant="outline"
-                              shape="rounded-pill"
                               onClick={() => handleClickToOpen(category, 'view')}
                             >
                               View
@@ -179,7 +178,7 @@ const Category = () => {
                           <CTableDataCell>
                             <CButton
                               color="success"
-                              shape="rounded-pill"
+                              variant='outline'
 
                               onClick={() => handleClickToOpen(category, 'update')}
                             >

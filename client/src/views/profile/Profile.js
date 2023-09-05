@@ -171,6 +171,20 @@ const Profile = () => {
                         <hr />
                         <div className='profile-name mt-4' style={{ display: 'flex' }}>
                             <p style={{ marginTop: '5px', fontWeight: 'bold' }}>Gender</p>
+                            <select
+                                type='text'
+                                name='gender'
+                                value={selectedProfile.gender}
+                                onChange={handleInputChange}
+                                className='profile-inputs'
+                            >
+                             <option>Male</option>
+                             <option>Female</option>
+                            </select>
+                        </div>
+                        <hr />
+                        <div className='profile-name mt-4' style={{ display: 'flex' }}>
+                            <p style={{ marginTop: '5px', fontWeight: 'bold' }}>Store</p>
                             <input
                                 type='text'
                                 name='gender'
@@ -178,6 +192,7 @@ const Profile = () => {
                                 onChange={handleInputChange}
                                 className='profile-inputs'
                             />
+                           
                         </div>
                         <hr />
                         <div className='profile-name mt-4' style={{ display: 'flex' }}>

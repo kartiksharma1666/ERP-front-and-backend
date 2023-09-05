@@ -440,7 +440,7 @@ const PopUp = (props) => {
                     />
                   </label>
                 </p>
-                <CForm onSubmit={handleAttributeSubmit}>
+                <CForm onSubmit={handleAttributeSubmit} style={{marginTop: "50px"}}>
                   {attributeInputs.map((input, index) => (
                     <div key={index}>
                       <CFormInput
@@ -596,6 +596,7 @@ const PopUp = (props) => {
                   <label>
                     Images
                     <input
+                      style={{marginLeft:"20px"}}
                       type="file"
                       name="image"
                       // multiple // Allow selecting multiple files
@@ -611,7 +612,7 @@ const PopUp = (props) => {
                   ))}
 
                   <p></p>
-                  <div>
+                  <div style={{marginTop:"50px"}}>
                     {attributeInputs.map((input, index) => (
                       <div key={index}>
                         <CFormInput
@@ -687,10 +688,10 @@ const PopUp = (props) => {
                     </CButton>
                   </div>
                   <CButton
-                    color="success"
-                    shape="rounded-pill"
+                    color="primary"
+                  
                     type="submit"
-                    style={{ marginTop: '15px' }}
+                    style={{ marginTop: '15px', width:"100%" }}
                   >
                     Add Product
                   </CButton>
