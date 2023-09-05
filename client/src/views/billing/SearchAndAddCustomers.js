@@ -11,27 +11,15 @@ const SearchAndAddCustomers = (props) => {
   const [search, setSearch] = useState('')
   const [customers, setCustomers] = useState(null)
   const [searchResults, setSearchResults] = useState([])
-  const [dropDown, setDropDown] = useState(true)
 
   const handleSearch = (e) => {
     setSearch(e.target.value)
 
     const filterdProd = customers?.filter((product) =>
-      product.name.toLowerCase().includes(e.target.value.toLowerCase()),
+      product.phone.toLowerCase().includes(e.target.value.toLowerCase()),
     )
 
     setSearchResults(filterdProd)
-  }
-  const billing = {
-    id: 1,
-    name: 'Gurleen',
-    item: 'Chocolate Cake',
-    quantity: 2,
-    price: '350',
-    totalAmount: '630',
-    email: 'gurleen21@gmail.com',
-    invoiceNumber: '#42D42-0001',
-    date: '27th October 2023 19:00',
   }
 
   const getDataFromDB = async () => {
@@ -46,12 +34,13 @@ const SearchAndAddCustomers = (props) => {
 
   const handleClick = (customer) => {
     setSearch('')
-    setDropDown(false)
+    props.setDropDown(false)
+    console.log(customer)
     props.setClient(customer)
   }
 
   const handleCancel = () => {
-    setDropDown(true)
+    props.setDropDown(true)
     props.setClient('')
   }
   useEffect(() => {
@@ -88,7 +77,7 @@ const SearchAndAddCustomers = (props) => {
         onChange={handleSearch}
       ></input> */}
 
-      {dropDown ? (
+      {props.dropDown ? (
         <input
           style={{ borderRadius: '5px', margin: '20px 0 0 0' }}
           type="text"
@@ -102,14 +91,14 @@ const SearchAndAddCustomers = (props) => {
         <></>
       )}
       {search.length > 0 ? (
-        <CDropdown style={{ width: '100%', height: '25%' }} visible={dropDown}>
+        <CDropdown style={{ width: '100%', height: '25%' }} visible={props.dropDown}>
           <CDropdownMenu>
             {searchResults.length > 0 ? (
               searchResults.map((customer) => (
                 <>
                   <CDropdownItem onClick={() => handleClick(customer)}>
                     <h6>
-                      {customer.name} {'(' + customer.email + ')'}
+                      {customer.name} {'(' + customer.phone + ')'}
                     </h6>
                   </CDropdownItem>
                 </>

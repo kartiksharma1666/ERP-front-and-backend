@@ -22,7 +22,7 @@ const AppSidebar = () => {
 
   return (
     <CSidebar
-      position="fixed"
+     position="fixed"
       unfoldable={unfoldable}
       visible={sidebarShow}
       onVisibleChange={(visible) => {
