@@ -10,7 +10,7 @@ const Inventory = React.lazy(() => import('./views/Inventory/Inventory'))
 const Category = React.lazy(() => import('./views/category/category'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
-const Attribute = React.lazy(() => import('./views/Attribute/Attributes'))
+const TotalSell = React.lazy(() => import('./views/productAnalysis/ProductAnalysis'))
 // Base
 const Accordion = React.lazy(() => import('./views/base/accordion/Accordion'))
 const Breadcrumbs = React.lazy(() => import('./views/base/breadcrumbs/Breadcrumbs'))
@@ -66,7 +66,7 @@ const routes = [
   { path: '/Category', name: 'Category', element: Category},
   { path: '/billing', name: 'Billing', element: Billing},
   { path: '/Inventory', name: 'Inventory', element: Inventory},
-  { path: '/Attribute', name: 'Attribute', element: Attribute},
+  { path: '/TotalSell', name: 'TotalSell', element: TotalSell},
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', element: Colors },
   { path: '/theme/typography', name: 'Typography', element: Typography },

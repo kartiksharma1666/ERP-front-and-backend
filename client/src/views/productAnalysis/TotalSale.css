@@ -1,0 +1,72 @@
+/* TotalSell.css */
+
+.total-sell-container {
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .total-sell-heading {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 24px;
+  }
+  
+  .total-sell-dropdown {
+    margin-bottom: 20px;
+  }
+  
+  .table-heading {
+    font-size: 18px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  /* Table styles */
+  .mb-0 {
+    margin-bottom: 0 !important;
+  }
+  
+  .border {
+    border: 1px solid #ccc !important;
+  }
+  
+  .hover:hover {
+    background-color: #f9f9f9;
+  }
+  
+  /* Styling for CTable */
+  .CTable {
+    width: 100%;
+    background-color: #fff;
+    border-collapse: collapse;
+  }
+  
+  .CTableHead {
+    background-color: #333;
+    color: #fff;
+    border-bottom: 3px solid #f8f9fa;
+  }
+  
+  .CTableHead, .CTableDataCell, .CTableDataCell {
+    padding: 12px;
+    text-align: left;
+  }
+  
+  .CTableRow {
+    background-color: #fff;
+  }
+  
+  .CTableRow:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .CTableDataCell {
+    font-weight: 500;
+  }
+  
+  /* Add more CSS styles as needed */
+  

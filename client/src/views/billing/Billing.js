@@ -135,15 +135,22 @@ const Billing = () => {
   const handleAddProduct = () => {}
 
   const handleAddField = (e) => {
-    e.preventDefault()
+    e.preventDefault();
+    const newItem = {
+      itemName: '',
+      unitPrice: '',
+      quantity: '',
+      discount: '',
+      amount: '',
+      category: '', // Set the category based on selectedCategory
+    };
+  
     setInvoiceData((prevState) => ({
       ...prevState,
-      items: [
-        ...prevState.items,
-        { itemName: '', unitPrice: '', quantity: '', discount: '', amount: '' },
-      ],
-    }))
-  }
+      items: [...prevState.items, newItem],
+    }));
+  };
+  
 
   const handleCurrencyClick = (currencyType) => {
     setCurrency(acronym[currencyType])
@@ -156,7 +163,7 @@ const Billing = () => {
     })
 
     const resjson = await res.json()
-    console.log(resjson)
+    console.log("product data in billing",resjson)
 
     const productsWithQuantity = resjson.products.map((product) => ({
       ...product,
@@ -288,7 +295,8 @@ const Billing = () => {
       status: status,
       invoiceNumber: invoiceNumber,
       type: type,
-      creator: user.username,
+      creator : user ? user.username : '',
+
       totalAmountReceived: 0,
       client: {
         name: client?.name,
@@ -349,6 +357,7 @@ const Billing = () => {
     getDataFromDB()
     fetchCategories()
   }, [])
+  
 
   return (
     <>

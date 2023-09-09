@@ -17,7 +17,7 @@ import {
 
 Modal.setAppElement('#root')
 const PopUp = (props) => {
-  console.log("inside popup", JSON.stringify(props))
+  // console.log("inside popup", JSON.stringify(props))
   // Function to close the modal
   const [addData, setAddData] = useState({
     Name: '',
@@ -54,6 +54,9 @@ const PopUp = (props) => {
         Name: props.selectedProduct?.name,
         Price: props.selectedProduct?.price,
         Description: props.selectedProduct?.description,
+        Category: props.selectedProduct?.category,
+        Image: props.selectedProduct?.image,
+        Attributes: props.selectedProduct?.attributes
       })
     }
   }, [props])
@@ -453,7 +456,149 @@ const PopUp = (props) => {
                     />
                   </label>
                 </p>
-                
+                <p className="popup"></p>
+                  <form>
+                    <CInputGroup className="mb-3">
+                      <CInputGroupText htmlFor="inputGroupSelect01">Category</CInputGroupText>
+                      <select
+                        name="Category"
+                        className="form-select"
+                        onChange={handleChangeOfAdd}
+                        value={updatedData.Category}
+                      >
+                        {category && category.length > 0 ? (
+                          <>
+                            <option value="" disabled>
+                              Select a Category
+                            </option>
+                            {category.map((category) => (
+                              <option key={category._id} value={category.name}>
+                                {category.name}
+                              </option>
+                            ))}
+                          </>
+                        ) : (
+                          <option value="" disabled>
+                            No Category available. Please create one first.
+                          </option>
+                        )}
+                      </select>
+                    </CInputGroup>
+                  </form>
+                  {/* <CInputGroup className="mb-3">
+                    <CFormInput
+                      type="file"
+                      id="inputGroupFile04"
+                      aria-describedby="inputGroupFileAddon04"
+                      aria-label="Upload"
+                      onChange={handleImage}
+                    />
+                    <CButton
+                      type="button"
+                      color="secondary"
+                      variant="outline"
+                      id="inputGroupFileAddon04"
+                      onClick={uploadImage}
+                    >
+                      Upload
+                    </CButton>
+                  </CInputGroup>
+                  {selectedImages.map((image, index) => (
+                    <div key={index}>
+                      <img src={image} alt={`Image ${index}`} />
+                    </div>
+                  ))} */}
+
+                  <p></p>
+                  <CForm>
+                    {/* Render the "Add Attribute" button */}
+
+                    <CButton style={{ marginTop: '10px' }} onClick={handleAddAttribute}>
+                      Add Attribute
+                    </CButton>
+
+                    {/* Render attribute input fields when the button is clicked */}
+                    {
+                      updatedData.attributeInputs && updatedData.attributeInputs.map(
+                        (input, index) =>
+                          openAttributeInputs[index] && (
+                            <div key={index}>
+                              <CButton
+                                type="button"
+                                color="secondary"
+                                size="sm"
+                                onClick={() => handleCloseAttribute(index)}
+                                style={{ marginTop: '10px', marginBottom: '10px' }}
+                              >
+                                Close Attribute
+                              </CButton>
+                              <CFormInput
+                                size="sm"
+                                type="text"
+                                placeholder="Attribute Name"
+                                value={input.attributeName}
+                                onChange={(e) =>
+                                  handleAttributeInputChange(
+                                    index,
+                                    undefined,
+                                    'attributeName',
+                                    e.target.value,
+                                  )
+                                }
+                              />
+                              {input.values.map((value, valueIndex) => (
+                                <div key={valueIndex}>
+                                  <CFormInput
+                                    size="sm"
+                                    type="text"
+                                    placeholder="Value"
+                                    value={value.value}
+                                    onChange={(e) =>
+                                      handleAttributeInputChange(
+                                        index,
+                                        valueIndex,
+                                        'value',
+                                        e.target.value,
+                                      )
+                                    }
+                                  />
+                                  <CFormInput
+                                    size="sm"
+                                    type="text"
+                                    placeholder="Price"
+                                    value={value.price}
+                                    onChange={(e) =>
+                                      handleAttributeInputChange(
+                                        index,
+                                        valueIndex,
+                                        'price',
+                                        e.target.value,
+                                      )
+                                    }
+                                  />
+                                  <CButton
+                                    type="button"
+                                    color="secondary"
+                                    size="sm"
+                                    onClick={() => handleDeleteAttributeValue(index, valueIndex)}
+                                    style={{ marginTop: '10px', marginBottom: '10px',marginRight: '10px' }}
+                                  >
+                                    Remove Value
+                                  </CButton>
+                                  <CButton
+                                    type="button"
+                                    color="secondary"
+                                    size="sm"
+                                    onClick={() => handleAddAttributeValue(index)}
+                                  >
+                                    Add Value
+                                  </CButton>
+                                </div>
+                              ))}
+                            </div>
+                          ),
+                      )},
+                  </CForm>
 
                 <p></p>
                 <CButton color="primary" type="submit" style={{ marginTop: '25px' }}>

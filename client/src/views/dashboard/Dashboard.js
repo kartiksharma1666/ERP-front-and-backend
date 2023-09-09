@@ -301,7 +301,7 @@ export const Dashboard = () => {
       <PopUp
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
-        selectedProduct={selectedProduct}
+        selectedProduct={selectedProduct} 
         setSelectedProduct={setSelectedProduct}
         getData={getData}
         setGetData={setGetData}

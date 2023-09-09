@@ -129,9 +129,9 @@ const CategoryPopUp = (props) => {
   }
   const handleCategoryImage = (e) => {
     const file = e.target.files[0]
-    if (file) {
-      setFileToBase(file);
-    }
+    
+    setFileToBase(file);
+    
     
     console.log('inside handleImage')
     console.log(file)
@@ -327,8 +327,8 @@ const CategoryPopUp = (props) => {
             <div>
               <p className="popup">
                 <label>
-                  <CInputGroup className="mb-3" style={{marginTop:'-10 px'}}>
-                    <CInputGroupText id="inputGroup-sizing-default">Category Name</CInputGroupText>
+                  <CInputGroup className="mb-3" style={{marginTop:'-5 px'}}>
+                    <CInputGroupText id="inputGroup-sizing-default" style={{height: '38px'}}>Category </CInputGroupText>
                     <CFormInput
                       className="inputbox"
                       name="name"
@@ -337,6 +337,7 @@ const CategoryPopUp = (props) => {
                       value={updatedData.name}
                       aria-label="Category Name"
                       aria-describedby="inputGroup-sizing-default"
+                      style={{height: '36px', marginTop: '0.6px', width: '70%'}}
                     />
                   </CInputGroup>
                 </label>
