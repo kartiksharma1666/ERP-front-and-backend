@@ -4,7 +4,9 @@ const InvoiceSchema = mongoose.Schema({
   dueDate: Date,
   currency: String,
   items: [
-    { itemName: String, unitPrice: String, quantity: String, discount: String },
+    { itemName: String, unitPrice: String, Addquantity: String, discount: String , category: String,
+       // Replace "Category" with the actual model name for categories
+    }, ,
   ],
   rates: String,
   vat: Number,

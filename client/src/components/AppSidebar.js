@@ -33,7 +33,7 @@ const AppSidebar = () => {
         <CIcon className="sidebar-brand-full" icon={logoNegative} height={35} />
         <CIcon className="sidebar-brand-narrow" icon={sygnet} height={35} />
       </CSidebarBrand>
-      <CSidebarNav style={{overflow: "hidden" }}>
+      <CSidebarNav >
         <SimpleBar>
           <AppSidebarNav items={navigation} />
         </SimpleBar>

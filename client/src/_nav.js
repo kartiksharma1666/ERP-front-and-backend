@@ -15,7 +15,7 @@ import {
   cilSpeedometer,
   cilStar,
   cilUser,
-
+  cilDollar,
   cilTask,
   cilCart,
   cilStorage,
@@ -37,14 +37,19 @@ const _nav = [
   },
   {
 
-    component: CNavItem,
+    component: CNavGroup,
     name: 'Customers',
     to: '/customer',
-    icon: <CIcon icon={cilUser} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilUser} customClassName="nav-icon" style={{ width: '100%',height: '70 px' }} />,
     // badge: {
     //   color: 'info',
     //   text: 'NEW',
     // },
+    items: [{
+      component: CNavItem,
+      name: 'Customer Research',
+      icon: <CIcon icon={cilUser} customClassName="nav-icon" style={{ width: '100%',height: '70 px' }} />,
+    }],
   },
   {
     component: CNavItem,
@@ -87,12 +92,12 @@ const _nav = [
     to: '/billing',
     icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
   },
-  // {
-  //   component: CNavItem,
-  //   name: 'Attribute',
-  //   to: '/Attribute',
-  //   icon: <CIcon icon={cilLayers} customClassName="nav-icon" />,
-  // },
+  {
+    component: CNavItem,
+    name: 'Total Sale',
+    to: '/TotalSell',
+    icon: <CIcon icon={cilDollar} customClassName="nav-icon" />,
+  },
   {
     component: CNavTitle,
     name: 'Theme',
@@ -337,7 +342,7 @@ const _nav = [
   {
     component: CNavGroup,
     name: 'Pages',
-    icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilStar} customClassName="nav-icon"style={{ width: '100%',height: '70 px' }} />,
     items: [
       {
         component: CNavItem,

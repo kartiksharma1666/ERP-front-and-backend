@@ -1,7 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import Modal from 'react-modal'
 import { Button } from 'react-bootstrap'
-import { CButton, CForm } from '@coreui/react'
+
+import {
+  CButton,
+  CInputGroup,
+  CInputGroupText,
+  CDropdownItem,
+  CForm,
+  CFormGroup,
+  CSelect,
+  CFormInput,
+} from '@coreui/react'
 Modal.setAppElement('#root')
 const CategoryPopUp = (props) => {
   const [selectedCategoryName, setSelectedCategoryName] = useState('')
@@ -9,6 +19,8 @@ const CategoryPopUp = (props) => {
     name: '',
     subcategories: [],
   })
+  const [categoryimage, setCategoryImage] = useState([])
+  const [uploadedImages, setUploadedImages] = useState([])
   // useEffect(() => {
   //   if (props.edit) {
   //     setUpdatedData({
@@ -115,6 +127,32 @@ const CategoryPopUp = (props) => {
       subcategories: [...prevData.subcategories, newSubcategory],
     }))
   }
+  const handleCategoryImage = (e) => {
+    const file = e.target.files[0]
+    
+    setFileToBase(file);
+    
+    
+    console.log('inside handleImage')
+    console.log(file)
+  }
+
+  const setFileToBase = (file) => {
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onloadend = () => {
+      setCategoryImage(reader.result)
+      console.log('reader result', reader.result)
+    }
+  }
+  const uploadImage = () => {
+    console.log('inside upload image', uploadedImages)
+    if (categoryimage) {
+      // If there's an image, add it to the uploadedImages array
+      setUploadedImages((prevImages) => [...prevImages, categoryimage])
+      // setCategoryImage([]) // Clear the image state
+    }
+  }
   const handleRemoveSubcategory = (index) => {
     const updatedSubcategories = [...updatedData.subcategories]
     updatedSubcategories.splice(index, 1)
@@ -170,12 +208,16 @@ const CategoryPopUp = (props) => {
   }
   const handleAddCategory = (e) => {
     e.preventDefault()
+    const requestData={
+      ...updatedData,
+      categoryimage: uploadedImages
+    }
     fetch('http://localhost:8080/api/category/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(updatedData),
+      body: JSON.stringify(requestData),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -187,6 +229,7 @@ const CategoryPopUp = (props) => {
     props.setAddCategory(false)
     props.setIsModalOpen(false)
     props.setGetData(true)
+    setUploadedImages([])
   }
   // const popup = {
   //   marginTop : '25px'
@@ -205,7 +248,7 @@ const CategoryPopUp = (props) => {
   // }
 
   const Content = () => {
-    console.log('selected category', props.selectedCategory)
+    
     if (props.edit === true) {
       return (
         <div>
@@ -284,15 +327,39 @@ const CategoryPopUp = (props) => {
             <div>
               <p className="popup">
                 <label>
-                  Category Name
-                  <input
-                    className="inputbox"
-                    name="name"
-                    placeholder="Category Name"
-                    onChange={handleChange}
-                    value={updatedData.name}
-                  />
+                  <CInputGroup className="mb-3" style={{marginTop:'-5 px'}}>
+                    <CInputGroupText id="inputGroup-sizing-default" style={{height: '38px'}}>Category </CInputGroupText>
+                    <CFormInput
+                      className="inputbox"
+                      name="name"
+                      placeholder="Category Name"
+                      onChange={handleChange}
+                      value={updatedData.name}
+                      aria-label="Category Name"
+                      aria-describedby="inputGroup-sizing-default"
+                      style={{height: '36px', marginTop: '0.6px', width: '70%'}}
+                    />
+                  </CInputGroup>
                 </label>
+
+                <CInputGroup className="mb-3" style={{ marginTop: '10px' }}>
+                  <CFormInput
+                    type="file"
+                    id="inputGroupFile04"
+                    aria-describedby="inputGroupFileAddon04"
+                    aria-label="Upload"
+                    onClick={handleCategoryImage}
+                  />
+                  <CButton
+                    type="button"
+                    color="secondary"
+                    variant="outline"
+                    id="inputGroupFileAddon04"
+                    onClick={uploadImage}
+                  >
+                    Upload
+                  </CButton>
+                </CInputGroup>
               </p>
               <CButton color="primary" type="submit" style={{ marginTop: '10px' }}>
                 Add Category
@@ -314,7 +381,7 @@ const CategoryPopUp = (props) => {
                 <div
                   key={index}
                   style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}
-                  ></div>
+                ></div>
               ))}
               <div>
                 {renderSubcategoryInputs()}
@@ -369,62 +436,80 @@ const CategoryPopUp = (props) => {
             Delete
           </Button>
         </div>
-      )} else  {
-        return (
-          <div>
-            <button className="btn btn-primary close-button" onClick={handleToClose}>
-              Close
-            </button>
-            <h2 style={{ marginBottom: '30px' }}>Category Details</h2>
-            {props.selectedCategory && (
-              <div>
-                <p>Name: {props.selectedCategory.name}</p>
-                {/* Render other category details */}
-                <p>Sub Categories</p>
-                {props.selectedCategory.subcategories && (
-                  <ul>
-                    {props.selectedCategory.subcategories.map((subcategory) => (
-                      <li key={subcategory._id}>{subcategory.name}</li>
+      )
+    } else {
+      return (
+        <div>
+          <button className="btn btn-primary close-button" onClick={handleToClose}>
+            Close
+          </button>
+          <h2 style={{ marginBottom: '30px' }}>Category Details</h2>
+          {props.selectedCategory && (
+            <div>
+              <p>Name: {props.selectedCategory.name}</p>
+              {/* Render other category details */}
+              <p>Sub Categories</p>
+              {props.selectedCategory.subcategories && (
+                <ul>
+                  {props.selectedCategory.subcategories.map((subcategory) => (
+                    <li key={subcategory._id}>{subcategory.name}</li>
+                  ))}
+                </ul>
+              )}
+              <p>Images:</p>
+              <div className="image-gallery">
+                {props.categoryImageArray &&
+                  props.categoryImageArray
+                    .filter((image) => image.categoryId === props.selectedCategory._id)
+                    .map((image, index) => (
+                      <div key={index}>
+                        {image.image.map((img, imgIndex) => (
+                          <img
+                            key={imgIndex}
+                            src={img} // Display each image in the 'image' array
+                            alt={`Image ${index}-${imgIndex}`}
+                          />
+                        ))}
+                      </div>
                     ))}
-                  </ul>
-                )}
               </div>
-            )}
-          </div>
-        )
-      }
+            </div>
+          )}
+        </div>
+      )
     }
-    return (
-      <Modal
-        isOpen={props.isModalOpen}
-        onRequestClose={handleToClose}
-        contentLabel="Category Modal"
-        style={{
-          overlay: {
-            backgroundColor: 'rgba(0, 0, 0, 0.5)',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          },
-          content: {
-            width: '50%', // Adjust the width as needed
-            height: '230px', // Adjust the height as needed
-            maxWidth: '700px',
-            border: '1px solid #ccc',
-            background: '#fff',
-            overflow: 'auto',
-            WebkitOverflowScrolling: 'touch',
-            borderRadius: '4px',
-            outline: 'none',
-            padding: '40px',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-          },
-        }}
-      >
-        {Content()}
-      </Modal>
-    )
   }
-  export default CategoryPopUp
+  return (
+    <Modal
+      isOpen={props.isModalOpen}
+      onRequestClose={handleToClose}
+      contentLabel="Category Modal"
+      style={{
+        overlay: {
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        },
+        content: {
+          width: '50%', // Adjust the width as needed
+          height: '230px', // Adjust the height as needed
+          maxWidth: '700px',
+          border: '1px solid #ccc',
+          background: '#fff',
+          overflow: 'auto',
+          WebkitOverflowScrolling: 'touch',
+          borderRadius: '4px',
+          outline: 'none',
+          padding: '40px',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+        },
+      }}
+    >
+      {Content()}
+    </Modal>
+  )
+}
+export default CategoryPopUp

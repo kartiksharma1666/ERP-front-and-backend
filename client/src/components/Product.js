@@ -23,6 +23,7 @@ import {
   CTableHeaderCell,
   CTableRow,
 } from '@coreui/react'
+import AddProduct from 'src/AddProduct'
 
 const Product = (props) => {
   const [data, setdata] = useState(null)
@@ -262,13 +263,7 @@ const Product = (props) => {
                   </div>
                 </div>
               </div>
-              <button
-                className=" btn btn-primary "
-                onClick={handleAddProduct}
-                style={product_button_style}
-              >
-                Add product
-              </button>
+              <AddProduct handleAddProduct={handleAddProduct} />
             </div>
 
             <CTable className="mb-0 border" hover responsive>

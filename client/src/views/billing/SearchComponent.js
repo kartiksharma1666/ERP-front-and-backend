@@ -26,6 +26,7 @@ const SearchComponent = (props) => {
       unitPrice: item.price,
       Addquantity: item.Addquantity + 1,
       discount: '',
+      category: item.category.name
     }
 
     props.setInvoiceData((prevState) => ({

@@ -32,6 +32,7 @@ const Category = () => {
   const [addSubCategory, setSubAddCategory] = useState(false)
   const [getData, setGetData] = useState(false)
   const [view, setview] = useState(false)
+  const [categoryImageArray, setCategoryImageArray]= useState([])
 
   useEffect(() => {
     getDataFromDB()
@@ -44,6 +45,7 @@ const Category = () => {
       console.log(resjson)
       if (resjson.success && Array.isArray(resjson.categories)) {
         setData(resjson.categories)
+        setCategoryImageArray(resjson.images)
       } else {
         console.error('Invalid data format from API:', resjson)
         setData([])
@@ -67,7 +69,7 @@ const Category = () => {
   }
 
   const handleClickToOpen = (category, key) => {
-    console.log('select cat:', category)
+    
     setSelectedCategory(category)
     if (key === 'update') {
       setEdit(true)
@@ -227,6 +229,8 @@ const Category = () => {
         setSubAddCategory={setSubAddCategory}
         setview = {setview}
         view = {view}
+        setCategoryImageArray={setCategoryImageArray}
+        categoryImageArray={categoryImageArray}
       />
     </div>
   )
